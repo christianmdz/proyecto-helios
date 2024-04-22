@@ -29,8 +29,9 @@ public class NaveganteServImpl implements NaveganteService{
         NaveganteInfoPublicaDto tripulante = new NaveganteInfoPublicaDto();
         tripulante.setNombre(navegante.getNombre());
         tripulante.setApellido(navegante.getApellido());
-        tripulante.setRol(navegante.getRol());
-        tripulante.setCampo(navegante.getCampo());
+        tripulante.setRol(navegante.getRol().toString().substring(5));
+        tripulante.setCampo(navegante.getCampo().toString());
+        tripulante.setNave(navegante.getNave().getNombre());
         return tripulante;
     }
     
