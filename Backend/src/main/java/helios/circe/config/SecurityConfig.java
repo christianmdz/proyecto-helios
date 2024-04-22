@@ -33,6 +33,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authRequest -> 
                 authRequest
                     .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/nave/**").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->

@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import helios.circe.nave.Nave;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -37,6 +39,7 @@ public class Navegante implements UserDetails{
     // Muchas instancias de una entidad (Navegante) están asociadas con una instancia de otra entidad (Nave)
     @ManyToOne
     @JoinColumn(name = "id_nave")
+    @JsonIgnore
     Nave nave;
 
     String username;
