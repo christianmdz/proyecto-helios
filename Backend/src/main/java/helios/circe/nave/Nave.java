@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +25,8 @@ public class Nave {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    // Muchas instancia de una entidad (Nave) están asociadas con una instancia de otra entidad (Navegante)
-    @ManyToOne
+    // Una instancia de una entidad (Nave) está asociada con una instancia de otra entidad (Navegante)
+    @OneToOne
     @JoinColumn(name = "comandante")
     Navegante comandante;
     

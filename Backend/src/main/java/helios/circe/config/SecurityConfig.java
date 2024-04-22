@@ -33,6 +33,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(authRequest -> 
                 authRequest
                     .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/nave/**").permitAll()
+                    .requestMatchers("/mision/**").permitAll()
+                    .requestMatchers("/navegante/info-tripulacion").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->
