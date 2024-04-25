@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import helios.circe.mision.Mision;
+import helios.circe.mision.MisionInfoPublicaDto;
 import helios.circe.mision.MisionService;
 import helios.circe.navegante.NaveganteInfoPublicaDto;
 import helios.circe.navegante.NaveganteService;
@@ -23,18 +23,13 @@ public class NaveController {
     private final MisionService misionService;
 
     @GetMapping("/uno/{idNave}")
-    public Nave buscarNavePorId(@PathVariable int idNave){
-        return naveService.buscarUno(idNave);
+    public NaveInfoPublicaDto buscarNavePorId(@PathVariable int idNave){
+        return naveService.buscarUnoPublicDto(idNave);
     }
 
     @GetMapping("/mision/{idMision}")
-    public Mision buscarMisionPorId(@PathVariable int idMision){
-        return misionService.buscarUno(idMision);
-    }
-
-    @GetMapping("/mision/misiones")
-    public List<Mision> buscarTodasMisiones() {
-        return misionService.buscarTodos();
+    public MisionInfoPublicaDto buscarMisionPorId(@PathVariable int idMision){
+        return misionService.buscarUnoPublicDto(idMision);
     }
 
     @GetMapping("/info-tripulacion")
