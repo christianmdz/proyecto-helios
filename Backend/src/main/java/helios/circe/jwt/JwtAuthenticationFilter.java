@@ -2,14 +2,12 @@ package helios.circe.jwt;
 
 import java.io.IOException;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -39,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         throws ServletException, IOException {
         
         // Se obtiene el token y el username de la petición
-        final String token = getTokenFromRequest(request);
+        final String token = jwtService.getTokenFromRequest(request);
         final String username;
 
         // Comprobar existencia del token
@@ -69,21 +67,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    /**
-     * Obtiene el token desde la cabecera de la petición
-     * 
-     * @param request
-     * @return token si existe y es tipo Bearer : null
-     */
-    private String getTokenFromRequest(HttpServletRequest request){
-        
-        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){ 
-            return authHeader.substring(7); 
-        }
-        return null;
     }
 
 }
