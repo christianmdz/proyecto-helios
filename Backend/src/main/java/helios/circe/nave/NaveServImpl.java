@@ -17,8 +17,25 @@ public class NaveServImpl implements NaveService{
     }
 
     @Override
+    public NaveInfoPublicaDto buscarUnoPublicDto(int idNave) {
+        Nave nave = buscarUno(idNave);
+        return naveToNavePublicoDto(nave);
+    }
+
+    @Override
     public List<Nave> buscarTodos() {
         return naveRepository.findAll();
+    }
+
+    private NaveInfoPublicaDto naveToNavePublicoDto(Nave nave){
+        NaveInfoPublicaDto naveDto = new NaveInfoPublicaDto();
+        naveDto.setComandante(nave.getComandante().getNombre());
+        naveDto.setNombre(nave.getNombre());
+        naveDto.setTripulacion(nave.getTripulacion());
+        naveDto.setAfiliacion(nave.getAfiliacion());
+        naveDto.setMotor(nave.getMotor());
+        naveDto.setCarga(nave.getCarga());
+        return naveDto;
     }
     
 }
