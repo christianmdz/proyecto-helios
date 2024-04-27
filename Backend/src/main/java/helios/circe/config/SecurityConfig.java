@@ -34,6 +34,8 @@ public class SecurityConfig {
                 authRequest
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/nave/**").permitAll()
+                    .requestMatchers("/comandante/**").hasRole("COMANDANTE")
+                    .requestMatchers("mando/**").hasAnyRole("COMANDANTE", "MANDO")
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->
