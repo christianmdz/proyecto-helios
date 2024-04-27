@@ -36,4 +36,31 @@ public class NaveganteServImpl implements NaveganteService {
         return tripulante;
     }
 
+    @Override
+    public List<Navegante> buscarTodos() {
+        return naveganteRepository.findAll();
+    }
+
+    @Override
+    public Navegante buscarPorId(int idNavegante) {
+        return naveganteRepository.findById(idNavegante).orElseThrow();
+    }
+
+    @Override
+    public Navegante buscarPorUsername(String username) {
+        return naveganteRepository.findByUsername(username).orElseThrow();
+    }
+
+    @Override
+    public List<Navegante> buscarPorRol(String rol) {
+        Role enumRole = Role.fromString(rol);
+        return naveganteRepository.findByRole(enumRole);
+    }
+
+    @Override
+    public List<Navegante> buscarPorCampo(String campo) {
+        Campo enumCampo = Campo.fromString(campo);
+        return naveganteRepository.findByField(enumCampo);
+    }
+    
 }
