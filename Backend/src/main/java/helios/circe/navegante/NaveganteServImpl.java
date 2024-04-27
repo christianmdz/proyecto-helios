@@ -9,15 +9,15 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class NaveganteServImpl implements NaveganteService{
+public class NaveganteServImpl implements NaveganteService {
 
     private final NaveganteRepository naveganteRepository;
 
     @Override
     public List<NaveganteInfoPublicaDto> infoPublicaTripulacion() {
-        
+
         List<Navegante> navegantes = naveganteRepository.findAll();
-        List<NaveganteInfoPublicaDto> tripulacion = new ArrayList<>(); 
+        List<NaveganteInfoPublicaDto> tripulacion = new ArrayList<>();
 
         for (Navegante navegante : navegantes) {
             tripulacion.add(tripulanteToTripulantePublicDto(navegante));
@@ -25,8 +25,9 @@ public class NaveganteServImpl implements NaveganteService{
         return tripulacion;
     }
 
-    private NaveganteInfoPublicaDto tripulanteToTripulantePublicDto(Navegante navegante){
+    private NaveganteInfoPublicaDto tripulanteToTripulantePublicDto(Navegante navegante) {
         NaveganteInfoPublicaDto tripulante = new NaveganteInfoPublicaDto();
+        tripulante.setId(navegante.getId());
         tripulante.setNombre(navegante.getNombre());
         tripulante.setApellido(navegante.getApellido());
         tripulante.setRol(navegante.getRol().toString().substring(5));
