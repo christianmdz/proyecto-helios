@@ -29,6 +29,7 @@ public class NaveServImpl implements NaveService{
 
     private NaveInfoPublicaDto naveToNavePublicoDto(Nave nave){
         NaveInfoPublicaDto naveDto = new NaveInfoPublicaDto();
+        naveDto.setId(nave.getId());
         naveDto.setComandante(nave.getComandante().getNombre());
         naveDto.setNombre(nave.getNombre());
         naveDto.setTripulacion(nave.getTripulacion());
