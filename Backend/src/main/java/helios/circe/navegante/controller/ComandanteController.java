@@ -13,6 +13,10 @@ import helios.circe.nave.Nave;
 import helios.circe.nave.NaveService;
 import helios.circe.navegante.Navegante;
 import helios.circe.navegante.NaveganteService;
+import helios.circe.proyecto.Proyecto;
+import helios.circe.proyecto.ProyectoService;
+import helios.circe.tarea.Tarea;
+import helios.circe.tarea.TareaService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -23,6 +27,8 @@ public class ComandanteController {
     private final NaveService naveService;
     private final MisionService misionService;
     private final NaveganteService naveganteService;
+    private final ProyectoService proyectoService;
+    private final TareaService tareaService;
 
     @GetMapping("/info-nave/{idNave}")
     public Nave informacionNave(@PathVariable int idNave){
@@ -59,10 +65,44 @@ public class ComandanteController {
         return naveganteService.buscarPorCampo(campo);
     }
 
-    /**
-     * TODO: [GET]
-     * - Proyectos
-     * - Tareas
-    */
+    @GetMapping("/proyectos")
+    public List<Proyecto> informacionProyectos(){
+        return proyectoService.buscarTodos();
+    }
+
+    @GetMapping("/proyectos/id/{idProyecto}")
+    public Proyecto proyectoPorId(@PathVariable int idProyecto){
+        return proyectoService.buscarPorId(idProyecto);
+    }
+
+    @GetMapping("/proyectos/campo/{campo}")
+    public List<Proyecto> informacionProyectosPorCampo(@PathVariable String campo){
+        return proyectoService.buscarPorCampo(campo);
+    }
+
+    @GetMapping("proyectos/director/{director}")
+    public List<Proyecto> informacionProyectosPorDirector(@PathVariable String director){
+        return proyectoService.buscarPorDirector(director);
+    }
+
+    @GetMapping("/tareas")
+    public List<Tarea> informacionTareas(){
+        return tareaService.buscarTodos();
+    }
+
+    @GetMapping("/tareas/id/{idTarea}")
+    public Tarea tareaPorId(@PathVariable int idTarea){
+        return tareaService.buscarPorId(idTarea);
+    }
+
+    @GetMapping("/tareas/campo/{campo}")
+    public List<Tarea> informacionTareasPorCampo(@PathVariable String campo){
+        return tareaService.buscarPorCampo(campo);
+    }
+
+    @GetMapping("/tareas/responsable/{responsable}")
+    public List<Tarea> informacionTareasPorResponsable(@PathVariable String responsable){
+        return tareaService.buscarPorResponsable(responsable);
+    }
 
 }

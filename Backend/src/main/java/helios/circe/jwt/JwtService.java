@@ -78,6 +78,12 @@ public class JwtService {
         return getClaim(token, claims -> claims.get("campo", String.class));
     }
 
+    public String getCampoFromRequest(HttpServletRequest request){
+        String token = getTokenFromRequest(request);
+        String campo = getCampoFromToken(token);
+        return campo;
+    }
+
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUsernameFromTokken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
