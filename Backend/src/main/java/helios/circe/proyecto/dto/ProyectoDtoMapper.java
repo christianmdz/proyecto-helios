@@ -28,7 +28,8 @@ public abstract class ProyectoDtoMapper<T extends ProyectoBaseDto> {
             proyectoAuthDto.setEtapa(proyecto.getEtapa());
         }
         if(proyectoDto instanceof ProyectoPublicoDto){
-            
+            ProyectoPublicoDto proyectoPublicoDto = (ProyectoPublicoDto) proyectoDto;
+            proyectoPublicoDto.setDescripcion(proyecto.getDescripcion());
         }
 
         return proyectoDto;
