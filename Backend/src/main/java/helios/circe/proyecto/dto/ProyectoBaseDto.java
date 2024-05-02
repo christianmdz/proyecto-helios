@@ -12,6 +12,5 @@ public abstract class ProyectoBaseDto {
     int id;
     String nombre;
     String director;
-    String descripcion;
 
 }

@@ -6,10 +6,7 @@ import helios.circe.proyecto.dto.ProyectoBaseDto;
 
 public interface ProyectoService {
     
-    List<ProyectoBaseDto> buscarTodos();
-    List<ProyectoBaseDto> buscatTodosPublico();
-    Proyecto buscarPorId(int id);
-    List<ProyectoBaseDto> buscarPorCampo(String campo);
-    List<ProyectoBaseDto> buscarPorDirector(String director);
+    List<ProyectoBaseDto> buscarTodos(String token);
+    ProyectoBaseDto buscarPorId(int id);
 
 }

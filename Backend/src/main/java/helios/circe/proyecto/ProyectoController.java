@@ -1,3 +1,7 @@
+/*
+ * Controlador rutas solo lectura
+*/
+
 package helios.circe.proyecto;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,21 +33,8 @@ public class ProyectoController {
         
         List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
 
-        String campo = jwtService.getCampoFromRequest(request);
-
-        switch (campo) {
-            case "LIDER":
-                listaProyectos = proyectoService.buscarTodos();
-                break;
-            case "INGENIERIA":
-            case "CIENCIA":
-            case "NAVEGACION":
-                listaProyectos = proyectoService.buscarPorCampo(campo);
-                break;
-            default:
-                // listaProyectos = 
-                break;
-        }
+        String token = jwtService.getTokenFromRequest(request);
+        listaProyectos = proyectoService.buscarTodos(token);
 
         return listaProyectos;
     }

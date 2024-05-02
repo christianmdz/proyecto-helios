@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class ProyectoPublicoDto extends ProyectoBaseDto{
     
-    
+    String descripcion;
 
 }

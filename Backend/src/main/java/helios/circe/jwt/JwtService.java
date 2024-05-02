@@ -74,8 +74,18 @@ public class JwtService {
         return getClaim(token, Claims::getSubject);
     }
 
+    public String getRolFromToken(String token){
+        return getClaim(token, claims -> claims.get("rol", String.class)).substring(5);
+    }
+
     public String getCampoFromToken(String token){
         return getClaim(token, claims -> claims.get("campo", String.class));
+    }
+
+    public String getRolFromRequest(HttpServletRequest request){
+        String token = getTokenFromRequest(request);
+        String rol = getRolFromToken(token);
+        return rol;
     }
 
     public String getCampoFromRequest(HttpServletRequest request){

@@ -5,72 +5,80 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import helios.circe.jwt.JwtService;
 import helios.circe.navegante.Campo;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.proyecto.dto.ProyectoDtoMapper;
+import helios.circe.proyecto.dto.ProyectoPublicoDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ProyectoServImpl implements ProyectoService{
 
+    private final JwtService jwtService;
     private final ProyectoRepository proyectoRepository;
 
     @Override
-    public List<ProyectoBaseDto> buscarTodos() {
+    public List<ProyectoBaseDto> buscarTodos(String token) {
+
+        String rol = jwtService.getRolFromToken(token);
         
         List<Proyecto> proyectos = proyectoRepository.findAll();
-        return generarListaProyectosAuthDto(proyectos);
+        List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
+
+        switch (rol) {
+            case "COMANDANTE":
+                listaProyectos = generarListaProyectosAuthDto(proyectos);
+                break;
+            case "MANDO":
+            case "TRIPULANTE":
+                String campo = jwtService.getCampoFromToken(token);
+                listaProyectos = buscarPorCampo(campo);
+                break;
+            case "COLONO":
+                listaProyectos = generarListaProyectosPublicoDto(proyectos);
+                break;
+        }
+        return listaProyectos;
     }
 
-    @Override
-    public Proyecto buscarPorId(int idProyecto) {
-        return proyectoRepository.findById(idProyecto).orElseThrow();
-    }
-
-    @Override
-    public List<ProyectoBaseDto> buscarPorCampo(String campo) {
+    private List<ProyectoBaseDto> buscarPorCampo(String campo) {
         
         Campo enumCampo = Campo.fromString(campo);
         List<Proyecto> proyectos =  proyectoRepository.findByField(enumCampo);
         return generarListaProyectosAuthDto(proyectos);
     }
-
-    @Override
-    public List<ProyectoBaseDto> buscarPorDirector(String director) {
-        // List<Proyecto> proyectos = proyectoRepository.findByDirector(director);
-        // return generarListaProyectosAuthDto(proyectos);
-        return null;
-    }
-
-    @Override
-    public List<ProyectoBaseDto> buscatTodosPublico() {
-        return null;
-    }
-
-    private ProyectoAuthDto fromProyectoToProyectoAuthDto(Proyecto proyecto){
-
-        ProyectoAuthDto proyectoDto = new ProyectoAuthDto();
-        proyectoDto.setId(proyecto.getId());
-        proyectoDto.setNombre(proyecto.getNombre());
-        proyectoDto.setCampo(proyecto.getCampo().name());
-        proyectoDto.setDirector(proyecto.getDirector().getNombre());
-        proyectoDto.setDirectorEmail(proyecto.getDirector().getEmail());
-        proyectoDto.setDescripcion(proyecto.getDescripcion());
-        proyectoDto.setFechaInicio(proyecto.getFechaInicio());
-        proyectoDto.setFechaFin(proyecto.getFechaFin());
-        proyectoDto.setEtapa(proyecto.getEtapa());
-
-        return proyectoDto;
-    }
     
     private List<ProyectoBaseDto> generarListaProyectosAuthDto(List<Proyecto> proyectos){
+
         List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
 
         for (Proyecto proyecto : proyectos) {
-            proyectosDto.add(fromProyectoToProyectoAuthDto(proyecto));
+            proyectosDto.add(ProyectoDtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class));
         }
 
         return proyectosDto;
+    }
+
+    private List<ProyectoBaseDto> generarListaProyectosPublicoDto(List<Proyecto> proyectos) {
+
+        List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
+
+        for(Proyecto proyecto : proyectos){
+            proyectosDto.add(ProyectoDtoMapper.mapFromProyecto(proyecto, ProyectoPublicoDto.class));
+        }
+
+        return proyectosDto;
+    }
+
+    @Override
+    public ProyectoBaseDto buscarPorId(int idProyecto) {
+
+        Proyecto proyecto = proyectoRepository.findById(idProyecto).orElseThrow();
+        ProyectoAuthDto proyectoDto = ProyectoDtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
+
+        return proyectoDto;
     }
 }
