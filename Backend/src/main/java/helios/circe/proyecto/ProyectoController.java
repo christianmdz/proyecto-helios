@@ -38,21 +38,4 @@ public class ProyectoController {
 
         return listaProyectos;
     }
-
-    /**
-     * TODO:
-     * 
-     *      COMANDANTE/MANDO
-     *          - GET    /proyectos/info-proyectos
-     *          - GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
-     *          - POST   /proyectos/nuevo-proyecto
-     *          - PUT    /proyectos/modificar-proyecto : ProyectoAuthDto
-     *          - DELETE /proyectos/eliminar-proyecto/{idProyecto} : Modificar estado a Cancelado
-     *          - GET    /proyectos/tripulacion-en-proyecto/{idProyecto}
-     *      TRIPULANTE
-     *          - GET    /proyectos/info-proyectos
-     *          - GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
-     *          
-    */
-    
 }

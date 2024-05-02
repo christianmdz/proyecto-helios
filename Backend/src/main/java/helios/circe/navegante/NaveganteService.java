@@ -2,6 +2,8 @@ package helios.circe.navegante;
 
 import java.util.List;
 
+import helios.circe.navegante.dto.NaveganteBaseDto;
+
 public interface NaveganteService {
     
     Navegante buscarPorId(int idNavegante);
@@ -10,7 +12,7 @@ public interface NaveganteService {
     List<Navegante> buscarPorRol(String rol);
     List<Navegante> buscarPorCampo(String campo);
     
-    List<NaveganteInfoPublicaDto> infoPublicaTripulacion();
+    List<NaveganteBaseDto> infoPublicaTripulacion();
     List<Navegante> buscarTodos();
 
 }

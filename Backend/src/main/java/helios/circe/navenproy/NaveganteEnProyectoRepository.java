@@ -12,4 +12,6 @@ public interface NaveganteEnProyectoRepository extends JpaRepository<NaveganteEn
     @Query("select n from Navegante n join NaveganteEnProyecto p on n.id = p.navegante.id where p.proyecto.id = ?1")
     public List<Navegante> findCrewByProject(int idProyecto);
 
+    // @Query("select n from NaveganteEnProyecto n where n.director.id")
+
 }

@@ -2,10 +2,11 @@ package helios.circe.navenproy;
 
 import java.util.List;
 
-import helios.circe.navegante.Navegante;
+import helios.circe.navegante.dto.NaveganteBaseDto;
 
 public interface NaveganteEnProyectoService {
     
-    List<Navegante> buscarTripulantesEnProyecto(int idProyecto);
+    List<NaveganteBaseDto> buscarTripulantesEnProyecto(int idProyecto);
+    NaveganteEnProyecto buscarPorDirector(int idDirector);
 
 }

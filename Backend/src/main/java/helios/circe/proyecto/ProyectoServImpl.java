@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import helios.circe.jwt.JwtService;
+import helios.circe.mappings.DtoMapper;
 import helios.circe.navegante.Campo;
+import helios.circe.navegante.NaveganteService;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
-import helios.circe.proyecto.dto.ProyectoDtoMapper;
 import helios.circe.proyecto.dto.ProyectoPublicoDto;
+import helios.circe.proyecto.dto.ProyectoRequestDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,7 +20,9 @@ import lombok.RequiredArgsConstructor;
 public class ProyectoServImpl implements ProyectoService{
 
     private final JwtService jwtService;
+    private final DtoMapper dtoMapper;
     private final ProyectoRepository proyectoRepository;
+    private final NaveganteService naveganteService;
 
     @Override
     public List<ProyectoBaseDto> buscarTodos(String token) {
@@ -56,7 +60,7 @@ public class ProyectoServImpl implements ProyectoService{
         List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
 
         for (Proyecto proyecto : proyectos) {
-            proyectosDto.add(ProyectoDtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class));
+            proyectosDto.add(dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class));
         }
 
         return proyectosDto;
@@ -67,7 +71,7 @@ public class ProyectoServImpl implements ProyectoService{
         List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
 
         for(Proyecto proyecto : proyectos){
-            proyectosDto.add(ProyectoDtoMapper.mapFromProyecto(proyecto, ProyectoPublicoDto.class));
+            proyectosDto.add(dtoMapper.mapFromProyecto(proyecto, ProyectoPublicoDto.class));
         }
 
         return proyectosDto;
@@ -77,8 +81,20 @@ public class ProyectoServImpl implements ProyectoService{
     public ProyectoBaseDto buscarPorId(int idProyecto) {
 
         Proyecto proyecto = proyectoRepository.findById(idProyecto).orElseThrow();
-        ProyectoAuthDto proyectoDto = ProyectoDtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
+        ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
         return proyectoDto;
+    }
+
+    @Override
+    public Proyecto crearProyecto(ProyectoRequestDto proyectoDto) {
+        try {
+            Proyecto proyecto = dtoMapper.mapFromRequestDto(proyectoDto, naveganteService);
+            proyecto.setDirector(naveganteService.buscarPorUsername(proyectoDto.getDirector()));
+            return proyectoRepository.save(proyecto);
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

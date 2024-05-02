@@ -5,35 +5,28 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import helios.circe.mappings.DtoMapper;
+import helios.circe.navegante.dto.NaveganteBaseDto;
+import helios.circe.navegante.dto.NavegantePublicoDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class NaveganteServImpl implements NaveganteService {
 
+    private final DtoMapper dtoMapper;
     private final NaveganteRepository naveganteRepository;
 
     @Override
-    public List<NaveganteInfoPublicaDto> infoPublicaTripulacion() {
+    public List<NaveganteBaseDto> infoPublicaTripulacion() {
 
         List<Navegante> navegantes = naveganteRepository.findAll();
-        List<NaveganteInfoPublicaDto> tripulacion = new ArrayList<>();
+        List<NaveganteBaseDto> tripulacion = new ArrayList<>();
 
         for (Navegante navegante : navegantes) {
-            tripulacion.add(tripulanteToTripulantePublicDto(navegante));
+            tripulacion.add(dtoMapper.mapFromNavegante(navegante, NavegantePublicoDto.class));
         }
         return tripulacion;
-    }
-
-    private NaveganteInfoPublicaDto tripulanteToTripulantePublicDto(Navegante navegante) {
-        NaveganteInfoPublicaDto tripulante = new NaveganteInfoPublicaDto();
-        tripulante.setId(navegante.getId());
-        tripulante.setNombre(navegante.getNombre());
-        tripulante.setApellido(navegante.getApellido());
-        tripulante.setRol(navegante.getRol().toString().substring(5));
-        tripulante.setCampo(navegante.getCampo().toString());
-        tripulante.setNave(navegante.getNave().getNombre());
-        return tripulante;
     }
 
     @Override
@@ -61,6 +54,11 @@ public class NaveganteServImpl implements NaveganteService {
     public List<Navegante> buscarPorCampo(String campo) {
         Campo enumCampo = Campo.fromString(campo);
         return naveganteRepository.findByField(enumCampo);
+    }
+
+    public String nombrePorUsername(String username){
+        Navegante navegante = buscarPorUsername(username);
+        return navegante.getNombre();
     }
     
 }

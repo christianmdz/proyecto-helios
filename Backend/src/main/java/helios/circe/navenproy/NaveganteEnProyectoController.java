@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import helios.circe.navegante.Navegante;
+import helios.circe.navegante.dto.NaveganteBaseDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,7 +20,7 @@ public class NaveganteEnProyectoController {
     private final NaveganteEnProyectoService naveganteEnProyectoService;
 
     @GetMapping("/por-proyecto/{idProyecto}")
-    public List<Navegante> listaNavegantesEnProyecto(@PathVariable int idProyecto){
+    public List<NaveganteBaseDto> listaNavegantesEnProyecto(@PathVariable int idProyecto){
         return naveganteEnProyectoService.buscarTripulantesEnProyecto(idProyecto);
     }
 

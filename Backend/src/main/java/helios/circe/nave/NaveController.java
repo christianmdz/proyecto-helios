@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import helios.circe.mision.MisionInfoPublicaDto;
 import helios.circe.mision.MisionService;
-import helios.circe.navegante.NaveganteInfoPublicaDto;
 import helios.circe.navegante.NaveganteService;
+import helios.circe.navegante.dto.NaveganteBaseDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,7 +35,7 @@ public class NaveController {
     }
 
     @GetMapping("/info-tripulacion")
-    public List<NaveganteInfoPublicaDto> infoPublicaTripulacion() {
+    public List<NaveganteBaseDto> infoPublicaTripulacion() {
         return naveganteService.infoPublicaTripulacion();
     }
 
