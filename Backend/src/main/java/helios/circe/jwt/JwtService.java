@@ -1,6 +1,7 @@
 package helios.circe.jwt;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
@@ -24,11 +25,10 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public String getToken(Navegante navegante){
+    public String getToken(Navegante navegante, Map<String, Object> extraClaims){
         return Jwts
             .builder()
-            .claim("rol", navegante.getRol().name())
-            .claim("campo", navegante.getCampo().name())
+            .claims(extraClaims)
             .subject(navegante.getUsername())
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(new Date(System.currentTimeMillis()+1000*60*60*24))
