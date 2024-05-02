@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import helios.circe.navegante.Campo;
+import helios.circe.proyecto.dto.ProyectoAuthDto;
+import helios.circe.proyecto.dto.ProyectoBaseDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -15,7 +17,7 @@ public class ProyectoServImpl implements ProyectoService{
     private final ProyectoRepository proyectoRepository;
 
     @Override
-    public List<ProyectoInterface> buscarTodos() {
+    public List<ProyectoBaseDto> buscarTodos() {
         
         List<Proyecto> proyectos = proyectoRepository.findAll();
         return generarListaProyectosAuthDto(proyectos);
@@ -27,7 +29,7 @@ public class ProyectoServImpl implements ProyectoService{
     }
 
     @Override
-    public List<ProyectoInterface> buscarPorCampo(String campo) {
+    public List<ProyectoBaseDto> buscarPorCampo(String campo) {
         
         Campo enumCampo = Campo.fromString(campo);
         List<Proyecto> proyectos =  proyectoRepository.findByField(enumCampo);
@@ -35,15 +37,15 @@ public class ProyectoServImpl implements ProyectoService{
     }
 
     @Override
-    public List<ProyectoInterface> buscarPorDirector(String director) {
-        List<Proyecto> proyectos = proyectoRepository.findByDirector(director);
-        return generarListaProyectosAuthDto(proyectos);
+    public List<ProyectoBaseDto> buscarPorDirector(String director) {
+        // List<Proyecto> proyectos = proyectoRepository.findByDirector(director);
+        // return generarListaProyectosAuthDto(proyectos);
+        return null;
     }
 
     @Override
-    public List<ProyectoInterface> buscatTodosPublico() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscatTodosPublico'");
+    public List<ProyectoBaseDto> buscatTodosPublico() {
+        return null;
     }
 
     private ProyectoAuthDto fromProyectoToProyectoAuthDto(Proyecto proyecto){
@@ -62,8 +64,8 @@ public class ProyectoServImpl implements ProyectoService{
         return proyectoDto;
     }
     
-    private List<ProyectoInterface> generarListaProyectosAuthDto(List<Proyecto> proyectos){
-        List<ProyectoInterface> proyectosDto = new ArrayList<>();
+    private List<ProyectoBaseDto> generarListaProyectosAuthDto(List<Proyecto> proyectos){
+        List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
 
         for (Proyecto proyecto : proyectos) {
             proyectosDto.add(fromProyectoToProyectoAuthDto(proyecto));

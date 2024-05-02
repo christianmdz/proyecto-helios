@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import helios.circe.jwt.JwtService;
+import helios.circe.proyecto.dto.ProyectoBaseDto;
 // import helios.circe.navegante.NaveganteService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,9 @@ public class ProyectoController {
     // private final NaveganteService naveganteService;
 
     @GetMapping("/info-proyectos")
-    public List<ProyectoInterface> informacionProyectos(HttpServletRequest request) {
+    public List<ProyectoBaseDto> informacionProyectos(HttpServletRequest request) {
         
-        List<ProyectoInterface> listaProyectos = new ArrayList<>();
+        List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
 
         String campo = jwtService.getCampoFromRequest(request);
 
@@ -38,7 +39,9 @@ public class ProyectoController {
             case "CIENCIA":
             case "NAVEGACION":
                 listaProyectos = proyectoService.buscarPorCampo(campo);
+                break;
             default:
+                // listaProyectos = 
                 break;
         }
 
