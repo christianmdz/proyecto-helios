@@ -4,9 +4,10 @@ import java.util.List;
 
 public interface ProyectoService {
     
-    List<Proyecto> buscarTodos();
+    List<ProyectoInterface> buscarTodos();
+    List<ProyectoInterface> buscatTodosPublico();
     Proyecto buscarPorId(int id);
-    List<Proyecto> buscarPorCampo(String campo);
-    List<Proyecto> buscarPorDirector(String director);
+    List<ProyectoInterface> buscarPorCampo(String campo);
+    List<ProyectoInterface> buscarPorDirector(String director);
 
 }

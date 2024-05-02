@@ -65,25 +65,25 @@ public class ComandanteController {
         return naveganteService.buscarPorCampo(campo);
     }
 
-    @GetMapping("/proyectos")
-    public List<Proyecto> informacionProyectos(){
-        return proyectoService.buscarTodos();
-    }
+    // @GetMapping("/proyectos")
+    // public List<Proyecto> informacionProyectos(){
+    //     return proyectoService.buscarTodos();
+    // }
 
     @GetMapping("/proyectos/id/{idProyecto}")
     public Proyecto proyectoPorId(@PathVariable int idProyecto){
         return proyectoService.buscarPorId(idProyecto);
     }
 
-    @GetMapping("/proyectos/campo/{campo}")
-    public List<Proyecto> informacionProyectosPorCampo(@PathVariable String campo){
-        return proyectoService.buscarPorCampo(campo);
-    }
+    // @GetMapping("/proyectos/campo/{campo}")
+    // public List<Proyecto> informacionProyectosPorCampo(@PathVariable String campo){
+    //     return proyectoService.buscarPorCampo(campo);
+    // }
 
-    @GetMapping("proyectos/director/{director}")
-    public List<Proyecto> informacionProyectosPorDirector(@PathVariable String director){
-        return proyectoService.buscarPorDirector(director);
-    }
+    // @GetMapping("proyectos/director/{director}")
+    // public List<Proyecto> informacionProyectosPorDirector(@PathVariable String director){
+    //     return proyectoService.buscarPorDirector(director);
+    // }
 
     @GetMapping("/tareas")
     public List<Tarea> informacionTareas(){

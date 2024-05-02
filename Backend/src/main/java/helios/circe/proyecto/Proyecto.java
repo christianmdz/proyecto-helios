@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "proyectos")
-public class Proyecto {
+public class Proyecto{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Proyecto {
     String descripcion;
 
     @Column(name = "fecha_inicio")
-    Date fechaIncicio;
+    Date fechaInicio;
     @Column(name = "fecha_fin")
     Date fechaFin;
     

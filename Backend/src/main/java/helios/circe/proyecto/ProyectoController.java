@@ -24,9 +24,9 @@ public class ProyectoController {
     // private final NaveganteService naveganteService;
 
     @GetMapping("/info-proyectos")
-    public List<Proyecto> informacionProyectos(HttpServletRequest request) {
+    public List<ProyectoInterface> informacionProyectos(HttpServletRequest request) {
         
-        List<Proyecto> listaProyectos = new ArrayList<>();
+        List<ProyectoInterface> listaProyectos = new ArrayList<>();
 
         String campo = jwtService.getCampoFromRequest(request);
 
@@ -44,5 +44,21 @@ public class ProyectoController {
 
         return listaProyectos;
     }
+
+    /**
+     * TODO:
+     * 
+     *      COMANDANTE/MANDO
+     *          - GET    /proyectos/info-proyectos
+     *          - GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
+     *          - POST   /proyectos/nuevo-proyecto
+     *          - PUT    /proyectos/modificar-proyecto : ProyectoAuthDto
+     *          - DELETE /proyectos/eliminar-proyecto/{idProyecto} : Modificar estado a Cancelado
+     *          - GET    /proyectos/tripulacion-en-proyecto/{idProyecto}
+     *      TRIPULANTE
+     *          - GET    /proyectos/info-proyectos
+     *          - GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
+     *          
+    */
     
 }

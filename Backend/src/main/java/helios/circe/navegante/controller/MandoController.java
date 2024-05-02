@@ -37,12 +37,12 @@ public class MandoController {
         return naveganteService.buscarPorCampo(campo);
     }
 
-    @GetMapping("/proyectos")
-    public List<Proyecto> infromacionProyectos(HttpServletRequest request){
+    // @GetMapping("/proyectos")
+    // public List<Proyecto> infromacionProyectos(HttpServletRequest request){
 
-        String campo = jwtService.getCampoFromRequest(request);
-        return proyectoService.buscarPorCampo(campo);
-    }
+    //     String campo = jwtService.getCampoFromRequest(request);
+    //     return proyectoService.buscarPorCampo(campo);
+    // }
 
     // TODO: probar endpoint
     @GetMapping("/tareas")
