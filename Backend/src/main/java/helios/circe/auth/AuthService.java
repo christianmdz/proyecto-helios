@@ -1,5 +1,8 @@
 package helios.circe.auth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +27,13 @@ public class AuthService {
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         Navegante navegante = naveganteRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token = jwtService.getToken(navegante);
+
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("rol", navegante.getRol());
+        extraClaims.put("campo", navegante.getCampo());
+
+        String token = jwtService.getToken(navegante,extraClaims);
+
         return AuthResponse.builder()
             .token(token)
             .build();
@@ -45,8 +54,12 @@ public class AuthService {
         
         naveganteRepository.save(navegante);
 
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("rol", navegante.getRol());
+        extraClaims.put("campo", navegante.getCampo());
+
         return AuthResponse.builder()
-            .token(jwtService.getToken(navegante))
+            .token(jwtService.getToken(navegante, extraClaims))
             .build();
     }
     
