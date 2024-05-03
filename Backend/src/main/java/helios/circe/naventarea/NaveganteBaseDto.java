@@ -1,5 +1,7 @@
 package helios.circe.naventarea;
 
-public class NaveganteBaseDto {
+public abstract class NaveganteBaseDto {
 
 }
+
+// TODO: NaveganteBaseDto

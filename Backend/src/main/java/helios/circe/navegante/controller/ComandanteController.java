@@ -17,6 +17,7 @@ import helios.circe.navenproy.NaveganteEnProyectoService;
 import helios.circe.proyecto.Proyecto;
 import helios.circe.proyecto.ProyectoService;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,7 @@ public class ComandanteController {
     }
 
     @PutMapping("/proyectos/modificar-proyecto")
-    public Proyecto modificarProyecto(@RequestBody Proyecto proyecto){
+    public Proyecto modificarProyecto(@RequestBody ProyectoModificarDto proyecto){
         return proyectoService.modificarProyecto(proyecto);
     }
 
@@ -63,11 +64,30 @@ public class ComandanteController {
 }
 
 /**
- * TODO: ENDPOINTS
- *  = GET    /proyectos/info-proyectos
- *  = GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
- *  = POST   /proyectos/nuevo-proyecto
- *  = PUT    /proyectos/modificar-proyecto : ProyectoAuthDto
+ * TODO: ENDPOINTS Proyectos
+ *  * GET    /proyectos/info-proyectos
+ *  * GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
+ *  * POST   /proyectos/nuevo-proyecto
+ *  * PUT    /proyectos/modificar-proyecto : ProyectoAuthDto
  *  = DELETE /proyectos/eliminar-proyecto/{idProyecto} : Modificar estado a Cancelado
- *  = GET    /proyectos/tripulacion-en-proyecto/{idProyecto}
+ *  * GET    /proyectos/tripulacion-en-proyecto/{idProyecto}
+ * 
+ * ------------------
+ *  - Pendiente
+ *  = Implementados
+ *  * Testeado
+*/
+
+/**
+ * TODO: ENDPOINTS Tareas
+ *  * GET       /tareas/info-tareas
+ *  * GET       /tareas/info-tareas/{idTarea} : TareaAuthDto
+ *  * POST       /tareas/nuevo-tarea
+ *  * PUT       /tareas/modificar-tarea : TareaAuthDto
+ *  * GET       /tareas/tripulacion-en-tarea/{idTarea}
+ *  - DELETE    /tareas/eliminar-tarea/{idTarea}
+ *  ------------------
+ *  - Pendiente
+ *  = Implementados
+ *  * Testeado
 */

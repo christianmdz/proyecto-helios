@@ -11,6 +11,7 @@ import helios.circe.navegante.Campo;
 import helios.circe.navegante.NaveganteService;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoPublicoDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -29,52 +30,40 @@ public class ProyectoServImpl implements ProyectoService{
 
         String rol = jwtService.getRolFromToken(token);
         
-        List<Proyecto> proyectos = proyectoRepository.findAll();
+        List<Proyecto> proyectos = new ArrayList<>();
         List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
 
         switch (rol) {
             case "COMANDANTE":
-                listaProyectos = generarListaProyectosAuthDto(proyectos);
+                proyectos = proyectoRepository.findAll();
+                mapearListaProyectosADto(proyectos, listaProyectos, ProyectoAuthDto.class);
                 break;
             case "MANDO":
             case "TRIPULANTE":
                 String campo = jwtService.getCampoFromToken(token);
-                listaProyectos = buscarPorCampo(campo);
+                proyectos = buscarPorCampo(campo);
+                mapearListaProyectosADto(proyectos, listaProyectos, ProyectoAuthDto.class);
                 break;
             case "COLONO":
-                listaProyectos = generarListaProyectosPublicoDto(proyectos);
+                proyectos = proyectoRepository.findAll();
+                mapearListaProyectosADto(proyectos, listaProyectos, ProyectoPublicoDto.class);
                 break;
         }
+        
         return listaProyectos;
     }
 
-    private List<ProyectoBaseDto> buscarPorCampo(String campo) {
+    private void mapearListaProyectosADto(List<Proyecto> listaProyectosOrigen, List<ProyectoBaseDto> listaProyectosDestino, Class<? extends ProyectoBaseDto> dtoClass){
+
+        for(Proyecto proyecto : listaProyectosOrigen){
+            listaProyectosDestino.add(dtoMapper.mapFromProyecto(proyecto, dtoClass));
+        }
+    }
+
+    private List<Proyecto> buscarPorCampo(String campo) {
         
         Campo enumCampo = Campo.fromString(campo);
-        List<Proyecto> proyectos =  proyectoRepository.findByField(enumCampo);
-        return generarListaProyectosAuthDto(proyectos);
-    }
-    
-    private List<ProyectoBaseDto> generarListaProyectosAuthDto(List<Proyecto> proyectos){
-
-        List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
-
-        for (Proyecto proyecto : proyectos) {
-            proyectosDto.add(dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class));
-        }
-
-        return proyectosDto;
-    }
-
-    private List<ProyectoBaseDto> generarListaProyectosPublicoDto(List<Proyecto> proyectos) {
-
-        List<ProyectoBaseDto> proyectosDto = new ArrayList<>();
-
-        for(Proyecto proyecto : proyectos){
-            proyectosDto.add(dtoMapper.mapFromProyecto(proyecto, ProyectoPublicoDto.class));
-        }
-
-        return proyectosDto;
+        return proyectoRepository.findByField(enumCampo);
     }
 
     @Override
@@ -89,8 +78,7 @@ public class ProyectoServImpl implements ProyectoService{
     @Override
     public Proyecto crearProyecto(ProyectoRequestDto proyectoDto) {
         try {
-            Proyecto proyecto = dtoMapper.mapFromRequestDto(proyectoDto, naveganteService);
-            proyecto.setDirector(naveganteService.buscarPorUsername(proyectoDto.getDirector()));
+            Proyecto proyecto = dtoMapper.mapFromRequestProyectoDto(proyectoDto, naveganteService);
             return proyectoRepository.save(proyecto);
         } catch (Exception e) {
             System.out.println(e);
@@ -99,8 +87,9 @@ public class ProyectoServImpl implements ProyectoService{
     }
 
     @Override
-    public Proyecto modificarProyecto(Proyecto proyecto) {
+    public Proyecto modificarProyecto(ProyectoModificarDto proyectoDto) {
         try {
+            Proyecto proyecto = dtoMapper.mapFromModificarProyectoDto(proyectoDto, naveganteService);
             if(buscarPorId(proyecto.getId()) != null) {return proyectoRepository.save(proyecto);}
             else {return null;}
         } catch (Exception e) {

@@ -13,6 +13,7 @@ import helios.circe.navegante.dto.NavegantePublicoDto;
 import helios.circe.proyecto.Proyecto;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoPublicoDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
 import helios.circe.tarea.Tarea;
@@ -28,12 +29,13 @@ import lombok.RequiredArgsConstructor;
 public class DtoMapper {
 
     public <T extends ProyectoBaseDto> T mapFromProyecto(Proyecto proyecto, Class<T> dtoClass) {
+
         T proyectoDto;
+
         try {
             proyectoDto = dtoClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
-                | NoSuchMethodException e) {
-            throw new RuntimeException("Error al instanciar el objeto DTO.", e);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException("Error al instanciar el objeto ProyectoDto.", e);
         }
 
         proyectoDto.setId(proyecto.getId());
@@ -49,6 +51,7 @@ public class DtoMapper {
             authDto.setFechaFin(proyecto.getFechaFin());
             authDto.setEtapa(proyecto.getEtapa());
         }
+
         if (proyectoDto instanceof ProyectoPublicoDto) {
             ProyectoPublicoDto publicoDto = (ProyectoPublicoDto) proyectoDto;
             publicoDto.setDescripcion(proyecto.getDescripcion());
@@ -57,10 +60,11 @@ public class DtoMapper {
         return proyectoDto;
     }
 
-    public Proyecto mapFromRequestDto(ProyectoRequestDto proyectoDto, NaveganteService navServ) {
+    
+    public Proyecto mapFromRequestProyectoDto(ProyectoRequestDto proyectoDto, NaveganteService navServ){
 
-        Navegante navegante = navServ.buscarPorUsername(proyectoDto.getDirector());
         Proyecto proyecto = new Proyecto();
+        Navegante navegante = navServ.buscarPorUsername(proyectoDto.getDirector());
         Campo campo = Campo.fromString(proyectoDto.getCampo());
 
         proyecto.setDirector(navegante);
@@ -74,13 +78,32 @@ public class DtoMapper {
         return proyecto;
     }
 
+    public Proyecto mapFromModificarProyectoDto(ProyectoModificarDto proyectoDto, NaveganteService navServ){
+
+        Proyecto proyecto = new Proyecto();
+        Navegante navegante = navServ.buscarPorId(proyectoDto.getIdDirector());
+        Campo campo = Campo.fromString(proyectoDto.getCampo());
+
+        proyecto.setId(proyectoDto.getId());
+        proyecto.setDirector(navegante);
+        proyecto.setCampo(campo);
+        proyecto.setNombre(proyectoDto.getNombre());
+        proyecto.setDescripcion(proyectoDto.getDescripcion());
+        proyecto.setFechaInicio(proyectoDto.getFechaInicio());
+        proyecto.setFechaFin(proyectoDto.getFechaFin());
+        proyecto.setEtapa(proyectoDto.getEtapa());
+
+        return proyecto;
+    }
+
     public <T extends NaveganteBaseDto> T mapFromNavegante(Navegante navegante, Class<T> dtoClass) {
+
         T naveganteDto;
+
         try {
             naveganteDto = dtoClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
-                | NoSuchMethodException e) {
-            throw new RuntimeException("Error al instanciar el objeto DTO.", e);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException("Error al instanciar el objeto NaveganteDto.", e);
         }
 
         naveganteDto.setId(navegante.getId());
@@ -108,7 +131,9 @@ public class DtoMapper {
     }
 
     public <T extends TareaBaseDto> T mapFromTarea(Tarea tarea, Class<T> dtoClass) {
+
         T tareaDto;
+
         try {
             tareaDto = dtoClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException
@@ -133,12 +158,12 @@ public class DtoMapper {
         }
 
         return tareaDto;
-
     }
 
     public Tarea mapFromRequestTareaDto(TareaRequestDto tareaDto, NaveganteService navServ) {
-        Navegante navegante = navServ.buscarPorUsername(tareaDto.getResponsable());
+
         Tarea tarea = new Tarea();
+        Navegante navegante = navServ.buscarPorUsername(tareaDto.getResponsable());
         Campo campo = Campo.fromString(tareaDto.getCampo());
 
         tarea.setNombre(tareaDto.getNombre());
@@ -151,8 +176,9 @@ public class DtoMapper {
     }
 
     public Tarea mapFromModificarTareaDto(TareaModificarDto tareaDto, NaveganteService navService) {
-        Navegante navegante = navService.buscarPorUsername(tareaDto.getResponsable());
+
         Tarea tarea = new Tarea();
+        Navegante navegante = navService.buscarPorUsername(tareaDto.getResponsable());
         Campo campo = Campo.fromString(tareaDto.getCampo());
 
         tarea.setId(tareaDto.getId());
@@ -163,6 +189,5 @@ public class DtoMapper {
         tarea.setCampo(campo);
 
         return tarea;
-
     }
 }
