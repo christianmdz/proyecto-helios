@@ -97,4 +97,32 @@ public class ProyectoServImpl implements ProyectoService{
             return null;
         }
     }
+
+    @Override
+    public Proyecto modificarProyecto(Proyecto proyecto) {
+        try {
+            if(buscarPorId(proyecto.getId()) != null) {return proyectoRepository.save(proyecto);}
+            else {return null;}
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean cancelarProyecto(int idProyecto) {
+        try {
+            Proyecto proyecto = proyectoRepository.findById(idProyecto).orElseThrow();
+            if(proyecto != null){
+                proyecto.setEtapa("cancelado");
+                proyectoRepository.save(proyecto);
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

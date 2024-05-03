@@ -16,11 +16,3 @@ public class NaveganteController {
     // private final NaveganteService naveganteService;
 
 }
-
-/**
- * TODO
- *      - GET   /navegantes/info-navegantes
- *      - GET   /navegantes/info-navegantes/{idNavegante}
- *      - GET   /navegantes/proyectos-navegante/{idNavegante}
- *      - PUT   /navegantes/asignacion-navegante
-*/

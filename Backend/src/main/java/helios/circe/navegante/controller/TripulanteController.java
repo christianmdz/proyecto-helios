@@ -11,3 +11,9 @@ import lombok.RequiredArgsConstructor;
 public class TripulanteController {
     
 }
+
+/**
+ * TODO:
+ *  - GET    /proyectos/info-proyectos
+ *  - GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
+*/

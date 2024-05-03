@@ -33,5 +33,4 @@ public class TareaServImpl implements TareaService{
     public List<Tarea> buscarPorResponsable(String responsable) {
         return tareaRepository.findByManager(responsable);
     }
-    
 }

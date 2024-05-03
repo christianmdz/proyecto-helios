@@ -10,5 +10,7 @@ public interface ProyectoService {
     List<ProyectoBaseDto> buscarTodos(String token);
     ProyectoBaseDto buscarPorId(int id);
     Proyecto crearProyecto(ProyectoRequestDto proyectoDto);
+    Proyecto modificarProyecto(Proyecto proyectoDto);
+    boolean cancelarProyecto(int idProyecto);
 
 }
