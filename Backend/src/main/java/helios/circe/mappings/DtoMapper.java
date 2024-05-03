@@ -15,6 +15,12 @@ import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoPublicoDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
+import helios.circe.tarea.Tarea;
+import helios.circe.tarea.dto.TareaAuthDto;
+import helios.circe.tarea.dto.TareaBaseDto;
+import helios.circe.tarea.dto.TareaModificarDto;
+import helios.circe.tarea.dto.TareaPublicoDto;
+import helios.circe.tarea.dto.TareaRequestDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,7 +31,8 @@ public class DtoMapper {
         T proyectoDto;
         try {
             proyectoDto = dtoClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException e) {
             throw new RuntimeException("Error al instanciar el objeto DTO.", e);
         }
 
@@ -50,8 +57,7 @@ public class DtoMapper {
         return proyectoDto;
     }
 
-    
-    public Proyecto mapFromRequestDto(ProyectoRequestDto proyectoDto, NaveganteService navServ){
+    public Proyecto mapFromRequestDto(ProyectoRequestDto proyectoDto, NaveganteService navServ) {
 
         Navegante navegante = navServ.buscarPorUsername(proyectoDto.getDirector());
         Proyecto proyecto = new Proyecto();
@@ -64,16 +70,16 @@ public class DtoMapper {
         proyecto.setFechaInicio(proyectoDto.getFechaInicio());
         proyecto.setFechaFin(proyectoDto.getFechaFin());
         proyecto.setEtapa(proyectoDto.getEtapa());
-        
+
         return proyecto;
     }
 
-    
     public <T extends NaveganteBaseDto> T mapFromNavegante(Navegante navegante, Class<T> dtoClass) {
         T naveganteDto;
         try {
             naveganteDto = dtoClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException e) {
             throw new RuntimeException("Error al instanciar el objeto DTO.", e);
         }
 
@@ -100,5 +106,63 @@ public class DtoMapper {
 
         return naveganteDto;
     }
-}
 
+    public <T extends TareaBaseDto> T mapFromTarea(Tarea tarea, Class<T> dtoClass) {
+        T tareaDto;
+        try {
+            tareaDto = dtoClass.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException e) {
+            throw new RuntimeException("Error al instanciar el objeto DTO.", e);
+        }
+
+        tareaDto.setId(tarea.getId());
+        tareaDto.setNombre(tarea.getNombre());
+        tareaDto.setResponsable(tarea.getResponsable().getNombre());
+
+        if (tareaDto instanceof TareaAuthDto) {
+            TareaAuthDto tareaAuthDto = (TareaAuthDto) tareaDto;
+            tareaAuthDto.setCampo(tarea.getCampo().name());
+            tareaAuthDto.setFrecuencia(tarea.getFrecuencia());
+            tareaAuthDto.setResponsableEmail(tarea.getResponsable().getEmail());
+        }
+
+        if (tareaDto instanceof TareaPublicoDto) {
+            TareaPublicoDto tareaPublicoDto = (TareaPublicoDto) tareaDto;
+            tareaPublicoDto.setDescripcion(tarea.getDescripcion());
+        }
+
+        return tareaDto;
+
+    }
+
+    public Tarea mapFromRequestTareaDto(TareaRequestDto tareaDto, NaveganteService navServ) {
+        Navegante navegante = navServ.buscarPorUsername(tareaDto.getResponsable());
+        Tarea tarea = new Tarea();
+        Campo campo = Campo.fromString(tareaDto.getCampo());
+
+        tarea.setNombre(tareaDto.getNombre());
+        tarea.setResponsable(navegante);
+        tarea.setCampo(campo);
+        tarea.setFrecuencia(tareaDto.getFrecuencia());
+        tarea.setDescripcion(tareaDto.getDescripcion());
+
+        return tarea;
+    }
+
+    public Tarea mapFromModificarTareaDto(TareaModificarDto tareaDto, NaveganteService navService) {
+        Navegante navegante = navService.buscarPorUsername(tareaDto.getResponsable());
+        Tarea tarea = new Tarea();
+        Campo campo = Campo.fromString(tareaDto.getCampo());
+
+        tarea.setId(tareaDto.getId());
+        tarea.setNombre(tareaDto.getNombre());
+        tarea.setDescripcion(tareaDto.getDescripcion());
+        tarea.setResponsable(navegante);
+        tarea.setFrecuencia(tareaDto.getFrecuencia());
+        tarea.setCampo(campo);
+
+        return tarea;
+
+    }
+}

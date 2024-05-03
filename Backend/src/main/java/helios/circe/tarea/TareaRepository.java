@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import helios.circe.navegante.Campo;
 
-public interface TareaRepository extends JpaRepository<Tarea, Integer>{
-    
+public interface TareaRepository extends JpaRepository<Tarea, Integer> {
+
     @Query("select t from Tarea t where t.campo = ?1")
     public List<Tarea> findByField(Campo campo);
 
