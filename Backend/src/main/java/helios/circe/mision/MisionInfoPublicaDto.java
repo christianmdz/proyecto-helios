@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class MisionInfoPublicaDto {
     
+    int id;
     String nombre;
     String nave;
     String comandante;

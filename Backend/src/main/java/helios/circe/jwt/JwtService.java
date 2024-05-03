@@ -1,6 +1,7 @@
 package helios.circe.jwt;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
@@ -24,11 +25,10 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public String getToken(Navegante navegante){
+    public String getToken(Navegante navegante, Map<String, Object> extraClaims){
         return Jwts
             .builder()
-            .claim("rol", navegante.getRol().name())
-            .claim("campo", navegante.getCampo().name())
+            .claims(extraClaims)
             .subject(navegante.getUsername())
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(new Date(System.currentTimeMillis()+1000*60*60*24))
@@ -74,8 +74,24 @@ public class JwtService {
         return getClaim(token, Claims::getSubject);
     }
 
+    public String getRolFromToken(String token){
+        return getClaim(token, claims -> claims.get("rol", String.class)).substring(5);
+    }
+
     public String getCampoFromToken(String token){
         return getClaim(token, claims -> claims.get("campo", String.class));
+    }
+
+    public String getRolFromRequest(HttpServletRequest request){
+        String token = getTokenFromRequest(request);
+        String rol = getRolFromToken(token);
+        return rol;
+    }
+
+    public String getCampoFromRequest(HttpServletRequest request){
+        String token = getTokenFromRequest(request);
+        String campo = getCampoFromToken(token);
+        return campo;
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

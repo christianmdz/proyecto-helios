@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class NaveInfoPublicaDto {
     
+    int id;
     String nombre;
     String comandante;
     int tripulacion;

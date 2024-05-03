@@ -85,5 +85,3 @@ public class Navegante implements UserDetails{
         return true;
     }
 }
-
-// TODO: NaveganteInfoPrivadaDTO

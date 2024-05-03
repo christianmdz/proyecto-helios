@@ -30,6 +30,7 @@ public class MisionServImpl implements MisionService{
 
     private MisionInfoPublicaDto misionToMisionPublicaDto(Mision mision){
         MisionInfoPublicaDto misionDto = new MisionInfoPublicaDto();
+        misionDto.setId(mision.getId());
         misionDto.setNombre(mision.getNombre());
         misionDto.setNave(mision.getNave().getNombre());
         misionDto.setComandante(mision.getNave().getComandante().getNombre());
