@@ -2,6 +2,7 @@ package helios.circe.navenproy;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ public class NaveganteEnProyectoController {
     private final NaveganteEnProyectoService naveganteEnProyectoService;
 
     @GetMapping("/por-proyecto/{idProyecto}")
+    @PreAuthorize("hasRole('COMANDANTE')")
     public List<NaveganteBaseDto> listaNavegantesEnProyecto(@PathVariable int idProyecto){
         return naveganteEnProyectoService.buscarTripulantesEnProyecto(idProyecto);
     }
