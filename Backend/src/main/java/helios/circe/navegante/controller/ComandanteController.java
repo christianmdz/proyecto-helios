@@ -69,7 +69,7 @@ public class ComandanteController {
  *  * GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
  *  * POST   /proyectos/nuevo-proyecto
  *  * PUT    /proyectos/modificar-proyecto : ProyectoAuthDto
- *  = DELETE /proyectos/eliminar-proyecto/{idProyecto} : Modificar estado a Cancelado
+ *  * DELETE /proyectos/eliminar-proyecto/{idProyecto} : Modificar estado a Cancelado
  *  * GET    /proyectos/tripulacion-en-proyecto/{idProyecto}
  * 
  * ------------------
@@ -79,13 +79,13 @@ public class ComandanteController {
 */
 
 /**
- * TODO: ENDPOINTS Tareas
- *  * GET       /tareas/info-tareas
- *  * GET       /tareas/info-tareas/{idTarea} : TareaAuthDto
- *  * POST       /tareas/nuevo-tarea
- *  * PUT       /tareas/modificar-tarea : TareaAuthDto
- *  * GET       /tareas/tripulacion-en-tarea/{idTarea}
- *  - DELETE    /tareas/eliminar-tarea/{idTarea}
+ * TODO: HIMAR ENDPOINTS Tareas
+ *  * GET     /tareas/info-tareas
+ *  * GET     /tareas/info-tareas/{idTarea} : TareaAuthDto
+ *  * POST    /tareas/nuevo-tarea
+ *  * PUT     /tareas/modificar-tarea : TareaAuthDto
+ *  * GET     /tareas/tripulacion-en-tarea/{idTarea}
+ *  - DELETE  /tareas/eliminar-tarea/{idTarea}
  *  ------------------
  *  - Pendiente
  *  = Implementados

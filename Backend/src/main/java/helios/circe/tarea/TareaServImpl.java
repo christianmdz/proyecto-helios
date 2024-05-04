@@ -56,6 +56,8 @@ public class TareaServImpl implements TareaService {
         return generarListaTareasAuthDto(tareas);
     }
 
+    // TODO: HIMAR void mapearListaTareasADto
+
     private List<TareaBaseDto> generarListaTareasAuthDto(List<Tarea> tareas) {
 
         List<TareaBaseDto> tareasDto = new ArrayList<>();
@@ -76,6 +78,9 @@ public class TareaServImpl implements TareaService {
         return tareasDto;
     }
 
+    // ----------------------------------
+
+
     @Override
     public TareaBaseDto buscarPorId(int idTarea) {
         Tarea tarea = tareaRepository.findById(idTarea).orElseThrow();
@@ -88,7 +93,7 @@ public class TareaServImpl implements TareaService {
         return tareaRepository.findByManager(responsable);
     }
 
-    // Cambiar con DTOUpdate
+    // TODO: HIMAR cambiar tipo de retorno a TareaModificarDto
     @Override
     public Tarea modificarTarea(TareaModificarDto tareaDto) {
         try {
