@@ -67,12 +67,19 @@ public class ProyectoServImpl implements ProyectoService{
     }
 
     @Override
-    public ProyectoBaseDto buscarPorId(int idProyecto) {
-
-        Proyecto proyecto = proyectoRepository.findById(idProyecto).orElseThrow();
+    public ProyectoBaseDto buscarPorId(String campo, int idProyecto) {
+        
+        Proyecto proyecto = buscarPorId(idProyecto);
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
-        return proyectoDto;
+        if(campo.equals("LIDER") || campo.equals(proyectoDto.getCampo())) {return proyectoDto;}
+        else {return null;}
+    }
+
+
+    // TODO: renombrar métodos -> más descriptivos / separar métodos: DB->Service | Service->Controller
+    private Proyecto buscarPorId(int idProyecto){
+        return proyectoRepository.findById(idProyecto).orElseThrow();
     }
 
     @Override

@@ -9,7 +9,7 @@ import helios.circe.proyecto.dto.ProyectoRequestDto;
 public interface ProyectoService {
     
     List<ProyectoBaseDto> buscarTodos(String token);
-    ProyectoBaseDto buscarPorId(int id);
+    ProyectoBaseDto buscarPorId(String campo, int idProyecto);
     Proyecto crearProyecto(ProyectoRequestDto proyectoDto);
     Proyecto modificarProyecto(ProyectoModificarDto proyectoDto);
     boolean cancelarProyecto(int idProyecto);

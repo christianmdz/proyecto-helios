@@ -37,10 +37,11 @@ public class ComandanteController {
         return proyectoService.buscarTodos(token);
     }
 
-    @GetMapping("/proyectos/info-proyectos/{idProyecto}")
-    public ProyectoBaseDto detalleProyecto(@PathVariable int idProyecto){
-        return proyectoService.buscarPorId(idProyecto);
-    }
+    // TODO: modificar si anotación personalizada
+    // @GetMapping("/proyectos/info-proyectos/{idProyecto}")
+    // public ProyectoBaseDto detalleProyecto(@PathVariable int idProyecto){
+    //     return proyectoService.buscarPorId(idProyecto);
+    // }
 
     @GetMapping("/proyectos/tripulacion-en-proyecto/{idProyecto}")
     public List<NaveganteBaseDto> tripulantesEnProyecto(@PathVariable int idProyecto){

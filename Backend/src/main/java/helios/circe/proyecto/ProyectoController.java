@@ -16,7 +16,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -29,6 +33,7 @@ public class ProyectoController {
     // private final NaveganteService naveganteService;
 
     @GetMapping("/info-proyectos")
+    @PreAuthorize("hasAnyRole('COMANDANTE','MANDO')")
     public List<ProyectoBaseDto> informacionProyectos(HttpServletRequest request) {
         
         List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
@@ -37,5 +42,15 @@ public class ProyectoController {
         listaProyectos = proyectoService.buscarTodos(token);
 
         return listaProyectos;
+    }
+
+    @GetMapping("info-proyectos/{idProyecto}")
+    public ResponseEntity<?> detalleProyecto(HttpServletRequest request, @PathVariable int idProyecto){
+
+        String campo = jwtService.getCampoFromRequest(request);
+        ProyectoBaseDto proyectoDto = proyectoService.buscarPorId(campo, idProyecto);
+        
+        if(proyectoDto == null) {return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");}
+        return ResponseEntity.ok(proyectoDto);
     }
 }
