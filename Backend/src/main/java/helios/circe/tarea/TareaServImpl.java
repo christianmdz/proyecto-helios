@@ -29,20 +29,23 @@ public class TareaServImpl implements TareaService {
     public List<TareaBaseDto> buscarTodos(String token) {
 
         String rol = jwtService.getRolFromToken(token);
-        List<Tarea> tareas = tareaRepository.findAll();
+        List<Tarea> tareas = new ArrayList<>();
         List<TareaBaseDto> listaTareas = new ArrayList<>();
 
         switch (rol) {
             case "COMANDANTE":
-                listaTareas = generarListaTareasAuthDto(tareas);
+                tareas = tareaRepository.findAll();
+                mapearListaTareasADto(tareas, listaTareas, TareaAuthDto.class);
                 break;
             case "MANDO":
             case "TRIPULANTE":
                 String campo = jwtService.getCampoFromToken(token);
-                listaTareas = buscarPorCampo(campo);
+                tareas = buscarPorCampo(campo);
+                mapearListaTareasADto(tareas, listaTareas, TareaAuthDto.class);
                 break;
             case "COLONO":
-                listaTareas = generarListaTareasPublicoDto(tareas);
+                tareas = tareaRepository.findAll();
+                mapearListaTareasADto(tareas, listaTareas, TareaPublicoDto.class);
                 break;
         }
 
@@ -50,36 +53,21 @@ public class TareaServImpl implements TareaService {
 
     }
 
-    private List<TareaBaseDto> buscarPorCampo(String campo) {
+    private List<Tarea> buscarPorCampo(String campo) {
         Campo enumCampo = Campo.fromString(campo);
-        List<Tarea> tareas = tareaRepository.findByField(enumCampo);
-        return generarListaTareasAuthDto(tareas);
+        return tareaRepository.findByField(enumCampo);
     }
 
-    // TODO: HIMAR void mapearListaTareasADto
+    // TODO: HIMAR * mapearListaTareasADto
 
-    private List<TareaBaseDto> generarListaTareasAuthDto(List<Tarea> tareas) {
+    private void mapearListaTareasADto(List<Tarea> listaTareasOrigen, List<TareaBaseDto> listaTareasDestino,
+            Class<? extends TareaBaseDto> dtoClass) {
 
-        List<TareaBaseDto> tareasDto = new ArrayList<>();
-        for (Tarea tarea : tareas) {
-            tareasDto.add(dtoMapper.mapFromTarea(tarea, TareaAuthDto.class));
+        for (Tarea tarea : listaTareasOrigen) {
+            listaTareasDestino.add(dtoMapper.mapFromTarea(tarea, dtoClass));
         }
 
-        return tareasDto;
-
     }
-
-    private List<TareaBaseDto> generarListaTareasPublicoDto(List<Tarea> tareas) {
-
-        List<TareaBaseDto> tareasDto = new ArrayList<>();
-        for (Tarea tarea : tareas) {
-            tareasDto.add(dtoMapper.mapFromTarea(tarea, TareaPublicoDto.class));
-        }
-        return tareasDto;
-    }
-
-    // ----------------------------------
-
 
     @Override
     public TareaBaseDto buscarPorId(int idTarea) {
@@ -93,15 +81,16 @@ public class TareaServImpl implements TareaService {
         return tareaRepository.findByManager(responsable);
     }
 
-    // TODO: HIMAR cambiar tipo de retorno a TareaModificarDto
+    // TODO: HIMAR * cambiar tipo de retorno a boolean
     @Override
-    public Tarea modificarTarea(TareaModificarDto tareaDto) {
+    public boolean modificarTarea(TareaModificarDto tareaDto) {
         try {
             Tarea tarea = dtoMapper.mapFromModificarTareaDto(tareaDto, naveganteService);
             if (buscarPorId(tarea.getId()) != null) {
-                return tareaRepository.save(tarea);
+                tareaRepository.save(tarea);
+                return true;
             } else {
-                return null;
+                return false;
             }
 
         } catch (Exception e) {
@@ -109,14 +98,16 @@ public class TareaServImpl implements TareaService {
         }
     }
 
+    // TODO: HIMAR * cambiar tipo de retorno a boolean
     @Override
-    public Tarea crearTarea(TareaRequestDto tareaRequestDto) {
+    public boolean crearTarea(TareaRequestDto tareaRequestDto) {
         try {
             Tarea tarea = dtoMapper.mapFromRequestTareaDto(tareaRequestDto, naveganteService);
-            return tareaRepository.save(tarea);
+            tareaRepository.save(tarea);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 

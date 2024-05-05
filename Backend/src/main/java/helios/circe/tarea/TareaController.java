@@ -37,13 +37,13 @@ public class TareaController {
     }
 
     @PutMapping("/modificar-tarea")
-    public Tarea modificarTarae(@RequestBody TareaModificarDto tareaDto) {
+    public boolean modificarTarae(@RequestBody TareaModificarDto tareaDto) {
 
         return tareaService.modificarTarea(tareaDto);
     }
 
     @PostMapping("/crear-tarea")
-    public Tarea crearTarea(@RequestBody TareaRequestDto tareaDto) {
+    public boolean crearTarea(@RequestBody TareaRequestDto tareaDto) {
         return tareaService.crearTarea(tareaDto);
     }
 
@@ -51,4 +51,4 @@ public class TareaController {
 
 /**
  * TODO: Mover endpoints a ComandanteController
-*/
+ */
