@@ -11,7 +11,7 @@ public interface ProyectoService {
     List<ProyectoBaseDto> buscarTodos(String token);
     ProyectoBaseDto buscarPorId(String campo, int idProyecto);
     boolean crearProyecto(ProyectoRequestDto proyectoDto);
-    boolean modificarProyecto(ProyectoModificarDto proyectoDto);
+    boolean modificarProyecto(String campo, ProyectoModificarDto proyectoDto);
     boolean cancelarProyecto(int idProyecto);
 
     boolean autorizacionPorCampo(String campo, int idProyecto);

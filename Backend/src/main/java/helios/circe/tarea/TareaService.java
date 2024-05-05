@@ -9,13 +9,9 @@ import helios.circe.tarea.dto.TareaRequestDto;
 public interface TareaService {
 
     List<TareaBaseDto> buscarTodos(String token);
-
-    TareaBaseDto buscarPorId(int idTarea);
-
-    boolean modificarTarea(TareaModificarDto tareaDto);
-
+    TareaBaseDto buscarPorId(String campo, int idTarea);
+    boolean modificarTarea(String campo, TareaModificarDto tareaDto);
     boolean crearTarea(TareaRequestDto tareaRequestDto);
 
-    List<Tarea> buscarPorResponsable(String responsable);
-
+    boolean autorizacionPorCampo(String campo, int idProyecto);
 }

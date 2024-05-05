@@ -64,7 +64,7 @@ public class DtoMapper {
     public Proyecto mapFromRequestProyectoDto(ProyectoRequestDto proyectoDto, NaveganteService navServ){
 
         Proyecto proyecto = new Proyecto();
-        Navegante navegante = navServ.buscarPorUsername(proyectoDto.getDirector());
+        Navegante navegante = navServ.buscarPorId(proyectoDto.getIdDirector());
         Campo campo = Campo.fromString(proyectoDto.getCampo());
 
         proyecto.setDirector(navegante);

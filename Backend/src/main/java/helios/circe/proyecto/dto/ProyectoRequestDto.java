@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ProyectoRequestDto {
 
-    String director;
+    int idDirector;
     String campo;
     String nombre;
     String descripcion;

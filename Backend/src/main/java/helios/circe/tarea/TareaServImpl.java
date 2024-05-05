@@ -21,14 +21,15 @@ import lombok.RequiredArgsConstructor;
 public class TareaServImpl implements TareaService {
 
     private final TareaRepository tareaRepository;
-    private final JwtService jwtService;
     private final DtoMapper dtoMapper;
+    private final JwtService jwtService;
     private final NaveganteService naveganteService;
 
     @Override
     public List<TareaBaseDto> buscarTodos(String token) {
 
         String rol = jwtService.getRolFromToken(token);
+
         List<Tarea> tareas = new ArrayList<>();
         List<TareaBaseDto> listaTareas = new ArrayList<>();
 
@@ -50,55 +51,35 @@ public class TareaServImpl implements TareaService {
         }
 
         return listaTareas;
-
     }
-
-    private List<Tarea> buscarPorCampo(String campo) {
-        Campo enumCampo = Campo.fromString(campo);
-        return tareaRepository.findByField(enumCampo);
-    }
-
-    // TODO: HIMAR * mapearListaTareasADto
-
-    private void mapearListaTareasADto(List<Tarea> listaTareasOrigen, List<TareaBaseDto> listaTareasDestino,
-            Class<? extends TareaBaseDto> dtoClass) {
+    
+    private void mapearListaTareasADto(List<Tarea> listaTareasOrigen, List<TareaBaseDto> listaTareasDestino, Class<? extends TareaBaseDto> dtoClass) {
 
         for (Tarea tarea : listaTareasOrigen) {
             listaTareasDestino.add(dtoMapper.mapFromTarea(tarea, dtoClass));
         }
+    }
 
+    private List<Tarea> buscarPorCampo(String campo) {
+
+        Campo enumCampo = Campo.fromString(campo);
+        return tareaRepository.findByField(enumCampo);
     }
 
     @Override
-    public TareaBaseDto buscarPorId(int idTarea) {
-        Tarea tarea = tareaRepository.findById(idTarea).orElseThrow();
-        TareaAuthDto tareaAuthDto = dtoMapper.mapFromTarea(tarea, TareaAuthDto.class);
-        return tareaAuthDto;
+    public TareaBaseDto buscarPorId(String campo, int idTarea) {
+
+        Tarea tarea = buscarPorId(idTarea);
+        TareaAuthDto tareaDto = dtoMapper.mapFromTarea(tarea, TareaAuthDto.class);
+
+        if(autorizacionPorCampo(campo, tareaDto.getCampo())) {return tareaDto;}
+        else {return null;}
     }
 
-    @Override
-    public List<Tarea> buscarPorResponsable(String responsable) {
-        return tareaRepository.findByManager(responsable);
+    private Tarea buscarPorId(int idTarea){
+        return tareaRepository.findById(idTarea).orElseThrow();
     }
 
-    // TODO: HIMAR * cambiar tipo de retorno a boolean
-    @Override
-    public boolean modificarTarea(TareaModificarDto tareaDto) {
-        try {
-            Tarea tarea = dtoMapper.mapFromModificarTareaDto(tareaDto, naveganteService);
-            if (buscarPorId(tarea.getId()) != null) {
-                tareaRepository.save(tarea);
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al modificar la tarea");
-        }
-    }
-
-    // TODO: HIMAR * cambiar tipo de retorno a boolean
     @Override
     public boolean crearTarea(TareaRequestDto tareaRequestDto) {
         try {
@@ -109,6 +90,33 @@ public class TareaServImpl implements TareaService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean modificarTarea(String campo, TareaModificarDto tareaDto) {
+        if(!autorizacionPorCampo(campo, tareaDto.getCampo())) {return false;}
+        try {
+            Tarea tarea = dtoMapper.mapFromModificarTareaDto(tareaDto, naveganteService);
+            if (buscarPorId(tarea.getId()) != null) {
+                tareaRepository.save(tarea);
+                return true;
+            }
+            else {return false;}
+        } catch (Exception e) {
+            e.printStackTrace(); // TODO: solo para desarrollo : captura en controlador??
+            return false;
+        }
+    }
+
+    @Override
+    public boolean autorizacionPorCampo(String campo, int idProyecto){
+        Tarea tarea = buscarPorId(idProyecto);
+        if(campo.equals("LIDER") || campo.equals(tarea.getCampo().name())) {return true;}
+        else {return false;} 
+    }
+
+    private boolean autorizacionPorCampo(String campo, String campoTarea) {
+        return (campo.equals(campoTarea) || campo.equals("LIDER"));
     }
 
 }

@@ -76,7 +76,6 @@ public class ProyectoServImpl implements ProyectoService{
         else {return null;}
     }
 
-
     // TODO: renombrar métodos -> más descriptivos / separar métodos: DB->Service | Service->Controller
     private Proyecto buscarPorId(int idProyecto){
         return proyectoRepository.findById(idProyecto).orElseThrow();
@@ -89,13 +88,18 @@ public class ProyectoServImpl implements ProyectoService{
             proyectoRepository.save(proyecto);
             return true;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return false;
         }
     }
 
+    /*
+     * TODO: manejo de errores auth
+     * Cambiar tipo de retorno
+    */
     @Override
-    public boolean modificarProyecto(ProyectoModificarDto proyectoDto) {
+    public boolean modificarProyecto(String campo, ProyectoModificarDto proyectoDto) {
+        if(!autorizacionPorCampo(campo, proyectoDto.getId())) {return false;}
         try {
             Proyecto proyecto = dtoMapper.mapFromModificarProyectoDto(proyectoDto, naveganteService);
             if(buscarPorId(proyecto.getId()) != null) {
@@ -104,7 +108,7 @@ public class ProyectoServImpl implements ProyectoService{
             }
             else {return false;}
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return false;
         }
     }
@@ -118,10 +122,9 @@ public class ProyectoServImpl implements ProyectoService{
                 proyectoRepository.save(proyecto);
                 return true;
             }
-            else{
-                return false;
-            }
+            else {return false;}
         } catch (Exception e) {
+            e.printStackTrace(); // TODO: solo para desarrollo : captura en controlador??
             return false;
         }
     }

@@ -1,7 +1,3 @@
-/*
- * Controlador rutas solo lectura
-*/
-
 package helios.circe.proyecto;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +9,6 @@ import helios.circe.navenproy.NaveganteEnProyectoService;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
-// import helios.circe.navegante.NaveganteService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -48,7 +43,7 @@ public class ProyectoController {
             listaProyectos = proyectoService.buscarTodos(token);
             return ResponseEntity.ok(listaProyectos);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener la lista de proyectos");
         }
     }
@@ -69,20 +64,21 @@ public class ProyectoController {
     }
 
     @PostMapping("/nuevo-proyecto")
-    @PreAuthorize("hasAnyRole('COMANDANTE','MANDO')")
+    @PreAuthorize("hasAnyRole('COMANDANTE')")
     public ResponseEntity<?> nuevoProyecto(@RequestBody ProyectoRequestDto proyectoDto){
         if(proyectoService.crearProyecto(proyectoDto)) {return ResponseEntity.ok().body("Alta proyecto completada");}
         else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Alta proyecto");}
     }
 
-    @PutMapping("/proyectos/modificar-proyecto")
+    @PutMapping("/modificar-proyecto")
     @PreAuthorize("hasAnyRole('COMANDANTE','MANDO')")
-    public ResponseEntity<?> modificarProyecto(@RequestBody ProyectoModificarDto proyecto){
-        if(proyectoService.modificarProyecto(proyecto)) {return ResponseEntity.ok().body("Actualización proyecto completada");}
+    public ResponseEntity<?> modificarProyecto(HttpServletRequest request, @RequestBody ProyectoModificarDto proyecto){
+        String campo = jwtService.getCampoFromRequest(request);
+        if(proyectoService.modificarProyecto(campo, proyecto)) {return ResponseEntity.ok().body("Actualización proyecto completada");}
         else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Modificar proyecto");}
     }
 
-    @DeleteMapping("/proyectos/eliminar-proyecto/{idProyecto}")
+    @DeleteMapping("/eliminar-proyecto/{idProyecto}")
     @PreAuthorize("hasRole('COMANDANTE')")
     public ResponseEntity<?> eliminarProyecto(@PathVariable int idProyecto){
         if(proyectoService.cancelarProyecto(idProyecto)) {return ResponseEntity.ok().body("Eliminación proyecto completada");}
@@ -90,8 +86,31 @@ public class ProyectoController {
     }
 
     @GetMapping("/tripulacion-en-proyecto/{idProyecto}")
-    public List<NaveganteBaseDto> tripulantesEnProyecto(HttpServletRequest request, @PathVariable int idProyecto){
+    public ResponseEntity<?> tripulantesEnProyecto(HttpServletRequest request, @PathVariable int idProyecto){
         String campo = jwtService.getCampoFromRequest(request);
-        return navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto);
+        try{
+            List<NaveganteBaseDto> listaTripulantes = navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto);
+            if(listaTripulantes == null) {return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");}
+            return ResponseEntity.ok(listaTripulantes);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lista tripulantes no encontrada");
+        }
     }
 }
+
+
+/*
+ * TODO: endpoints Proyecto
+ *  + lista de proyectos
+ *  + detalle proyectos
+ *  = crear proyectos : rediseño dto, solo comandante
+ *  = modificar proyectos : rediseño dto, comprobar campo modificacion
+ *  + eliminar proyecto
+ *  + lista tripulantes por proyectos
+ *  ----------------------------
+ *  - Pendiente
+ *  = Implementado
+ *  + Testeado
+ */

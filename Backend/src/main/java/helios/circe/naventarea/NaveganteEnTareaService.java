@@ -6,6 +6,6 @@ import helios.circe.navegante.dto.NaveganteBaseDto;
 
 public interface NaveganteEnTareaService {
 
-    List<NaveganteBaseDto> buscarTripulantesEnTarea(int idTarea);
+    List<NaveganteBaseDto> buscarTripulantesEnTarea(String campo, int idTarea);
 
 }
