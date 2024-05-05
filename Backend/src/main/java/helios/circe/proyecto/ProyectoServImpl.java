@@ -72,7 +72,7 @@ public class ProyectoServImpl implements ProyectoService{
         Proyecto proyecto = buscarPorId(idProyecto);
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
-        if(campo.equals("LIDER") || campo.equals(proyectoDto.getCampo())) {return proyectoDto;}
+        if(autorizacionPorCampo(campo, proyectoDto.getCampo())) {return proyectoDto;}
         else {return null;}
     }
 
@@ -83,25 +83,29 @@ public class ProyectoServImpl implements ProyectoService{
     }
 
     @Override
-    public Proyecto crearProyecto(ProyectoRequestDto proyectoDto) {
+    public boolean crearProyecto(ProyectoRequestDto proyectoDto) {
         try {
             Proyecto proyecto = dtoMapper.mapFromRequestProyectoDto(proyectoDto, naveganteService);
-            return proyectoRepository.save(proyecto);
+            proyectoRepository.save(proyecto);
+            return true;
         } catch (Exception e) {
             System.out.println(e);
-            return null;
+            return false;
         }
     }
 
     @Override
-    public Proyecto modificarProyecto(ProyectoModificarDto proyectoDto) {
+    public boolean modificarProyecto(ProyectoModificarDto proyectoDto) {
         try {
             Proyecto proyecto = dtoMapper.mapFromModificarProyectoDto(proyectoDto, naveganteService);
-            if(buscarPorId(proyecto.getId()) != null) {return proyectoRepository.save(proyecto);}
-            else {return null;}
+            if(buscarPorId(proyecto.getId()) != null) {
+                proyectoRepository.save(proyecto);
+                return true;
+            }
+            else {return false;}
         } catch (Exception e) {
             System.out.println(e);
-            return null;
+            return false;
         }
     }
 
@@ -120,5 +124,16 @@ public class ProyectoServImpl implements ProyectoService{
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean autorizacionPorCampo(String campo, int idProyecto){
+        Proyecto proyecto = buscarPorId(idProyecto);
+        if(campo.equals("LIDER") || campo.equals(proyecto.getCampo().name())) {return true;}
+        else {return false;} 
+    }
+
+    private boolean autorizacionPorCampo(String campo, String campoProyecto){
+        return (campo.equals(campoProyecto) || campo.equals("LIDER"));
     }
 }

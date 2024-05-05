@@ -6,7 +6,7 @@ import helios.circe.navegante.dto.NaveganteBaseDto;
 
 public interface NaveganteEnProyectoService {
     
-    List<NaveganteBaseDto> buscarTripulantesEnProyecto(int idProyecto);
+    List<NaveganteBaseDto> buscarTripulantesEnProyecto(String campo, int idProyecto);
     NaveganteEnProyecto buscarPorDirector(int idDirector);
 
 }

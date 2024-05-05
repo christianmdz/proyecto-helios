@@ -20,10 +20,10 @@ public class NaveganteEnProyectoController {
     
     private final NaveganteEnProyectoService naveganteEnProyectoService;
 
-    @GetMapping("/por-proyecto/{idProyecto}")
-    @PreAuthorize("hasRole('COMANDANTE')")
-    public List<NaveganteBaseDto> listaNavegantesEnProyecto(@PathVariable int idProyecto){
-        return naveganteEnProyectoService.buscarTripulantesEnProyecto(idProyecto);
-    }
+    // @GetMapping("/por-proyecto/{idProyecto}")
+    // @PreAuthorize("hasRole('COMANDANTE')")
+    // public List<NaveganteBaseDto> listaNavegantesEnProyecto(@PathVariable int idProyecto){
+    //     return naveganteEnProyectoService.buscarTripulantesEnProyecto(idProyecto);
+    // }
 
 }

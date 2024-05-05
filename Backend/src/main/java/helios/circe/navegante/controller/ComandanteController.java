@@ -43,18 +43,18 @@ public class ComandanteController {
     //     return proyectoService.buscarPorId(idProyecto);
     // }
 
-    @GetMapping("/proyectos/tripulacion-en-proyecto/{idProyecto}")
-    public List<NaveganteBaseDto> tripulantesEnProyecto(@PathVariable int idProyecto){
-        return navEnProyServ.buscarTripulantesEnProyecto(idProyecto);
-    }
+    // @GetMapping("/proyectos/tripulacion-en-proyecto/{idProyecto}")
+    // public List<NaveganteBaseDto> tripulantesEnProyecto(@PathVariable int idProyecto){
+    //     return navEnProyServ.buscarTripulantesEnProyecto(idProyecto);
+    // }
 
-    @PostMapping("/proyectos/nuevo-proyecto")
-    public Proyecto nuevoProyecto(@RequestBody ProyectoRequestDto proyectoDto){
-        return proyectoService.crearProyecto(proyectoDto);
-    }
+    // @PostMapping("/proyectos/nuevo-proyecto")
+    // public Proyecto nuevoProyecto(@RequestBody ProyectoRequestDto proyectoDto){
+    //     return proyectoService.crearProyecto(proyectoDto);
+    // }
 
     @PutMapping("/proyectos/modificar-proyecto")
-    public Proyecto modificarProyecto(@RequestBody ProyectoModificarDto proyecto){
+    public boolean modificarProyecto(@RequestBody ProyectoModificarDto proyecto){
         return proyectoService.modificarProyecto(proyecto);
     }
 

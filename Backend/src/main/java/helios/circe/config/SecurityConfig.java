@@ -38,8 +38,8 @@ public class SecurityConfig {
                     .requestMatchers("/mando/**").hasAnyRole("COMANDANTE", "MANDO")
                     .requestMatchers("/tripulante/**").hasAnyRole("COMANDANTE", "TRIPULANTE")
                     .requestMatchers("/colono/**").hasAnyRole("COMANDANTE", "COLONO")
-                    // .requestMatchers("/proyectos/**").hasAnyRole("COMANDANTE", "MANDO", "TRIPULANTE", "COLONO")
-                    // .requestMatchers("/tareas/**").hasAnyRole("COMANDANTE", "MANDO", "TRIPULANTE", "COLONO")
+                    .requestMatchers("/proyectos/**").hasAnyRole("COMANDANTE", "MANDO", "TRIPULANTE", "COLONO")
+                    .requestMatchers("/tareas/**").hasAnyRole("COMANDANTE", "MANDO", "TRIPULANTE", "COLONO")
                     // .requestMatchers("/navenproy/**").hasRole("COMANDANTE")
                     // .requestMatchers("/naventar/**").hasRole("COMANDANTE")
                     .anyRequest().authenticated()
@@ -50,6 +50,6 @@ public class SecurityConfig {
             .authenticationProvider(authProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
-    }       
+    }      
 
 }
