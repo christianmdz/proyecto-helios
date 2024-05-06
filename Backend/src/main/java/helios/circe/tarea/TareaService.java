@@ -13,5 +13,5 @@ public interface TareaService {
     boolean modificarTarea(String campo, TareaModificarDto tareaDto);
     boolean crearTarea(TareaRequestDto tareaRequestDto);
 
-    boolean autorizacionPorCampo(String campo, int idProyecto);
+    boolean autorizacionPorCampo(String campo, int idTarea);
 }

@@ -109,8 +109,8 @@ public class TareaServImpl implements TareaService {
     }
 
     @Override
-    public boolean autorizacionPorCampo(String campo, int idProyecto){
-        Tarea tarea = buscarPorId(idProyecto);
+    public boolean autorizacionPorCampo(String campo, int idTarea){
+        Tarea tarea = buscarPorId(idTarea);
         if(campo.equals("LIDER") || campo.equals(tarea.getCampo().name())) {return true;}
         else {return false;} 
     }
