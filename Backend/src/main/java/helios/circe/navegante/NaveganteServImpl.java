@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import helios.circe.jwt.JwtService;
 import helios.circe.mappings.DtoMapper;
+import helios.circe.navegante.dto.NaveganteAuthDto;
 import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navegante.dto.NavegantePublicoDto;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class NaveganteServImpl implements NaveganteService {
         switch (rol) {
             case "COMANDANTE":
                 navegantes = naveganteRepository.findAll();
-                // TODO: mapearListaAListaDto
+                mapearListaNavegantesADto(navegantes, listaNavegantes, NaveganteAuthDto.class);
                 break;
         
             default:
@@ -53,6 +54,13 @@ public class NaveganteServImpl implements NaveganteService {
 
         // TODO: buscartodos navegante
         
+    }
+
+    private void mapearListaNavegantesADto(List<Navegante> listaNavegantesOrigen, List<NaveganteBaseDto> listaNavegantesDestio, Class<? extends NaveganteBaseDto> dtoClass){
+
+        for(Navegante navegante : listaNavegantesOrigen){
+            listaNavegantesDestio.add(dtoMapper.mapFromNavegante(navegante, dtoClass));
+        }
     }
 
     @Override

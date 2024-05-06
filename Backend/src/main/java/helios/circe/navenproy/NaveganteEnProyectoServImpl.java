@@ -17,25 +17,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NaveganteEnProyectoServImpl implements NaveganteEnProyectoService{
 
-    private final DtoMapper dtoMapper;
     private final ProyectoService proyectoService;
     private final NaveganteEnProyectoRepository nepRep;
 
     @Override
-    public List<NaveganteBaseDto> buscarTripulantesEnProyecto(String campo, int idProyecto) {
+    public List<NaveganteEnProyectoDto> buscarTripulantesEnProyecto(String campo, int idProyecto) {
 
         if(proyectoService.autorizacionPorCampo(campo, idProyecto)){
 
-            List<Navegante> navegantes = nepRep.findCrewByProject(idProyecto);
-            List<NaveganteBaseDto> navegantesDto = new ArrayList<>();
-
-            for(Navegante navegante : navegantes){
-                navegantesDto.add(dtoMapper.mapFromNavegante(navegante, NavegantePublicoDto.class));
-            }
-
+            List<NaveganteEnProyectoDto> navegantesDto = nepRep.findCrewByProjectDto(idProyecto);
             return navegantesDto;
         }
-        else {return null;}
+        else {throw new SecurityException();}
     }
 
     @Override
