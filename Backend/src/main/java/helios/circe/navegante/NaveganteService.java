@@ -13,6 +13,6 @@ public interface NaveganteService {
     List<Navegante> buscarPorCampo(String campo);
     
     List<NaveganteBaseDto> infoPublicaTripulacion();
-    List<Navegante> buscarTodos();
+    List<NaveganteBaseDto> buscarTodos(String token);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import helios.circe.jwt.JwtService;
 import helios.circe.mappings.DtoMapper;
 import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navegante.dto.NavegantePublicoDto;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class NaveganteServImpl implements NaveganteService {
 
     private final DtoMapper dtoMapper;
+    private final JwtService jwtService;
     private final NaveganteRepository naveganteRepository;
 
     @Override
@@ -30,8 +32,27 @@ public class NaveganteServImpl implements NaveganteService {
     }
 
     @Override
-    public List<Navegante> buscarTodos() {
-        return naveganteRepository.findAll();
+    public List<NaveganteBaseDto> buscarTodos(String token) {
+        
+        String rol = jwtService.getRolFromToken(token);
+
+        List<Navegante> navegantes = new ArrayList<>();
+        List<NaveganteBaseDto> listaNavegantes = new ArrayList<>();
+
+        switch (rol) {
+            case "COMANDANTE":
+                navegantes = naveganteRepository.findAll();
+                // TODO: mapearListaAListaDto
+                break;
+        
+            default:
+                break;
+        }
+
+        return null;
+
+        // TODO: buscartodos navegante
+        
     }
 
     @Override

@@ -72,7 +72,7 @@ public class AuthService {
             .build();
     }
 
-    public boolean autorizacionPorCampo(String campoPeticion, String campoRequerido){
+    public static boolean autorizacionPorCampo(String campoPeticion, String campoRequerido){
         return (campoPeticion.equals(campoRequerido) || campoPeticion.equals("LIDER"));
     }
     
