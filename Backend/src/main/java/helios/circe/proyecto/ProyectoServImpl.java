@@ -2,6 +2,7 @@ package helios.circe.proyecto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class ProyectoServImpl implements ProyectoService{
     private final NaveganteService naveganteService;
 
     @Override
-    public List<ProyectoBaseDto> buscarTodos(String token) {
+    public List<ProyectoBaseDto> listaProyectos(String token) {
 
         String rol = jwtService.getRolFromToken(token);
         
@@ -35,7 +36,7 @@ public class ProyectoServImpl implements ProyectoService{
 
         switch (rol) {
             case "COMANDANTE":
-                proyectos = proyectoRepository.findAll();
+                proyectos = buscarTodos();
                 mapearListaProyectosADto(proyectos, listaProyectos, ProyectoAuthDto.class);
                 break;
             case "MANDO":
@@ -45,14 +46,27 @@ public class ProyectoServImpl implements ProyectoService{
                 mapearListaProyectosADto(proyectos, listaProyectos, ProyectoAuthDto.class);
                 break;
             case "COLONO":
-                proyectos = proyectoRepository.findAll();
+                proyectos = buscarTodos();
                 mapearListaProyectosADto(proyectos, listaProyectos, ProyectoPublicoDto.class);
                 break;
+            default:
+                throw new SecurityException();
         }
         
         return listaProyectos;
     }
 
+    private List<Proyecto> buscarTodos(){
+        return proyectoRepository.findAll();
+    }
+
+    
+    private List<Proyecto> buscarPorCampo(String campo) {
+        
+        Campo enumCampo = Campo.fromString(campo);
+        return proyectoRepository.findByField(enumCampo);
+    }
+    
     private void mapearListaProyectosADto(List<Proyecto> listaProyectosOrigen, List<ProyectoBaseDto> listaProyectosDestino, Class<? extends ProyectoBaseDto> dtoClass){
 
         for(Proyecto proyecto : listaProyectosOrigen){
@@ -60,23 +74,24 @@ public class ProyectoServImpl implements ProyectoService{
         }
     }
 
-    private List<Proyecto> buscarPorCampo(String campo) {
-        
-        Campo enumCampo = Campo.fromString(campo);
-        return proyectoRepository.findByField(enumCampo);
-    }
-
     @Override
-    public ProyectoBaseDto buscarPorId(String campo, int idProyecto) {
+    public ProyectoBaseDto detalleProyecto(String campo, int idProyecto) {
         
         Proyecto proyecto = buscarPorId(idProyecto);
+    
+        if (proyecto == null) {
+            throw new NoSuchElementException();
+        }
+
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
-        if(autorizacionPorCampo(campo, proyectoDto.getCampo())) {return proyectoDto;}
-        else {return null;}
+        if (!autorizacionPorCampo(campo, proyectoDto.getCampo())) {
+            throw new SecurityException();
+        }
+        
+        return proyectoDto;
     }
 
-    // TODO: renombrar métodos -> más descriptivos / separar métodos: DB->Service | Service->Controller
     private Proyecto buscarPorId(int idProyecto){
         return proyectoRepository.findById(idProyecto).orElseThrow();
     }
@@ -88,25 +103,20 @@ public class ProyectoServImpl implements ProyectoService{
             proyectoRepository.save(proyecto);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
 
-    /*
-     * TODO: manejo de errores auth
-     * Cambiar tipo de retorno
-    */
     @Override
     public boolean modificarProyecto(String campo, ProyectoModificarDto proyectoDto) {
-        if(!autorizacionPorCampo(campo, proyectoDto.getId())) {return false;}
+        if(!autorizacionPorCampo(campo, proyectoDto.getId())) {throw new SecurityException();}
         try {
             Proyecto proyecto = dtoMapper.mapFromModificarProyectoDto(proyectoDto, naveganteService);
             if(buscarPorId(proyecto.getId()) != null) {
                 proyectoRepository.save(proyecto);
                 return true;
             }
-            else {return false;}
+            else {throw new NoSuchElementException();}
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -122,7 +132,7 @@ public class ProyectoServImpl implements ProyectoService{
                 proyectoRepository.save(proyecto);
                 return true;
             }
-            else {return false;}
+            else {throw new NoSuchElementException();}
         } catch (Exception e) {
             e.printStackTrace(); // TODO: solo para desarrollo : captura en controlador??
             return false;

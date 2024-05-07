@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import helios.circe.jwt.JwtService;
-import helios.circe.navegante.dto.NaveganteBaseDto;
+import helios.circe.navenproy.NaveganteEnProyectoDto;
 import helios.circe.navenproy.NaveganteEnProyectoService;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
@@ -40,8 +40,8 @@ public class ProyectoController {
         try{
             List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
             String token = jwtService.getTokenFromRequest(request);
-            listaProyectos = proyectoService.buscarTodos(token);
-            return ResponseEntity.ok(listaProyectos);
+            listaProyectos = proyectoService.listaProyectos(token);
+            return (!listaProyectos.isEmpty()) ? ResponseEntity.ok(listaProyectos) : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin proyectos");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener la lista de proyectos");
@@ -53,14 +53,8 @@ public class ProyectoController {
     public ResponseEntity<?> detalleProyecto(HttpServletRequest request, @PathVariable int idProyecto){
 
         String campo = jwtService.getCampoFromRequest(request);
-
-        try {
-            ProyectoBaseDto proyectoDto = proyectoService.buscarPorId(campo, idProyecto);
-            if(proyectoDto == null) {return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");}
-            return ResponseEntity.ok(proyectoDto);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Proyecto no encontrado");
-        }
+        ProyectoBaseDto proyectoDto = proyectoService.detalleProyecto(campo, idProyecto);
+        return ResponseEntity.ok(proyectoDto);
     }
 
     @PostMapping("/nuevo-proyecto")
@@ -87,16 +81,10 @@ public class ProyectoController {
 
     @GetMapping("/tripulacion-en-proyecto/{idProyecto}")
     public ResponseEntity<?> tripulantesEnProyecto(HttpServletRequest request, @PathVariable int idProyecto){
+
         String campo = jwtService.getCampoFromRequest(request);
-        try{
-            List<NaveganteBaseDto> listaTripulantes = navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto);
-            if(listaTripulantes == null) {return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");}
-            return ResponseEntity.ok(listaTripulantes);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lista tripulantes no encontrada");
-        }
+        List<NaveganteEnProyectoDto> listaTripulantes = navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto);
+        return (!listaTripulantes.isEmpty()) ? ResponseEntity.ok(listaTripulantes) : ResponseEntity.status(HttpStatus.NO_CONTENT).body(listaTripulantes);
     }
 }
 

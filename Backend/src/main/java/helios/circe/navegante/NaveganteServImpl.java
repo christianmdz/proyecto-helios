@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import helios.circe.jwt.JwtService;
 import helios.circe.mappings.DtoMapper;
+import helios.circe.navegante.dto.NaveganteAuthDto;
 import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navegante.dto.NavegantePublicoDto;
 import lombok.RequiredArgsConstructor;
@@ -42,17 +43,29 @@ public class NaveganteServImpl implements NaveganteService {
         switch (rol) {
             case "COMANDANTE":
                 navegantes = naveganteRepository.findAll();
-                // TODO: mapearListaAListaDto
+                mapearListaNavegantesADto(navegantes, listaNavegantes, NaveganteAuthDto.class);
                 break;
-        
+            case "MANDO":
+            case "TRIPULANTE":
+                String campo = jwtService.getCampoFromToken(token);
+                navegantes = buscarPorCampo(campo);
+                mapearListaNavegantesADto(navegantes, listaNavegantes, NaveganteAuthDto.class);
+                break;
+            case "COLONO":
+                navegantes = naveganteRepository.findAll();
+                mapearListaNavegantesADto(navegantes, listaNavegantes, NavegantePublicoDto.class);
             default:
-                break;
+                throw new SecurityException();
         }
 
         return null;
+    }
 
-        // TODO: buscartodos navegante
-        
+    private void mapearListaNavegantesADto(List<Navegante> listaNavegantesOrigen, List<NaveganteBaseDto> listaNavegantesDestio, Class<? extends NaveganteBaseDto> dtoClass){
+
+        for(Navegante navegante : listaNavegantesOrigen){
+            listaNavegantesDestio.add(dtoMapper.mapFromNavegante(navegante, dtoClass));
+        }
     }
 
     @Override
@@ -65,14 +78,12 @@ public class NaveganteServImpl implements NaveganteService {
         return naveganteRepository.findByUsername(username).orElseThrow();
     }
 
-    @Override
-    public List<Navegante> buscarPorRol(String rol) {
+    private List<Navegante> buscarPorRol(String rol) {
         Role enumRole = Role.fromString(rol);
         return naveganteRepository.findByRole(enumRole);
     }
 
-    @Override
-    public List<Navegante> buscarPorCampo(String campo) {
+    private List<Navegante> buscarPorCampo(String campo) {
         Campo enumCampo = Campo.fromString(campo);
         return naveganteRepository.findByField(enumCampo);
     }
