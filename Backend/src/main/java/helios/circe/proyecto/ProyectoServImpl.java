@@ -82,12 +82,13 @@ public class ProyectoServImpl implements ProyectoService{
         if (proyecto == null) {
             throw new NoSuchElementException();
         }
+        
+        if (!autorizacionPorCampo(campo, proyecto.getCampo().name())) {
+            throw new SecurityException();
+        }
 
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
-        if (!autorizacionPorCampo(campo, proyectoDto.getCampo())) {
-            throw new SecurityException();
-        }
         
         return proyectoDto;
     }
