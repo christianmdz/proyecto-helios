@@ -78,10 +78,10 @@ public class NaveganteServImpl implements NaveganteService {
         return naveganteRepository.findByUsername(username).orElseThrow();
     }
 
-    private List<Navegante> buscarPorRol(String rol) {
-        Role enumRole = Role.fromString(rol);
-        return naveganteRepository.findByRole(enumRole);
-    }
+    // private List<Navegante> buscarPorRol(String rol) {
+    //     Role enumRole = Role.fromString(rol);
+    //     return naveganteRepository.findByRole(enumRole);
+    // }
 
     private List<Navegante> buscarPorCampo(String campo) {
         Campo enumCampo = Campo.fromString(campo);
