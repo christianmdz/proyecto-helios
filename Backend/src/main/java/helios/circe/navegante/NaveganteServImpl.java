@@ -45,15 +45,20 @@ public class NaveganteServImpl implements NaveganteService {
                 navegantes = naveganteRepository.findAll();
                 mapearListaNavegantesADto(navegantes, listaNavegantes, NaveganteAuthDto.class);
                 break;
-        
-            default:
+            case "MANDO":
+            case "TRIPULANTE":
+                String campo = jwtService.getCampoFromToken(token);
+                navegantes = buscarPorCampo(campo);
+                mapearListaNavegantesADto(navegantes, listaNavegantes, NaveganteAuthDto.class);
                 break;
+            case "COLONO":
+                navegantes = naveganteRepository.findAll();
+                mapearListaNavegantesADto(navegantes, listaNavegantes, NavegantePublicoDto.class);
+            default:
+                throw new SecurityException();
         }
 
         return null;
-
-        // TODO: buscartodos navegante
-        
     }
 
     private void mapearListaNavegantesADto(List<Navegante> listaNavegantesOrigen, List<NaveganteBaseDto> listaNavegantesDestio, Class<? extends NaveganteBaseDto> dtoClass){
@@ -73,14 +78,12 @@ public class NaveganteServImpl implements NaveganteService {
         return naveganteRepository.findByUsername(username).orElseThrow();
     }
 
-    @Override
-    public List<Navegante> buscarPorRol(String rol) {
+    private List<Navegante> buscarPorRol(String rol) {
         Role enumRole = Role.fromString(rol);
         return naveganteRepository.findByRole(enumRole);
     }
 
-    @Override
-    public List<Navegante> buscarPorCampo(String campo) {
+    private List<Navegante> buscarPorCampo(String campo) {
         Campo enumCampo = Campo.fromString(campo);
         return naveganteRepository.findByField(enumCampo);
     }

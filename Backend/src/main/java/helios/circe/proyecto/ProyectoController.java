@@ -4,9 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import helios.circe.jwt.JwtService;
-import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navenproy.NaveganteEnProyectoDto;
-import helios.circe.navenproy.NaveganteEnProyectoRaw;
 import helios.circe.navenproy.NaveganteEnProyectoService;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
