@@ -41,9 +41,11 @@ public class ProyectoController {
             List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
             String token = jwtService.getTokenFromRequest(request);
             listaProyectos = proyectoService.listaProyectos(token);
-            return (!listaProyectos.isEmpty()) ? ResponseEntity.ok(listaProyectos) : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin proyectos");
+
+            return (!listaProyectos.isEmpty())
+                ? ResponseEntity.ok(listaProyectos)
+                : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin proyectos");
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener la lista de proyectos");
         }
     }
@@ -54,29 +56,37 @@ public class ProyectoController {
 
         String campo = jwtService.getCampoFromRequest(request);
         ProyectoBaseDto proyectoDto = proyectoService.detalleProyecto(campo, idProyecto);
+
         return ResponseEntity.ok(proyectoDto);
     }
 
     @PostMapping("/nuevo-proyecto")
     @PreAuthorize("hasAnyRole('COMANDANTE')")
     public ResponseEntity<?> nuevoProyecto(@RequestBody ProyectoRequestDto proyectoDto){
-        if(proyectoService.crearProyecto(proyectoDto)) {return ResponseEntity.ok().body("Alta proyecto completada");}
-        else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Alta proyecto");}
+        
+        return (proyectoService.crearProyecto(proyectoDto))
+            ? ResponseEntity.ok().body("Alta proyecto completada")
+            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Alta proyecto");
     }
 
     @PutMapping("/modificar-proyecto")
     @PreAuthorize("hasAnyRole('COMANDANTE','MANDO')")
     public ResponseEntity<?> modificarProyecto(HttpServletRequest request, @RequestBody ProyectoModificarDto proyecto){
+
         String campo = jwtService.getCampoFromRequest(request);
-        if(proyectoService.modificarProyecto(campo, proyecto)) {return ResponseEntity.ok().body("Actualización proyecto completada");}
-        else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Modificar proyecto");}
+
+        return (proyectoService.modificarProyecto(campo, proyecto)) 
+            ? ResponseEntity.ok().body("Actualización proyecto completada")
+            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Modificar proyecto");
     }
 
     @DeleteMapping("/eliminar-proyecto/{idProyecto}")
     @PreAuthorize("hasRole('COMANDANTE')")
     public ResponseEntity<?> eliminarProyecto(@PathVariable int idProyecto){
-        if(proyectoService.cancelarProyecto(idProyecto)) {return ResponseEntity.ok().body("Eliminación proyecto completada");}
-        else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Eliminar proyecto");}
+
+        return (proyectoService.cancelarProyecto(idProyecto))
+            ? ResponseEntity.ok().body("Eliminación proyecto completada")
+            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Eliminar proyecto");
     }
 
     @GetMapping("/tripulacion-en-proyecto/{idProyecto}")
@@ -84,21 +94,9 @@ public class ProyectoController {
 
         String campo = jwtService.getCampoFromRequest(request);
         List<NaveganteEnProyectoDto> listaTripulantes = navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto, proyectoService);
-        return (!listaTripulantes.isEmpty()) ? ResponseEntity.ok(listaTripulantes) : ResponseEntity.status(HttpStatus.NO_CONTENT).body(listaTripulantes);
+        
+        return (!listaTripulantes.isEmpty())
+            ? ResponseEntity.ok(listaTripulantes)
+            : ResponseEntity.status(HttpStatus.NO_CONTENT).body(listaTripulantes);
     }
 }
-
-
-/*
- * TODO: endpoints Proyecto
- *  + lista de proyectos
- *  + detalle proyectos
- *  = crear proyectos : rediseño dto, solo comandante
- *  = modificar proyectos : rediseño dto, comprobar campo modificacion
- *  + eliminar proyecto
- *  + lista tripulantes por proyectos
- *  ----------------------------
- *  - Pendiente
- *  = Implementado
- *  + Testeado
- */

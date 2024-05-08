@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import helios.circe.jwt.JwtService;
-import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.naventarea.NaveganteEnTareaService;
+import helios.circe.naventarea.dto.NaveganteEnTareaDto;
 import helios.circe.tarea.dto.TareaBaseDto;
 import helios.circe.tarea.dto.TareaModificarDto;
 import helios.circe.tarea.dto.TareaRequestDto;
@@ -38,9 +38,11 @@ public class TareaController {
             List<TareaBaseDto> listaTareas = new ArrayList<>();
             String token = jwtService.getTokenFromRequest(request);
             listaTareas = tareaService.buscarTodos(token);
-            return ResponseEntity.ok(listaTareas);
+
+            return (!listaTareas.isEmpty())
+                ? ResponseEntity.ok(listaTareas)
+                : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin tareas");
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener la lista de tareas");
         }
     }
@@ -50,55 +52,39 @@ public class TareaController {
     public ResponseEntity<?> detalleTarea(HttpServletRequest request, @PathVariable int idTarea) {
         
         String campo = jwtService.getCampoFromRequest(request);
+        TareaBaseDto tareaDto = tareaService.detalleTarea(campo, idTarea);
 
-        try {
-            TareaBaseDto tareaDto = tareaService.buscarPorId(campo, idTarea);
-            if(tareaDto == null)  {return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");}
-            return ResponseEntity.ok(tareaDto);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarea no encontrada");
-        }
+        return ResponseEntity.ok(tareaDto);
     }
 
     @PostMapping("/nueva-tarea")
     @PreAuthorize("hasAnyRole('COMANDANTE','MANDO')")
     public ResponseEntity<?> nuevaTarea(@RequestBody TareaRequestDto tareaDto){
-        if(tareaService.crearTarea(tareaDto)) {return ResponseEntity.ok().body("Alta tarea completada");}
-        else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Alta tarea");}
+
+        return (tareaService.crearTarea(tareaDto))
+            ? ResponseEntity.ok().body("Alta tarea completada")
+            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Alta tarea");
     }
 
     @PutMapping("/modificar-tarea")
     @PreAuthorize("hasAnyRole('COMANDANTE','MANDO')")
     public ResponseEntity<?> modificarTarea(HttpServletRequest request, @RequestBody TareaModificarDto tarea){
+        
         String campo = jwtService.getCampoFromRequest(request);
-        if(tareaService.modificarTarea(campo, tarea)) {return ResponseEntity.ok().body("Actualización tarea completada");}
-        else {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Modificar tarea");}
+
+        return (tareaService.modificarTarea(campo, tarea))
+            ? ResponseEntity.ok().body("Actualización tarea completada")
+            : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Modificar tarea");
     }
 
     @GetMapping("/tripulacion-en-tarea/{idTarea}")
     public ResponseEntity<?> tripulantesEnTarea(HttpServletRequest request, @PathVariable int idTarea){
+        
         String campo = jwtService.getCampoFromRequest(request);
-        try{
-            List<NaveganteBaseDto> listaTripulantes = navEnTarServ.buscarTripulantesEnTarea(campo, idTarea);
-            if(listaTripulantes == null) {return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");}
-            return ResponseEntity.ok(listaTripulantes);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lista tripulantes no encontrada");
-        }
+        List<NaveganteEnTareaDto> listaTripulantes = navEnTarServ.buscarTripulantesEnTarea(campo, idTarea, tareaService);
+
+        return (!listaTripulantes.isEmpty())
+            ? ResponseEntity.ok(listaTripulantes)
+            : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso no autorizado");
     }
 }
-
-/*
- * TODO: endpoints Tarea
- *  = lista de tareas
- *  = detalle tarea
- *  = crear tarea
- *  = modificar tarea
- *  = lista tripulantes por tarea
- *  ----------------------------
- *  - Pendiente
- *  = Implementado
- *  + Testeado
- */

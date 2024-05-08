@@ -9,7 +9,7 @@ import helios.circe.proyecto.ProyectoService;
 public interface NaveganteEnProyectoService {
     
     List<NaveganteEnProyectoDto> buscarTripulantesEnProyecto(String campo, int idProyecto, ProyectoService proyectoService);
-    boolean altaNaveganteEnProyecto(NaveganteEnProyectoAltaDto naveganteEnProyecto, ProyectoService proyectoService);
-
+    boolean altaNaveganteEnProyecto(NaveganteEnProyectoAltaDto naveganteEnProyectoDto, ProyectoService proyectoService);
+    boolean bajaNaveganteEnProyecto(int idProyecto, int idNavegante);
 
 }

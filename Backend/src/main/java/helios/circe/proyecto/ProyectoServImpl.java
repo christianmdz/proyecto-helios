@@ -92,7 +92,6 @@ public class ProyectoServImpl implements ProyectoService{
 
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
-        
         return proyectoDto;
     }
 
@@ -107,6 +106,7 @@ public class ProyectoServImpl implements ProyectoService{
             // Alta proyecto
             Proyecto proyecto = dtoMapper.mapFromRequestProyectoDto(proyectoDto, naveganteService);
             proyecto = altaProyecto(proyecto);
+
             // Alta director proyecto
             NaveganteEnProyectoAltaDto naveganteDto = new NaveganteEnProyectoAltaDto();
             naveganteDto.setIdNavegante(proyecto.getDirector().getId());
@@ -114,6 +114,7 @@ public class ProyectoServImpl implements ProyectoService{
             naveganteDto.setFechaIncorporacion(proyecto.getFechaInicio());
             naveganteDto.setDiasAsignados(365);
             naveganteEnProyectoService.altaNaveganteEnProyecto(naveganteDto, this);
+            
             return true;
         } catch (Exception e) {
             return false;

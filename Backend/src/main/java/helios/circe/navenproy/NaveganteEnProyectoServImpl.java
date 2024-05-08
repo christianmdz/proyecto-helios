@@ -40,4 +40,14 @@ public class NaveganteEnProyectoServImpl implements NaveganteEnProyectoService{
         }
         else {return false;}
     }
+
+    @Override
+    public boolean bajaNaveganteEnProyecto(int idProyecto, int idNavegante) {
+        
+        if(naveganteEnProyectoRepository.existsByProjectId(idProyecto)){
+            naveganteEnProyectoRepository.deleteCrewFromProject(idNavegante);
+            return true;
+        }
+        else {return false;}
+    }
 }

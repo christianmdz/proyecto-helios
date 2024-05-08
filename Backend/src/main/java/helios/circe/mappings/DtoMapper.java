@@ -12,6 +12,8 @@ import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navegante.dto.NavegantePublicoDto;
 import helios.circe.navenproy.NaveganteEnProyecto;
 import helios.circe.navenproy.dto.NaveganteEnProyectoAltaDto;
+import helios.circe.naventarea.NaveganteEnTarea;
+import helios.circe.naventarea.dto.NaveganteEnTareaAltaDto;
 import helios.circe.proyecto.Proyecto;
 import helios.circe.proyecto.ProyectoService;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
@@ -20,6 +22,7 @@ import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoPublicoDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
 import helios.circe.tarea.Tarea;
+import helios.circe.tarea.TareaService;
 import helios.circe.tarea.dto.TareaAuthDto;
 import helios.circe.tarea.dto.TareaBaseDto;
 import helios.circe.tarea.dto.TareaModificarDto;
@@ -172,7 +175,7 @@ public class DtoMapper {
     public Tarea mapFromRequestTareaDto(TareaRequestDto tareaDto, NaveganteService navServ) {
 
         Tarea tarea = new Tarea();
-        Navegante navegante = navServ.buscarPorUsername(tareaDto.getResponsable());
+        Navegante navegante = navServ.buscarPorId(tareaDto.getIdResponsable());
         Campo campo = Campo.fromString(tareaDto.getCampo());
 
         tarea.setNombre(tareaDto.getNombre());
@@ -214,6 +217,22 @@ public class DtoMapper {
         naveganteEnProyecto.setDiasAsignados(naveganteDto.getDiasAsignados());
 
         return naveganteEnProyecto;
+    }
 
+    // --------------------------- NAVEGANTE EN TAREA ---------------------------
+
+    public NaveganteEnTarea mapFromAltaNaveganteEnTarea(NaveganteEnTareaAltaDto naveganteDto, NaveganteService naveganteService, TareaService tareaService){
+
+        NaveganteEnTarea naveganteEnTarea = new NaveganteEnTarea();
+        Navegante navegante = naveganteService.buscarPorId(naveganteDto.getIdNavegante());
+        Tarea tarea = tareaService.buscarPorId(naveganteDto.getIdTarea());
+
+        naveganteEnTarea.setNavegante(navegante);
+        naveganteEnTarea.setTarea(tarea);
+        naveganteEnTarea.setFechaIncorporacion(naveganteDto.getFechaIncorporacion());
+        naveganteEnTarea.setJornada(naveganteDto.getJornada());
+        naveganteEnTarea.setAsignacion(naveganteDto.getAsignacion());
+
+        return naveganteEnTarea;
     }
 }
