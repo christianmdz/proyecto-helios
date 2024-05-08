@@ -25,4 +25,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar recurso");
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar recurso");
+    }
 }

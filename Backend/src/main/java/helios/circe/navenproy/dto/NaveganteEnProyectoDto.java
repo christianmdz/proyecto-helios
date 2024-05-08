@@ -1,4 +1,4 @@
-package helios.circe.navenproy;
+package helios.circe.navenproy.dto;
 
 import java.util.Date;
 

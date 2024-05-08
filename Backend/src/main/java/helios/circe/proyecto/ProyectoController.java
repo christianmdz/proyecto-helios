@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import helios.circe.jwt.JwtService;
-import helios.circe.navenproy.NaveganteEnProyectoDto;
 import helios.circe.navenproy.NaveganteEnProyectoService;
+import helios.circe.navenproy.dto.NaveganteEnProyectoDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
@@ -83,7 +83,7 @@ public class ProyectoController {
     public ResponseEntity<?> tripulantesEnProyecto(HttpServletRequest request, @PathVariable int idProyecto){
 
         String campo = jwtService.getCampoFromRequest(request);
-        List<NaveganteEnProyectoDto> listaTripulantes = navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto);
+        List<NaveganteEnProyectoDto> listaTripulantes = navEnProyServ.buscarTripulantesEnProyecto(campo, idProyecto, proyectoService);
         return (!listaTripulantes.isEmpty()) ? ResponseEntity.ok(listaTripulantes) : ResponseEntity.status(HttpStatus.NO_CONTENT).body(listaTripulantes);
     }
 }

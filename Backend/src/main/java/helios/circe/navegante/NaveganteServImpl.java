@@ -111,5 +111,10 @@ public class NaveganteServImpl implements NaveganteService {
     public Navegante buscarPorId(int idNavegante) {
         return naveganteRepository.findById(idNavegante).orElseThrow();
     }
+
+    @Override
+    public boolean existeNavegante(int idNavegante) {
+        return naveganteRepository.existsById(idNavegante);
+    }
     
 }

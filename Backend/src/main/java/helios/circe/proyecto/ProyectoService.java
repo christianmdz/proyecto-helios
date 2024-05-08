@@ -13,7 +13,9 @@ public interface ProyectoService {
     boolean crearProyecto(ProyectoRequestDto proyectoDto);
     boolean modificarProyecto(String campo, ProyectoModificarDto proyectoDto);
     boolean cancelarProyecto(int idProyecto);
-
     boolean autorizacionPorCampo(String campo, int idProyecto);
+    boolean existeProyecto(int idProyecto);
+    String campoDeProyecto(int idProyecto);
 
+    Proyecto buscarPorId(int idProyecto);
 }
