@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import {login} from '../api/auth/auth';
 
 export default function LoginForm() {
-  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,7 +17,7 @@ export default function LoginForm() {
       const token = await login({ username, password });
       localStorage.setItem("token", token);
       // Redirigir a la página principal después del inicio de sesión
-      navigate("/"); // Redirige al usuario a la página principal ("/")
+      navigate("/comandante"); // Redirige al usuario a la página principal ("/")
     } catch (error) {
       setError("Authentication failed");
     }
@@ -36,13 +35,8 @@ export default function LoginForm() {
             label="Username"
             name="username"
             autoComplete="username"
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: 'red', // Cambia el color del borde a rojo
-                },
-              },
-            }}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -55,15 +49,13 @@ export default function LoginForm() {
             name="password"
             type="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Grid>
       </Grid>
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-      >
+      {error && <p>{error}</p>}
+      <Button type="submit" fullWidth variant="contained" color="primary">
         Sign In
       </Button>
     </form>

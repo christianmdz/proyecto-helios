@@ -24,6 +24,6 @@ public interface NaveganteEnTareaRepository extends JpaRepository<NaveganteEnTar
     @Query("delete from NaveganteEnTarea NT where NT.navegante.id = ?1")
     public void deleteCrewFromTask(int idCrew);
 
-    @Query("select case when count(NP) > 0 then true else false end from NaveganteEnTarea NT where NT.tarea.id = ?1 ")
+    @Query("select case when count(NT) > 0 then true else false end from NaveganteEnTarea NT where NT.tarea.id = ?1 ")
     public boolean existsByTaskId(int idTask);
 }
