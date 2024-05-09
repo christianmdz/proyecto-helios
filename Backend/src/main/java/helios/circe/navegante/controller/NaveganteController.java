@@ -33,9 +33,10 @@ public class NaveganteController {
             List<NaveganteBaseDto> listaNavegantes = new ArrayList<>();
             String token = jwtService.getTokenFromRequest(request);
             listaNavegantes = naveganteService.buscarTodos(token);
-            return (!listaNavegantes.isEmpty()) ? ResponseEntity.ok(listaNavegantes) : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin tripulantes");
+            return (!listaNavegantes.isEmpty())
+                ? ResponseEntity.ok(listaNavegantes)
+                : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin tripulantes");
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al obtener datos de tripulación");
         }
 

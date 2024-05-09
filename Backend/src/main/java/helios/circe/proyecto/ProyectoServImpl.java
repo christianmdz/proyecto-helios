@@ -152,7 +152,6 @@ public class ProyectoServImpl implements ProyectoService{
             }
             else {throw new NoSuchElementException();}
         } catch (Exception e) {
-            e.printStackTrace(); // TODO: solo para desarrollo : captura en controlador??
             return false;
         }
     }
