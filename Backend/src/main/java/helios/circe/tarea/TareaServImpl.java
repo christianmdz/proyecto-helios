@@ -2,6 +2,7 @@ package helios.circe.tarea;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import helios.circe.jwt.JwtService;
 import helios.circe.mappings.DtoMapper;
 import helios.circe.navegante.Campo;
 import helios.circe.navegante.NaveganteService;
+import helios.circe.naventarea.NaveganteEnTareaService;
+import helios.circe.naventarea.dto.NaveganteEnTareaAltaDto;
 import helios.circe.tarea.dto.TareaAuthDto;
 import helios.circe.tarea.dto.TareaBaseDto;
 import helios.circe.tarea.dto.TareaModificarDto;
@@ -24,6 +27,7 @@ public class TareaServImpl implements TareaService {
     private final DtoMapper dtoMapper;
     private final JwtService jwtService;
     private final NaveganteService naveganteService;
+    private final NaveganteEnTareaService naveganteEnTareaService;
 
     @Override
     public List<TareaBaseDto> buscarTodos(String token) {
@@ -67,29 +71,50 @@ public class TareaServImpl implements TareaService {
     }
 
     @Override
-    public TareaBaseDto buscarPorId(String campo, int idTarea) {
+    public TareaBaseDto detalleTarea(String campo, int idTarea) {
 
         Tarea tarea = buscarPorId(idTarea);
+
+        if(tarea == null) {
+            throw new NoSuchElementException();
+        }
+
+        if(!autorizacionPorCampo(campo, tarea.getCampo().name())){
+            throw new SecurityException();
+        }
+
         TareaAuthDto tareaDto = dtoMapper.mapFromTarea(tarea, TareaAuthDto.class);
 
-        if(autorizacionPorCampo(campo, tareaDto.getCampo())) {return tareaDto;}
-        else {return null;}
+        return tareaDto;
     }
-
-    private Tarea buscarPorId(int idTarea){
+    @Override
+    public Tarea buscarPorId(int idTarea){
         return tareaRepository.findById(idTarea).orElseThrow();
     }
 
     @Override
     public boolean crearTarea(TareaRequestDto tareaRequestDto) {
         try {
+            // Alta Tarea
             Tarea tarea = dtoMapper.mapFromRequestTareaDto(tareaRequestDto, naveganteService);
-            tareaRepository.save(tarea);
+            tarea = altaTarea(tarea);
+
+            // Alta responsable tarea
+            NaveganteEnTareaAltaDto naveganteDto = new NaveganteEnTareaAltaDto();
+            naveganteDto.setIdNavegante(tarea.getResponsable().getId());
+            naveganteDto.setIdTarea(tarea.getId());
+            naveganteDto.setFechaIncorporacion(new java.util.Date());
+            naveganteDto.setJornada("parcial");
+            naveganteDto.setAsignacion("indefinida");
+            naveganteEnTareaService.altaNaveganteEnTarea(naveganteDto, this);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
+    }
+
+    private Tarea altaTarea(Tarea tarea){
+        return tareaRepository.save(tarea);
     }
 
     @Override
@@ -103,7 +128,7 @@ public class TareaServImpl implements TareaService {
             }
             else {return false;}
         } catch (Exception e) {
-            e.printStackTrace(); // TODO: solo para desarrollo : captura en controlador??
+            e.printStackTrace();
             return false;
         }
     }
@@ -117,6 +142,11 @@ public class TareaServImpl implements TareaService {
 
     private boolean autorizacionPorCampo(String campo, String campoTarea) {
         return (campo.equals(campoTarea) || campo.equals("LIDER"));
+    }
+
+    @Override
+    public boolean existeTarea(int idTarea) {
+        return tareaRepository.existsById(idTarea);
     }
 
 }

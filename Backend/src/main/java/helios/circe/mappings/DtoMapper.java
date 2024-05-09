@@ -10,13 +10,19 @@ import helios.circe.navegante.NaveganteService;
 import helios.circe.navegante.dto.NaveganteAuthDto;
 import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navegante.dto.NavegantePublicoDto;
+import helios.circe.navenproy.NaveganteEnProyecto;
+import helios.circe.navenproy.dto.NaveganteEnProyectoAltaDto;
+import helios.circe.naventarea.NaveganteEnTarea;
+import helios.circe.naventarea.dto.NaveganteEnTareaAltaDto;
 import helios.circe.proyecto.Proyecto;
+import helios.circe.proyecto.ProyectoService;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
 import helios.circe.proyecto.dto.ProyectoPublicoDto;
 import helios.circe.proyecto.dto.ProyectoRequestDto;
 import helios.circe.tarea.Tarea;
+import helios.circe.tarea.TareaService;
 import helios.circe.tarea.dto.TareaAuthDto;
 import helios.circe.tarea.dto.TareaBaseDto;
 import helios.circe.tarea.dto.TareaModificarDto;
@@ -27,6 +33,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class DtoMapper {
+
+    // --------------------------- PROYECTOS ---------------------------
 
     public <T extends ProyectoBaseDto> T mapFromProyecto(Proyecto proyecto, Class<T> dtoClass) {
 
@@ -96,6 +104,8 @@ public class DtoMapper {
         return proyecto;
     }
 
+    // --------------------------- NAVEGANTES ---------------------------
+
     public <T extends NaveganteBaseDto> T mapFromNavegante(Navegante navegante, Class<T> dtoClass) {
 
         T naveganteDto;
@@ -130,6 +140,8 @@ public class DtoMapper {
         return naveganteDto;
     }
 
+    // --------------------------- TAREAS ---------------------------
+
     public <T extends TareaBaseDto> T mapFromTarea(Tarea tarea, Class<T> dtoClass) {
 
         T tareaDto;
@@ -163,7 +175,7 @@ public class DtoMapper {
     public Tarea mapFromRequestTareaDto(TareaRequestDto tareaDto, NaveganteService navServ) {
 
         Tarea tarea = new Tarea();
-        Navegante navegante = navServ.buscarPorUsername(tareaDto.getResponsable());
+        Navegante navegante = navServ.buscarPorId(tareaDto.getIdResponsable());
         Campo campo = Campo.fromString(tareaDto.getCampo());
 
         tarea.setNombre(tareaDto.getNombre());
@@ -189,5 +201,38 @@ public class DtoMapper {
         tarea.setCampo(campo);
 
         return tarea;
+    }
+
+    // --------------------------- NAVEGANTE EN PROYECTO ---------------------------
+
+    public NaveganteEnProyecto mapFromAltaNaveganteEnProyecto(NaveganteEnProyectoAltaDto naveganteDto, NaveganteService naveganteService, ProyectoService proyectoService){
+
+        NaveganteEnProyecto naveganteEnProyecto = new NaveganteEnProyecto();
+        Navegante navegante = naveganteService.buscarPorId(naveganteDto.getIdNavegante());
+        Proyecto proyecto = proyectoService.buscarPorId(naveganteDto.getIdProyecto());
+
+        naveganteEnProyecto.setNavegante(navegante);
+        naveganteEnProyecto.setProyecto(proyecto);
+        naveganteEnProyecto.setFechaIncorporacion(naveganteDto.getFechaIncorporacion());
+        naveganteEnProyecto.setDiasAsignados(naveganteDto.getDiasAsignados());
+
+        return naveganteEnProyecto;
+    }
+
+    // --------------------------- NAVEGANTE EN TAREA ---------------------------
+
+    public NaveganteEnTarea mapFromAltaNaveganteEnTarea(NaveganteEnTareaAltaDto naveganteDto, NaveganteService naveganteService, TareaService tareaService){
+
+        NaveganteEnTarea naveganteEnTarea = new NaveganteEnTarea();
+        Navegante navegante = naveganteService.buscarPorId(naveganteDto.getIdNavegante());
+        Tarea tarea = tareaService.buscarPorId(naveganteDto.getIdTarea());
+
+        naveganteEnTarea.setNavegante(navegante);
+        naveganteEnTarea.setTarea(tarea);
+        naveganteEnTarea.setFechaIncorporacion(naveganteDto.getFechaIncorporacion());
+        naveganteEnTarea.setJornada(naveganteDto.getJornada());
+        naveganteEnTarea.setAsignacion(naveganteDto.getAsignacion());
+
+        return naveganteEnTarea;
     }
 }

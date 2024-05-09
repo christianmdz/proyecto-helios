@@ -2,6 +2,7 @@ package helios.circe.navegante;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -69,19 +70,28 @@ public class NaveganteServImpl implements NaveganteService {
     }
 
     @Override
-    public Navegante buscarPorId(int idNavegante) {
-        return naveganteRepository.findById(idNavegante).orElseThrow();
+    public NaveganteBaseDto detalleNavegante(String campo, int idNavegante) {
+
+        Navegante navegante = naveganteRepository.findById(idNavegante).orElseThrow();
+
+        if(navegante == null){
+            throw new NoSuchElementException();
+        }
+
+        if(!autorizacionPorCampo(campo, navegante.getCampo().name())){
+            throw new SecurityException();
+        }
+
+        NaveganteAuthDto naveganteDto = dtoMapper.mapFromNavegante(navegante, NaveganteAuthDto.class);
+
+        return naveganteDto;
+
     }
 
     @Override
     public Navegante buscarPorUsername(String username) {
         return naveganteRepository.findByUsername(username).orElseThrow();
     }
-
-    // private List<Navegante> buscarPorRol(String rol) {
-    //     Role enumRole = Role.fromString(rol);
-    //     return naveganteRepository.findByRole(enumRole);
-    // }
 
     private List<Navegante> buscarPorCampo(String campo) {
         Campo enumCampo = Campo.fromString(campo);
@@ -91,6 +101,20 @@ public class NaveganteServImpl implements NaveganteService {
     public String nombrePorUsername(String username){
         Navegante navegante = buscarPorUsername(username);
         return navegante.getNombre();
+    }
+
+    private boolean autorizacionPorCampo(String campo, String campoProyecto){
+        return (campo.equals(campoProyecto) || campo.equals("LIDER"));
+    }
+
+    @Override
+    public Navegante buscarPorId(int idNavegante) {
+        return naveganteRepository.findById(idNavegante).orElseThrow();
+    }
+
+    @Override
+    public boolean existeNavegante(int idNavegante) {
+        return naveganteRepository.existsById(idNavegante);
     }
     
 }

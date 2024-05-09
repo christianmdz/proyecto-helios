@@ -6,11 +6,10 @@ import helios.circe.navegante.dto.NaveganteBaseDto;
 
 public interface NaveganteService {
     
+    NaveganteBaseDto detalleNavegante(String campo, int idNavegante);
     Navegante buscarPorId(int idNavegante);
     Navegante buscarPorUsername(String username);
-
-    // List<Navegante> buscarPorRol(String rol);
-    // List<Navegante> buscarPorCampo(String campo);
+    boolean existeNavegante(int idNavegante);
     
     List<NaveganteBaseDto> infoPublicaTripulacion();
     List<NaveganteBaseDto> buscarTodos(String token);

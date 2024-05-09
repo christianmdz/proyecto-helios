@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TareaRequestDto {
 
-    String responsable;
+    int  idResponsable;
     String campo;
     String nombre;
     String descripcion;

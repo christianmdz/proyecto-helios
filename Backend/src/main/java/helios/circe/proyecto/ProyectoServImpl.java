@@ -10,6 +10,8 @@ import helios.circe.jwt.JwtService;
 import helios.circe.mappings.DtoMapper;
 import helios.circe.navegante.Campo;
 import helios.circe.navegante.NaveganteService;
+import helios.circe.navenproy.NaveganteEnProyectoService;
+import helios.circe.navenproy.dto.NaveganteEnProyectoAltaDto;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
@@ -25,6 +27,7 @@ public class ProyectoServImpl implements ProyectoService{
     private final DtoMapper dtoMapper;
     private final ProyectoRepository proyectoRepository;
     private final NaveganteService naveganteService;
+    private final NaveganteEnProyectoService naveganteEnProyectoService;
 
     @Override
     public List<ProyectoBaseDto> listaProyectos(String token) {
@@ -82,29 +85,44 @@ public class ProyectoServImpl implements ProyectoService{
         if (proyecto == null) {
             throw new NoSuchElementException();
         }
+        
+        if (!autorizacionPorCampo(campo, proyecto.getCampo().name())) {
+            throw new SecurityException();
+        }
 
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
-        if (!autorizacionPorCampo(campo, proyectoDto.getCampo())) {
-            throw new SecurityException();
-        }
-        
         return proyectoDto;
     }
 
-    private Proyecto buscarPorId(int idProyecto){
+    @Override
+    public Proyecto buscarPorId(int idProyecto){
         return proyectoRepository.findById(idProyecto).orElseThrow();
     }
 
     @Override
     public boolean crearProyecto(ProyectoRequestDto proyectoDto) {
         try {
+            // Alta proyecto
             Proyecto proyecto = dtoMapper.mapFromRequestProyectoDto(proyectoDto, naveganteService);
-            proyectoRepository.save(proyecto);
+            proyecto = altaProyecto(proyecto);
+
+            // Alta director proyecto
+            NaveganteEnProyectoAltaDto naveganteDto = new NaveganteEnProyectoAltaDto();
+            naveganteDto.setIdNavegante(proyecto.getDirector().getId());
+            naveganteDto.setIdProyecto(proyecto.getId());
+            naveganteDto.setFechaIncorporacion(proyecto.getFechaInicio());
+            naveganteDto.setDiasAsignados(365);
+            naveganteEnProyectoService.altaNaveganteEnProyecto(naveganteDto, this);
+            
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private Proyecto altaProyecto(Proyecto proyecto){
+        return proyectoRepository.save(proyecto);
     }
 
     @Override
@@ -134,7 +152,6 @@ public class ProyectoServImpl implements ProyectoService{
             }
             else {throw new NoSuchElementException();}
         } catch (Exception e) {
-            e.printStackTrace(); // TODO: solo para desarrollo : captura en controlador??
             return false;
         }
     }
@@ -148,5 +165,16 @@ public class ProyectoServImpl implements ProyectoService{
 
     private boolean autorizacionPorCampo(String campo, String campoProyecto){
         return (campo.equals(campoProyecto) || campo.equals("LIDER"));
+    }
+
+    @Override
+    public boolean existeProyecto(int idProyecto) {
+        return proyectoRepository.existsById(idProyecto);
+    }
+
+    @Override
+    public String campoDeProyecto(int idProyecto) {
+        Campo campo = proyectoRepository.getProjectField(idProyecto);
+        return campo.name();
     }
 }

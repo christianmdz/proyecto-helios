@@ -1,4 +1,4 @@
-package helios.circe.navenproy;
+package helios.circe.naventarea.dto;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NaveganteEnProyectoDto {
+public class NaveganteEnTareaDto {
     
     int id;
     String nombre;
@@ -22,6 +22,7 @@ public class NaveganteEnProyectoDto {
     Campo campo;
     int idNave;
     Date fechaIncorporacion;
-    int diasAsignados;
-
+    String jornada;
+    String asignacion;
+        
 }
