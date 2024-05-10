@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from "../config/index"
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Collapse, IconButton, Typography, Paper } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import CollapsibleTable from '../components/TablaDetalle';
 
 
 export default function Comandante() {
@@ -28,7 +24,7 @@ export default function Comandante() {
         },
       });
       setTripulacion(response.data);
-      console.log(response.data)
+      console.log(tripulacion)
     } catch (error) {
       console.error('Error al obtener información de la tripulación:', error);
     }
