@@ -1,32 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { styled } from '@mui/system';
+import MainHeader from '../components/MainHeader';
+import MainBody from '../components/MainBody';
+import MainTaskBar from '../components/MainTaskBar';
 
-const homeStyles = {
-  backgroundColor: '#0d1117',
-  color: '#c9d1d9',
-  padding: '20px',
-};
 
-const buttonStyles = {
-  backgroundColor: '#61AFEF',
-  color: '#ffffff',
-  border: 'none',
-  padding: '10px 20px',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)',
-};
+const Container = styled('div')({
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+});
 
-function Home() {
+const Header = styled('div')({
+  minHeight: '25%',
+});
+
+const Body = styled('div')({
+  minHeight: '50%',
+});
+
+const TaskBar = styled('div')({
+  minHeight: '25%',
+});
+
+export default function Home() {
   return (
-    <div style={homeStyles}>
-      <h1>PROYECTO HELIOS</h1>
-      <p>Please log in to access your account:</p>
-      <Link to="/login">
-        <button style={buttonStyles}>Login</button>
-      </Link>
-    </div>
+    <Container>
+      <Header>
+        <MainHeader />
+      </Header>
+      <Body>
+        <MainBody />
+      </Body>
+      <TaskBar>
+        <MainTaskBar />
+      </TaskBar>
+    </Container>
   );
 }
 
-export default Home;
+// function Home() {
+//   return (
+//     <div>
+//       <h1>PROYECTO HELIOS</h1>
+//       <p>Please log in to access your account:</p>
+//       <Link to="/login">
+//         <button>Login</button>
+//       </Link>
+//     </div>
+//   );
+// }
