@@ -2,6 +2,7 @@ package helios.circe.proyecto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import helios.circe.jwt.JwtService;
 import helios.circe.mappings.DtoMapper;
 import helios.circe.navegante.Campo;
 import helios.circe.navegante.NaveganteService;
+import helios.circe.navenproy.NaveganteEnProyectoService;
+import helios.circe.navenproy.dto.NaveganteEnProyectoAltaDto;
 import helios.circe.proyecto.dto.ProyectoAuthDto;
 import helios.circe.proyecto.dto.ProyectoBaseDto;
 import helios.circe.proyecto.dto.ProyectoModificarDto;
@@ -24,9 +27,10 @@ public class ProyectoServImpl implements ProyectoService{
     private final DtoMapper dtoMapper;
     private final ProyectoRepository proyectoRepository;
     private final NaveganteService naveganteService;
+    private final NaveganteEnProyectoService naveganteEnProyectoService;
 
     @Override
-    public List<ProyectoBaseDto> buscarTodos(String token) {
+    public List<ProyectoBaseDto> listaProyectos(String token) {
 
         String rol = jwtService.getRolFromToken(token);
         
@@ -35,7 +39,7 @@ public class ProyectoServImpl implements ProyectoService{
 
         switch (rol) {
             case "COMANDANTE":
-                proyectos = proyectoRepository.findAll();
+                proyectos = buscarTodos();
                 mapearListaProyectosADto(proyectos, listaProyectos, ProyectoAuthDto.class);
                 break;
             case "MANDO":
@@ -45,14 +49,27 @@ public class ProyectoServImpl implements ProyectoService{
                 mapearListaProyectosADto(proyectos, listaProyectos, ProyectoAuthDto.class);
                 break;
             case "COLONO":
-                proyectos = proyectoRepository.findAll();
+                proyectos = buscarTodos();
                 mapearListaProyectosADto(proyectos, listaProyectos, ProyectoPublicoDto.class);
                 break;
+            default:
+                throw new SecurityException();
         }
         
         return listaProyectos;
     }
 
+    private List<Proyecto> buscarTodos(){
+        return proyectoRepository.findAll();
+    }
+
+    
+    private List<Proyecto> buscarPorCampo(String campo) {
+        
+        Campo enumCampo = Campo.fromString(campo);
+        return proyectoRepository.findByField(enumCampo);
+    }
+    
     private void mapearListaProyectosADto(List<Proyecto> listaProyectosOrigen, List<ProyectoBaseDto> listaProyectosDestino, Class<? extends ProyectoBaseDto> dtoClass){
 
         for(Proyecto proyecto : listaProyectosOrigen){
@@ -60,41 +77,67 @@ public class ProyectoServImpl implements ProyectoService{
         }
     }
 
-    private List<Proyecto> buscarPorCampo(String campo) {
-        
-        Campo enumCampo = Campo.fromString(campo);
-        return proyectoRepository.findByField(enumCampo);
-    }
-
     @Override
-    public ProyectoBaseDto buscarPorId(int idProyecto) {
+    public ProyectoBaseDto detalleProyecto(String campo, int idProyecto) {
+        
+        Proyecto proyecto = buscarPorId(idProyecto);
+    
+        if (proyecto == null) {
+            throw new NoSuchElementException();
+        }
+        
+        if (!autorizacionPorCampo(campo, proyecto.getCampo().name())) {
+            throw new SecurityException();
+        }
 
-        Proyecto proyecto = proyectoRepository.findById(idProyecto).orElseThrow();
         ProyectoAuthDto proyectoDto = dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class);
 
         return proyectoDto;
     }
 
     @Override
-    public Proyecto crearProyecto(ProyectoRequestDto proyectoDto) {
-        try {
-            Proyecto proyecto = dtoMapper.mapFromRequestProyectoDto(proyectoDto, naveganteService);
-            return proyectoRepository.save(proyecto);
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
+    public Proyecto buscarPorId(int idProyecto){
+        return proyectoRepository.findById(idProyecto).orElseThrow();
     }
 
     @Override
-    public Proyecto modificarProyecto(ProyectoModificarDto proyectoDto) {
+    public boolean crearProyecto(ProyectoRequestDto proyectoDto) {
+        try {
+            // Alta proyecto
+            Proyecto proyecto = dtoMapper.mapFromRequestProyectoDto(proyectoDto, naveganteService);
+            proyecto = altaProyecto(proyecto);
+
+            // Alta director proyecto
+            NaveganteEnProyectoAltaDto naveganteDto = new NaveganteEnProyectoAltaDto();
+            naveganteDto.setIdNavegante(proyecto.getDirector().getId());
+            naveganteDto.setIdProyecto(proyecto.getId());
+            naveganteDto.setFechaIncorporacion(proyecto.getFechaInicio());
+            naveganteDto.setDiasAsignados(365);
+            naveganteEnProyectoService.altaNaveganteEnProyecto(naveganteDto, this);
+            
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Proyecto altaProyecto(Proyecto proyecto){
+        return proyectoRepository.save(proyecto);
+    }
+
+    @Override
+    public boolean modificarProyecto(String campo, ProyectoModificarDto proyectoDto) {
+        if(!autorizacionPorCampo(campo, proyectoDto.getId())) {throw new SecurityException();}
         try {
             Proyecto proyecto = dtoMapper.mapFromModificarProyectoDto(proyectoDto, naveganteService);
-            if(buscarPorId(proyecto.getId()) != null) {return proyectoRepository.save(proyecto);}
-            else {return null;}
+            if(buscarPorId(proyecto.getId()) != null) {
+                proyectoRepository.save(proyecto);
+                return true;
+            }
+            else {throw new NoSuchElementException();}
         } catch (Exception e) {
-            System.out.println(e);
-            return null;
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -107,11 +150,31 @@ public class ProyectoServImpl implements ProyectoService{
                 proyectoRepository.save(proyecto);
                 return true;
             }
-            else{
-                return false;
-            }
+            else {throw new NoSuchElementException();}
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean autorizacionPorCampo(String campo, int idProyecto){
+        Proyecto proyecto = buscarPorId(idProyecto);
+        if(campo.equals("LIDER") || campo.equals(proyecto.getCampo().name())) {return true;}
+        else {return false;} 
+    }
+
+    private boolean autorizacionPorCampo(String campo, String campoProyecto){
+        return (campo.equals(campoProyecto) || campo.equals("LIDER"));
+    }
+
+    @Override
+    public boolean existeProyecto(int idProyecto) {
+        return proyectoRepository.existsById(idProyecto);
+    }
+
+    @Override
+    public String campoDeProyecto(int idProyecto) {
+        Campo campo = proyectoRepository.getProjectField(idProyecto);
+        return campo.name();
     }
 }

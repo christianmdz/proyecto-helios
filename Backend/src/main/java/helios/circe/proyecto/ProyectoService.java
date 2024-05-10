@@ -8,10 +8,14 @@ import helios.circe.proyecto.dto.ProyectoRequestDto;
 
 public interface ProyectoService {
     
-    List<ProyectoBaseDto> buscarTodos(String token);
-    ProyectoBaseDto buscarPorId(int id);
-    Proyecto crearProyecto(ProyectoRequestDto proyectoDto);
-    Proyecto modificarProyecto(ProyectoModificarDto proyectoDto);
+    List<ProyectoBaseDto> listaProyectos(String token);
+    ProyectoBaseDto detalleProyecto(String campo, int idProyecto);
+    boolean crearProyecto(ProyectoRequestDto proyectoDto);
+    boolean modificarProyecto(String campo, ProyectoModificarDto proyectoDto);
     boolean cancelarProyecto(int idProyecto);
+    boolean autorizacionPorCampo(String campo, int idProyecto);
+    boolean existeProyecto(int idProyecto);
+    String campoDeProyecto(int idProyecto);
 
+    Proyecto buscarPorId(int idProyecto);
 }

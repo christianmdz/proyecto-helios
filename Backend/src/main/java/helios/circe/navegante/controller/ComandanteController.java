@@ -1,25 +1,20 @@
 package helios.circe.navegante.controller;
 
-import java.util.List;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import helios.circe.jwt.JwtService;
-import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navenproy.NaveganteEnProyectoService;
-import helios.circe.proyecto.Proyecto;
+import helios.circe.navenproy.dto.NaveganteEnProyectoAltaDto;
+import helios.circe.naventarea.NaveganteEnTareaService;
+import helios.circe.naventarea.dto.NaveganteEnTareaAltaDto;
 import helios.circe.proyecto.ProyectoService;
-import helios.circe.proyecto.dto.ProyectoBaseDto;
-import helios.circe.proyecto.dto.ProyectoModificarDto;
-import helios.circe.proyecto.dto.ProyectoRequestDto;
-import jakarta.servlet.http.HttpServletRequest;
+import helios.circe.tarea.TareaService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -27,67 +22,40 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ComandanteController {
 
-    private final JwtService jwtService; 
+    private final NaveganteEnProyectoService naveganteEnProyectoService;
+    private final NaveganteEnTareaService naveganteEnTareaService;
     private final ProyectoService proyectoService;
-    private final NaveganteEnProyectoService navEnProyServ;
-    
-    @GetMapping("/proyectos/info-proyectos")
-    public List<ProyectoBaseDto> listaProyectos(HttpServletRequest request){
-        String token = jwtService.getTokenFromRequest(request);
-        return proyectoService.buscarTodos(token);
+    private final TareaService tareaService;
+
+    @PostMapping("/alta-navegante-proyecto")
+    public ResponseEntity<?> altaNaveganteEnProyecto(@RequestBody NaveganteEnProyectoAltaDto naveganteDto){
+        
+        return naveganteEnProyectoService.altaNaveganteEnProyecto(naveganteDto, proyectoService)
+                ? ResponseEntity.ok("Alta completada")
+                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en alta");
     }
 
-    @GetMapping("/proyectos/info-proyectos/{idProyecto}")
-    public ProyectoBaseDto detalleProyecto(@PathVariable int idProyecto){
-        return proyectoService.buscarPorId(idProyecto);
+    @DeleteMapping("/baja-navegante-proyecto/{idProyecto}/{idNavegante}")
+    public ResponseEntity<?> bajaNaveganteEnProyecto(@PathVariable int idProyecto, @PathVariable int idNavegante){
+        
+        return naveganteEnProyectoService.bajaNaveganteEnProyecto(idProyecto, idNavegante)
+                ? ResponseEntity.ok("Baja completada")
+                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en baja");
     }
 
-    @GetMapping("/proyectos/tripulacion-en-proyecto/{idProyecto}")
-    public List<NaveganteBaseDto> tripulantesEnProyecto(@PathVariable int idProyecto){
-        return navEnProyServ.buscarTripulantesEnProyecto(idProyecto);
+    @PostMapping("/alta-navegante-tarea")
+    public ResponseEntity<?> altaNaveganteEnTarea(@RequestBody NaveganteEnTareaAltaDto naveganteDto){
+
+        return naveganteEnTareaService.altaNaveganteEnTarea(naveganteDto, tareaService)
+                ? ResponseEntity.ok("Alta completada")
+                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en alta");
     }
 
-    @PostMapping("/proyectos/nuevo-proyecto")
-    public Proyecto nuevoProyecto(@RequestBody ProyectoRequestDto proyectoDto){
-        return proyectoService.crearProyecto(proyectoDto);
+    @DeleteMapping("/baja-navegante-tarea/{idTarea}/{idNavegante}")
+    public ResponseEntity<?> bajaNaveganteEnTarea(@PathVariable int idTarea, @PathVariable int idNavegante){
+        return naveganteEnTareaService.bajaNaveganteEnTarea(idTarea, idNavegante)
+                ? ResponseEntity.ok("Baja completada")
+                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en baja");
     }
 
-    @PutMapping("/proyectos/modificar-proyecto")
-    public Proyecto modificarProyecto(@RequestBody ProyectoModificarDto proyecto){
-        return proyectoService.modificarProyecto(proyecto);
-    }
-
-    @DeleteMapping("/proyectos/eliminar-proyecto/{idProyecto}")
-    public boolean eliminarProyecto(@PathVariable int idProyecto){
-        return proyectoService.cancelarProyecto(idProyecto);
-    }
 }
-
-/**
- * TODO: ENDPOINTS Proyectos
- *  * GET    /proyectos/info-proyectos
- *  * GET    /proyectos/info-proyectos/{idProyecto} : ProyectoAuthDto
- *  * POST   /proyectos/nuevo-proyecto
- *  * PUT    /proyectos/modificar-proyecto : ProyectoAuthDto
- *  = DELETE /proyectos/eliminar-proyecto/{idProyecto} : Modificar estado a Cancelado
- *  * GET    /proyectos/tripulacion-en-proyecto/{idProyecto}
- * 
- * ------------------
- *  - Pendiente
- *  = Implementados
- *  * Testeado
-*/
-
-/**
- * TODO: ENDPOINTS Tareas
- *  * GET       /tareas/info-tareas
- *  * GET       /tareas/info-tareas/{idTarea} : TareaAuthDto
- *  * POST       /tareas/nuevo-tarea
- *  * PUT       /tareas/modificar-tarea : TareaAuthDto
- *  * GET       /tareas/tripulacion-en-tarea/{idTarea}
- *  - DELETE    /tareas/eliminar-tarea/{idTarea}
- *  ------------------
- *  - Pendiente
- *  = Implementados
- *  * Testeado
-*/

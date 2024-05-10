@@ -71,5 +71,9 @@ public class AuthService {
             .token(jwtService.getToken(navegante, extraClaims))
             .build();
     }
+
+    public static boolean autorizacionPorCampo(String campoPeticion, String campoRequerido){
+        return (campoPeticion.equals(campoRequerido) || campoPeticion.equals("LIDER"));
+    }
     
 }

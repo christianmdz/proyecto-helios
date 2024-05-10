@@ -1,14 +1,14 @@
 package helios.circe.navenproy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import helios.circe.mappings.DtoMapper;
-import helios.circe.navegante.Navegante;
-import helios.circe.navegante.dto.NaveganteAuthDto;
-import helios.circe.navegante.dto.NaveganteBaseDto;
+import helios.circe.navegante.NaveganteService;
+import helios.circe.navenproy.dto.NaveganteEnProyectoAltaDto;
+import helios.circe.navenproy.dto.NaveganteEnProyectoDto;
+import helios.circe.proyecto.ProyectoService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -16,24 +16,38 @@ import lombok.RequiredArgsConstructor;
 public class NaveganteEnProyectoServImpl implements NaveganteEnProyectoService{
 
     private final DtoMapper dtoMapper;
-    private final NaveganteEnProyectoRepository nepRep;
+    private final NaveganteService naveganteService;
+    private final NaveganteEnProyectoRepository naveganteEnProyectoRepository;
 
     @Override
-    public List<NaveganteBaseDto> buscarTripulantesEnProyecto(int idProyecto) {
-        
-        List<Navegante> navegantes = nepRep.findCrewByProject(idProyecto);
-        List<NaveganteBaseDto> navegantesDto = new ArrayList<>();
+    public List<NaveganteEnProyectoDto> buscarTripulantesEnProyecto(String campo, int idProyecto, ProyectoService proyectoService) {
 
-        for(Navegante navegante : navegantes){
-            navegantesDto.add(dtoMapper.mapFromNavegante(navegante, NaveganteAuthDto.class));
+        if(proyectoService.autorizacionPorCampo(campo, idProyecto)){
+
+            List<NaveganteEnProyectoDto> navegantesDto = naveganteEnProyectoRepository.findCrewByProjectDto(idProyecto);
+            return navegantesDto;
         }
-
-        return navegantesDto;
+        else {throw new SecurityException();}
     }
 
     @Override
-    public NaveganteEnProyecto buscarPorDirector(int idDirector) {
-        return null;
+    public boolean altaNaveganteEnProyecto(NaveganteEnProyectoAltaDto naveganteEnProyectoDto, ProyectoService proyectoService) {
+        
+        if(naveganteService.existeNavegante(naveganteEnProyectoDto.getIdNavegante()) && proyectoService.existeProyecto(naveganteEnProyectoDto.getIdProyecto())){
+            NaveganteEnProyecto naveganteEnProyecto = dtoMapper.mapFromAltaNaveganteEnProyecto(naveganteEnProyectoDto, naveganteService, proyectoService);
+            naveganteEnProyectoRepository.save(naveganteEnProyecto);
+            return true;
+        }
+        else {return false;}
     }
-    
+
+    @Override
+    public boolean bajaNaveganteEnProyecto(int idProyecto, int idNavegante) {
+        
+        if(naveganteEnProyectoRepository.existsByProjectId(idProyecto)){
+            naveganteEnProyectoRepository.deleteCrewFromProject(idNavegante);
+            return true;
+        }
+        else {return false;}
+    }
 }
