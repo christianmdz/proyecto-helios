@@ -1,13 +1,10 @@
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
+import Routing from './components/Routing'
 
-function App() {
-
-
+export default function App() {
   return (
-    <h1>
-      Hello World!
-    </h1>
+    <BrowserRouter>
+      <Routing />
+    </BrowserRouter>
   )
 }
-
-export default App
