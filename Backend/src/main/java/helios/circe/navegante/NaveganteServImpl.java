@@ -59,7 +59,7 @@ public class NaveganteServImpl implements NaveganteService {
                 throw new SecurityException();
         }
 
-        return null;
+        return listaNavegantes;
     }
 
     private void mapearListaNavegantesADto(List<Navegante> listaNavegantesOrigen, List<NaveganteBaseDto> listaNavegantesDestio, Class<? extends NaveganteBaseDto> dtoClass){
