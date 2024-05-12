@@ -7,7 +7,7 @@ const MainBody = ({ selectedComponent }) => {
       {/* Imagen temática */}
       <Box sx={{ textAlign: 'center', my: 4 }}>
         {/* Aquí puedes poner la imagen temática */}
-        <img src="url_de_la_imagen" alt="Imagen temática" style={{ maxWidth: '100%', maxHeight: '400px' }} />
+        <img src="url_de_la_imagen" alt="Imagen temática"/>
       </Box>
 
       {/* Componente seleccionado desde el TaskBar */}

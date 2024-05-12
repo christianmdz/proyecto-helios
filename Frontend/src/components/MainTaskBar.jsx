@@ -7,7 +7,7 @@ export default function MainTaskBar() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: 'blue'}}>
       <Button variant="outlined" onClick={() => handleClick('Nave')}>Nave</Button>
       <Button variant="outlined" onClick={() => handleClick('Misión')}>Misión</Button>
       <Button variant="outlined" onClick={() => handleClick('Tripulación')}>Tripulación</Button>

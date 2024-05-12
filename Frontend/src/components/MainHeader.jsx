@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 
 const MainHeader = () => {
   // Datos ficticios de la nave y la misión
-  const shipName = "S.S. Enterprise";
-  const missionName = "Misión de Colonización de Alfa Centauri";
+  const shipName = "Circe";
+  const missionName = "Misión Ceres";
 
   return (
     <AppBar position="static">
       <Toolbar>
         {/* Logo del proyecto */}
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Proyecto Colonización Estelar
+        <Typography variant="h6">
+          Proyecto Helios
         </Typography>
         
         {/* Información de la nave y la misión */}
-        <Typography variant="subtitle1" sx={{ mr: 2 }}>
+        <Typography variant="subtitle1">
           {shipName} - {missionName}
         </Typography>
         

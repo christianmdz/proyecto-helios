@@ -8,6 +8,7 @@ import MainTaskBar from '../components/MainTaskBar';
 
 const Container = styled('div')({
   height: '100vh',
+  width: '100vw',
   display: 'flex',
   flexDirection: 'column',
 });
@@ -21,7 +22,7 @@ const Body = styled('div')({
 });
 
 const TaskBar = styled('div')({
-  minHeight: '25%',
+  minHeight: '15%',
 });
 
 export default function Home() {
@@ -39,15 +40,3 @@ export default function Home() {
     </Container>
   );
 }
-
-// function Home() {
-//   return (
-//     <div>
-//       <h1>PROYECTO HELIOS</h1>
-//       <p>Please log in to access your account:</p>
-//       <Link to="/login">
-//         <button>Login</button>
-//       </Link>
-//     </div>
-//   );
-// }
