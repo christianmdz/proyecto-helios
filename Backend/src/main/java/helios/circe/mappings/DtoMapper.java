@@ -162,6 +162,7 @@ public class DtoMapper {
             tareaAuthDto.setCampo(tarea.getCampo().name());
             tareaAuthDto.setFrecuencia(tarea.getFrecuencia());
             tareaAuthDto.setResponsableEmail(tarea.getResponsable().getEmail());
+            tareaAuthDto.setDescripcion(tarea.getDescripcion());
         }
 
         if (tareaDto instanceof TareaPublicoDto) {

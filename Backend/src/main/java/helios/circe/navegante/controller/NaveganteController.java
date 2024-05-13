@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import helios.circe.jwt.JwtService;
 import helios.circe.navegante.NaveganteService;
 import helios.circe.navegante.dto.NaveganteBaseDto;
+import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.tarea.dto.TareaBaseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -49,5 +51,23 @@ public class NaveganteController {
         String campo = jwtService.getCampoFromRequest(request);
         NaveganteBaseDto naveganteDto = naveganteService.detalleNavegante(campo, idTripulante);
         return ResponseEntity.ok(naveganteDto);
-    }   
+    }
+
+    @GetMapping("proyectos-de-tripulante/{idTripulante}")
+    @PreAuthorize("hasAnyRole('COMANDANTE','MANDO', 'TRIPULANTE')")
+    public ResponseEntity<?> proyectosPorTripulante(@PathVariable int idTripulante){
+        List<ProyectoBaseDto> listaProyectos = naveganteService.proyectosPorNavegante(idTripulante);
+        return (!listaProyectos.isEmpty())
+            ? ResponseEntity.ok(listaProyectos)
+            : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin proyectos");
+    }
+    
+    @GetMapping("tareas-de-tripulante/{idTripulante}")
+    @PreAuthorize("hasAnyRole('COMANDANTE','MANDO', 'TRIPULANTE')")
+    public ResponseEntity<?> tareasPorTripulante(@PathVariable int idTripulante){
+        List<TareaBaseDto> listaTareas = naveganteService.tareasPorNavegante(idTripulante);
+        return (!listaTareas.isEmpty())
+            ? ResponseEntity.ok(listaTareas)
+            : ResponseEntity.status(HttpStatus.NO_CONTENT).body("Sin tareas");
+    }
 }
