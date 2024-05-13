@@ -10,5 +10,6 @@ public class TareaAuthDto extends TareaBaseDto{
    String frecuencia; 
    String campo;
    String responsableEmail;
+   String descripcion;
 
 }

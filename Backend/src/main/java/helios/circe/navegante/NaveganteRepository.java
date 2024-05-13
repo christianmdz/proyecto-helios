@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import helios.circe.proyecto.Proyecto;
+import helios.circe.tarea.Tarea;
+
 public interface NaveganteRepository extends JpaRepository<Navegante, Integer>{
     
     Optional<Navegante> findByUsername(String username);
@@ -15,4 +18,10 @@ public interface NaveganteRepository extends JpaRepository<Navegante, Integer>{
 
     @Query("select n from Navegante n where n.campo=?1")
     public List<Navegante> findByField(Campo campo);
+
+    @Query("select P from Proyecto P join NaveganteEnProyecto NP on P.id = NP.proyecto.id where NP.navegante.id = ?1 ")
+    public List<Proyecto> findProjectsByCrew(int idCrew);
+
+    @Query("select T from Tarea T join NaveganteEnTarea NT on T.id = NT.tarea.id where NT.navegante.id = ?1 ")
+    public List<Tarea> findTasksByCrew(int idCrew);
 }

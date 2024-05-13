@@ -11,6 +11,12 @@ import helios.circe.mappings.DtoMapper;
 import helios.circe.navegante.dto.NaveganteAuthDto;
 import helios.circe.navegante.dto.NaveganteBaseDto;
 import helios.circe.navegante.dto.NavegantePublicoDto;
+import helios.circe.proyecto.Proyecto;
+import helios.circe.proyecto.dto.ProyectoAuthDto;
+import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.tarea.Tarea;
+import helios.circe.tarea.dto.TareaAuthDto;
+import helios.circe.tarea.dto.TareaBaseDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -115,6 +121,28 @@ public class NaveganteServImpl implements NaveganteService {
     @Override
     public boolean existeNavegante(int idNavegante) {
         return naveganteRepository.existsById(idNavegante);
+    }
+
+    @Override
+    public List<ProyectoBaseDto> proyectosPorNavegante(int idNavegante) {
+        List<Proyecto> proyectos = naveganteRepository.findProjectsByCrew(idNavegante);
+        List<ProyectoBaseDto> listaProyectos = new ArrayList<>();
+
+        for(Proyecto proyecto : proyectos){
+            listaProyectos.add(dtoMapper.mapFromProyecto(proyecto, ProyectoAuthDto.class));
+        }
+        return listaProyectos;
+    }
+
+    @Override
+    public List<TareaBaseDto> tareasPorNavegante(int idNavegante) {
+        List<Tarea> tareas = naveganteRepository.findTasksByCrew(idNavegante);
+        List<TareaBaseDto> listaTareas = new ArrayList<>();
+
+        for(Tarea tarea : tareas){
+            listaTareas.add(dtoMapper.mapFromTarea(tarea, TareaAuthDto.class));
+        }
+        return listaTareas;
     }
     
 }
