@@ -16,8 +16,9 @@ export default function LoginForm() {
     try {
       const token = await login({ username, password });
       localStorage.setItem("token", token);
+      window.onload("/")
       // Redirigir a la página principal después del inicio de sesión
-      navigate("/comandante"); // Redirige al usuario a la página principal ("/")
+      // navigate("/comandante"); // Redirige al usuario a la página principal ("/")
     } catch (error) {
       setError("Authentication failed");
     }
