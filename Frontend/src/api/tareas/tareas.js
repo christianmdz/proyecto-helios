@@ -36,3 +36,21 @@ export function updateTask(data) {
     body: JSON.stringify(data),
   });
 }
+
+export function createTask(data) {
+  fetch(`${BaseUrl.tarea}/nueva-tarea`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export function deleteTask(id) {
+  fetch(`${BaseUrl.tarea}/eliminar-tarea/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+}

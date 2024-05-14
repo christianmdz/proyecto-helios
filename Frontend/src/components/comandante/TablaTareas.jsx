@@ -5,6 +5,7 @@ import { getAllTasks } from "../../api/tareas/tareas";
 import { Link } from "react-router-dom";
 
 
+
 function Row(tarea) {
     const { row } = tarea;
     const viewDetail = () => {
@@ -13,6 +14,10 @@ function Row(tarea) {
     const viewModify = () => {
         window.location.href = `modificarTareaComandante/${row.id}`;   
     }
+    const deleteTarea = () => {  
+        console.log(row.id);
+    }    
+
     
 
     return (
@@ -31,6 +36,10 @@ function Row(tarea) {
                 Modificar
               </Link>
             </TableCell>
+              
+            <TableCell className="font-medium text-cyan-600 hover:underline dark:text-cyan-500" onClick={deleteTarea}  >
+                Eliminar
+            </TableCell>
           </TableRow>
       </React.Fragment>
     );
@@ -43,12 +52,17 @@ export function TablaTareas() {
     
 
     const {data} = getAllTasks();
+    
+    const viewCreate = () => {
+        window.location.href = `/comandante/crearTareaComandante`;   
+    }
 
 
   return (
     <div className='flex flex-col justify-center items-center mt-2'> 
         <div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nueva Tarea</button>    
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={viewCreate} >
+              Nueva Tarea </button>    
         </div>  
         <div className="overflow-x-auto md:max-w-3xl m-4 justify-center items-center">
         <Table hoverable>

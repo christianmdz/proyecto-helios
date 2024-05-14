@@ -1,3 +1,5 @@
+//TODO: Crear componente ModificarTarea
+
 import React from 'react'
 import { useState } from 'react';
 
@@ -7,17 +9,16 @@ export default function ModificarTarea({data}) {
 
     const [id, setId] = useState(data.id);
     const [nombre, setNombre] = useState(data.nombre);
-    const [responsable, setResponsable] = useState(data.responsable);
     const [frecuencia, setFrecuencia] = useState(data.frecuencia);
     const [campo, setCampo] = useState(data.campo);
-    const [responsableEmail, setResponsableEmail] = useState(data.responsableEmail);
+    const [descripcion, setDescripcion] = useState(data.descripcion);
 
     console.log(data.id);
 
     const handleModificar = (e) => {
         e.preventDefault();
         
-        const updateData = {id:id, nombre: nombre, responsable: responsable, frecuencia: frecuencia, campo: campo, responsableEmail: responsableEmail}
+        const updateData = {id:id, nombre: nombre, frecuencia: frecuencia, campo: campo, descripcion: descripcion}
         console.log(updateData);
         updateTask(updateData);
         window.location.href = `/comandante/tareasComandante`;   

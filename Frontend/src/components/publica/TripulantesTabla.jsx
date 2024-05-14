@@ -1,74 +1,41 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import React from 'react'
+import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { getTripullantes } from '../../api/nave/nave';
 
 
 function Row(tripulante) {
-    const { row } = tripulante;
-    const [open, setOpen] = React.useState(false);
+  const { row } = tripulante;
   
-    return (
-      <React.Fragment>
-        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-          {/* <TableCell>
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          </TableCell> */}
-          <TableCell component="th" scope="row">
-            {row.nombre}
-          </TableCell>
-          <TableCell >{row.apellido}</TableCell>
-          <TableCell >{row.campo}</TableCell>
+  return (
+    <React.Fragment>
+      <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800 text-xs">    
+          <TableCell>{row.nombre}</TableCell>
+          <TableCell>{row.apellido}</TableCell>
+          <TableCell>{row.campo}</TableCell>
         </TableRow>
-        
-      </React.Fragment>
-    );
-  }
+    </React.Fragment>
+  );
+}
 
-  Row.propTypes = {
-    row: PropTypes.shape({
-      nombre: PropTypes.string.isRequired,
-      apellido: PropTypes.string.isRequired,
-      campo: PropTypes.string.isRequired,
-    }).isRequired,
-  };
+export default function TripulantesTabla() {
+  const {data} = getTripullantes();
 
-  export default function TripulantesTabla() {
-    const {data} = getTripullantes();
-    return (<TableContainer className='flex m4 justify-center' component={Paper}>
-    <Table className='flex flex-row md:max-w-xl' aria-label="collapsible table">
-      <TableHead className='bg-blue-400 '>
-        <TableRow >
-          {/* <TableCell /> */}
-          <TableCell >Nombre</TableCell>
-          <TableCell  >Apellido</TableCell>
-          <TableCell >Campo</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data?.map((tripulante) => (
-          <Row key={tripulante.id} row={tripulante} />
-        ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-  )
+  return (
+    <div className='flex flex-col justify-center items-center mt-2'>  
+        <div className="overflow-x-auto md:max-w-3xl m-4 justify-center items-center">
+        <Table hoverable>
+        <TableHead>
+            <TableHeadCell>Nombre</TableHeadCell>
+            <TableHeadCell>Apellido</TableHeadCell>
+            <TableHeadCell>Campo</TableHeadCell>
+            </TableHead>
+            <TableBody className="divide-y">
+                {data?.map((tripulante) => (
+                    <Row key={tripulante.id} row={tripulante}  />
+                ))}
+            </TableBody>
+        </Table>
+        </div>
+    </div>
+)
 }

@@ -13,6 +13,10 @@ export default function DetalleTarea({data}) {
       <p className="text-white font-bold  mr-2">Responsalbe: </p>
       <p className="text-slate-200 mb-2">{data.responsable}</p>
       </div>
+      <div className='flex flex-col  md:flex-row'>
+      <p className="text-white font-bold  mr-2">Descripción: </p>
+      <p className="text-slate-200 mb-2">{data.descripcion}</p>
+      </div>
       <div className='flex flex-col md:flex-row'>
       <p className="text-white font-bold mr-2">
         E-mail Responsalbe:
