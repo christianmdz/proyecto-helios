@@ -52,7 +52,7 @@ export default function CrearTarea() {
                     <div className="mb-3">
                         <label htmlFor="campo" className="text-sm font-semibold leading-6 text-gray-900">Seleccion el campo</label>
                         <select onChange={handleCampoChange} value={campo} className="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="" disabled>Selecciona un campo</option>
+                            <option value="" >Selecciona un campo</option>
                             {opcionesCampo.map(opcion => (
                                 <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
                             ))}
@@ -61,7 +61,7 @@ export default function CrearTarea() {
                     <div className="mb-3">
                         <label htmlFor="responsable" className="text-sm font-semibold leading-6 text-gray-900">Seleccion el responsable</label>
                         <select onChange={handleResponsableChange} value={idResponsable} className="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="" disabled>Selecciona un Responsable</option>
+                            <option value="" >Selecciona un Responsable</option>
                             {opcionesResponsable.map(opcion => (
                                 <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
                             ))}

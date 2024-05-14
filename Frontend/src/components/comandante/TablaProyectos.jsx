@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { getAllProjects } from '../../api/proyectos/proyectos';
+import { deleteProject, getAllProjects } from '../../api/proyectos/proyectos';
 
 function Row(proyecto) {
     const { row } = proyecto;
@@ -13,6 +13,7 @@ function Row(proyecto) {
     }
     const deleteOne = () => {  
         console.log(row.id);
+        deleteProject(row.id);
     }    
 
     

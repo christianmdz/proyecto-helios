@@ -21,6 +21,9 @@ import ConstructorModificarTarea from './comandante/ConstructorModificarTarea';
 import CrearTarea from './comandante/CrearTarea';
 import TablaTripulantes from './comandante/TablaTripulantes';
 import Registro from './publica/Registro';
+import ConstructorProyectoDetalle from './comandante/ConstructorProyectoDetalle';
+import ConstructorModificarProyecto from './comandante/ConstructorModificarProyecto';
+import CrearProyecto from './comandante/CrearProyecto';
 
 
 export default function Routing() {
@@ -39,7 +42,10 @@ export default function Routing() {
       </Route>
       <Route path="comandante" element={<CabeceraComandante />}>
         <Route index element={<HomeComandante />} />
-        <Route path="proyectos" element={<TablaProyectos />} />
+        <Route path="proyectosComandante" element={<TablaProyectos />} />
+        <Route path="proyectosComandante/:id" element={<ConstructorProyectoDetalle />} />
+        <Route path="modificarProyectoComandante/:id" element={<ConstructorModificarProyecto />} />
+        <Route path="crearProyectoComandante" element={<CrearProyecto />} />
         <Route path="tripulantesComandante" element={<TablaTripulantes />} />
         <Route path="tareasComandante" element={<TablaTareas />} />
         <Route path="tareasComandante/:id" element={<ConstructorTarea />} />

@@ -22,7 +22,7 @@ export default function CabeceraComandante() {
             </div>
             <div className='space-x-8 ml-8 hidden md:flex'>
               <Link className='px-3 py-2 hover:text-slate-300' to="">Home</Link>
-              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="proyectos">Proyectos</Link>
+              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="proyectosComandante">Proyectos</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tareasComandante">Tareas</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tripulantesComandante">Tripulantes</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="informacion">Información</Link>
