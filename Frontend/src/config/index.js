@@ -8,4 +8,5 @@ export const BaseUrl = {
   navegante: `${API_URL}/navegante`,
   nave: `${API_URL}/nave`,
   proyecto: `${API_URL}/proyectos`,
+  tarea: `${API_URL}/tareas`,
 };

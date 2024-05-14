@@ -10,7 +10,7 @@ export default function CabeceraComandante() {
 
   return (
     <>
-    <div className='bg-blue-700 shadow px-6'>
+    <div className='bg-blue-700 shadow px-6'  style={{ zIndex: '9999' }}>
         <div className='flex justify-between h-16 max-w-3xl mx-auto items-center'>
             <div className='flex -mr-4 items-center'>
               <a href='#' className='text-white hover:text-slate-50 hover:rotate-6 duration-200'>
@@ -23,8 +23,8 @@ export default function CabeceraComandante() {
             <div className='space-x-8 ml-8 hidden md:flex'>
               <Link className='px-3 py-2 hover:text-slate-300' to="">Home</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="proyectos">Proyectos</Link>
-              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tareas">Tareas</Link>
-              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tripulantes">Tripulantes</Link>
+              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tareasComandante">Tareas</Link>
+              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tripulantesComandante">Tripulantes</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="informacion">Información</Link>
             </div>
             <div className='flex'>
@@ -38,7 +38,7 @@ export default function CabeceraComandante() {
               </button>
             </div>
         </div>
-        <div id='footer' className='bg-blue-700 flex pb-3 border-t pt-2 md:hidden justify-between max-w-3xl mx-auto items-center' >
+        <div id='footer' className='bg-blue-700 flex pb-3 border-t pt-2 md:hidden justify-between max-w-3xl mx-auto items-center'  style={{ zIndex: '9999' }} >
           <Link to="/" className=' text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md  '>Home</Link>
           <Link to="/proyectos" className='text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md transition-colors'>Proyectos</Link>
           <Link to="/tareas" className='text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md transition-colors'>Tareas</Link>

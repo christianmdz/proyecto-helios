@@ -45,7 +45,7 @@ function Row(proyecto) {
   Row.propTypes = {
     row: PropTypes.shape({
       nombre: PropTypes.string.isRequired,
-      apellido: PropTypes.string.isRequired,
+      director: PropTypes.string.isRequired,
       campo: PropTypes.string.isRequired,
     }).isRequired,
   };
