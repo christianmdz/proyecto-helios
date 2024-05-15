@@ -30,7 +30,7 @@ public class NaveganteServImpl implements NaveganteService {
     @Override
     public List<NaveganteBaseDto> infoPublicaTripulacion() {
 
-        List<Navegante> navegantes = naveganteRepository.findAll();
+        List<Navegante> navegantes = naveganteRepository.findTopCrew();
         List<NaveganteBaseDto> tripulacion = new ArrayList<>();
 
         for (Navegante navegante : navegantes) {

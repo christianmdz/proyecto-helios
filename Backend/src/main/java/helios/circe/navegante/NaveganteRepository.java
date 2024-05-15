@@ -24,4 +24,7 @@ public interface NaveganteRepository extends JpaRepository<Navegante, Integer>{
 
     @Query("select T from Tarea T join NaveganteEnTarea NT on T.id = NT.tarea.id where NT.navegante.id = ?1 ")
     public List<Tarea> findTasksByCrew(int idCrew);
+
+    @Query("select N from Navegante N where N.rol='ROLE_COMANDANTE' or rol = 'ROLE_MANDO'")
+    public List<Navegante> findTopCrew();
 }
