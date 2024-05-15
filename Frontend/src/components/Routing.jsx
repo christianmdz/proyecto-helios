@@ -1,10 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import PaginaPublica from '../pages/PaginaPublica';
+
 import NaveLista from './publica/NaveLista';
-import Login from '../pages/Login';
-import Comandante from '../pages/Comandante';
+
 import HomeP from './publica/HomeP';
 import MisionLista from './publica/MisionLista';
 import TripulantesTabla from './publica/TripulantesTabla';
@@ -13,9 +11,7 @@ import Cabecera from './publica/Cabecera';
 import CabeceraComandante from './comandante/CabeceraComandante';
 import HomeComandante from './comandante/HomeComandante';
 import TablaProyectos from './comandante/TablaProyectos';
-
 import { TablaTareas } from './comandante/TablaTareas';
-
 import ConstructorTarea from './comandante/ConstructorTarea';
 import ConstructorModificarTarea from './comandante/ConstructorModificarTarea';
 import CrearTarea from './comandante/CrearTarea';
@@ -24,6 +20,7 @@ import Registro from './publica/Registro';
 import ConstructorProyectoDetalle from './comandante/ConstructorProyectoDetalle';
 import ConstructorModificarProyecto from './comandante/ConstructorModificarProyecto';
 import CrearProyecto from './comandante/CrearProyecto';
+import ConstructorTripulanteDetalle from './comandante/ConstructorTripulanteDetalle';
 
 
 export default function Routing() {
@@ -47,6 +44,7 @@ export default function Routing() {
         <Route path="modificarProyectoComandante/:id" element={<ConstructorModificarProyecto />} />
         <Route path="crearProyectoComandante" element={<CrearProyecto />} />
         <Route path="tripulantesComandante" element={<TablaTripulantes />} />
+        <Route path="tripulantesComandante/:id" element={<ConstructorTripulanteDetalle />} />
         <Route path="tareasComandante" element={<TablaTareas />} />
         <Route path="tareasComandante/:id" element={<ConstructorTarea />} />
         <Route path="modificarTareaComandante/:id" element={<ConstructorModificarTarea />} />

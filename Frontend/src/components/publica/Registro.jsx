@@ -14,7 +14,7 @@ export default function Registro() {
 
     const handleRegistro = (e) => {
         e.preventDefault();
-        const data = {username: username, password: password, nombre: nombre, apellido: apellido, email: email+"helios.xr"};
+        const data = {username: username, password: password, nombre: nombre, apellido: apellido, email: email+"@helios.xr"};
         registerUser(data);
         navigate('/');
     }

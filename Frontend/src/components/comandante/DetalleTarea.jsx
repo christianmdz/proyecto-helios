@@ -1,10 +1,10 @@
 import React from 'react'
 
 
-export default function DetalleTarea({data}) {
+export default function DetalleTarea({data, onVerTripulantes, onAsignarTripulantes}) {
     
   return (
-    <div className='flex flex-col justify-center bg-blue-400 p-6 shadow-xl m-4 md:max-w-xl hover:bg-blue-700 rounded-md' >
+    <div className='flex flex-col justify-center bg-blue-700 p-6 shadow-xl m-4 md:max-w-xl  rounded-md' >
     {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
       <div className='text-white text-3xl mb-3'>
           <h1 >{data.nombre}</h1>
@@ -41,8 +41,11 @@ export default function DetalleTarea({data}) {
         {data.frecuencia}
       </p>
       </div>
-      
-      {/* <Button variant="primary">Go somewhere</Button> */}
+      <div className='flex flex-col justify-center md:flex-row'>
+        <button className='m-2 bg-white p-2 rounded-md text-cyan-600 hover:bg-slate-100 hover:text-cyan-800 hover:font-semibold' onClick={onVerTripulantes} >Ver triuplantes</button>
+        <button className='m-2 bg-white p-2 rounded-md text-cyan-600 hover:bg-slate-100 hover:text-cyan-800 hover:font-semibold'onClick={onAsignarTripulantes}>Alta de tripulante</button>
+        
+      </div>
   </div>
   )
 }
