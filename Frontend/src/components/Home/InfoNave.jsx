@@ -57,7 +57,6 @@ export default function InfoNave() {
             {data && <NaveTarjeta key={data.id} data={data}/>}
           </Box>
           <Box>
-            
           </Box>
         </Grid>
       </Grid>

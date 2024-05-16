@@ -2,6 +2,8 @@ import React from "react"
 import { Box, Typography } from "@mui/material"
 import circe from '../../assets/circe_test.jpeg'
 import InfoNave from "./InfoNave"
+import InfoMision from "./InfoMision"
+import InfoTripulacion from "./InfoTripulacion"
 
 export default function HomeBody() {
   return (
@@ -51,6 +53,8 @@ export default function HomeBody() {
           {/* <Typography variant='h4' sx={{fontFamily: 'Orbitron'}}></Typography> */}
         </Box>
         <InfoNave />
+        <InfoMision />
+        <InfoTripulacion />
       </div>
     </Box>
   )

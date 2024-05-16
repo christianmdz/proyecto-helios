@@ -8,7 +8,7 @@ export default function HomeNav() {
       <CssBaseline />
       <AppBar sx={
         { 
-          backgroundColor: 'hsla(210, 14%, 7%, 0.8)',
+          backgroundColor: 'hsla(210, 14%, 7%, 0.6)',
           backdropFilter: 'blur(5px)',
           display: 'flex',
           flexDirection: 'row',
