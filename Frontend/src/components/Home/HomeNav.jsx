@@ -46,7 +46,7 @@ export default function HomeNav({ scrollToCirce, scrollToCeres, scrollToCrew}) {
             <Button color="inherit" onClick={scrollToCirce}>Circe</Button>
             <Button color="inherit" onClick={scrollToCeres}>Ceres</Button>
             <Button color="inherit" onClick={scrollToCrew}>Crew</Button>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" component={Link} to="/login">Login</Button>
           </Box>
         </Toolbar>
       </AppBar>
