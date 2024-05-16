@@ -1,43 +1,54 @@
-import { AppBar, CssBaseline, Toolbar, Typography, Box, Button } from "@mui/material";
-import React from "react";
+import { AppBar, CssBaseline, Toolbar, Typography, Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function HomeNav() {
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div>
       <CssBaseline />
-      <AppBar sx={
-        { 
-          backgroundColor: 'hsla(210, 14%, 7%, 0.6)',
-          backdropFilter: 'blur(5px)',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems:'center',
-          justifyContent:'space-between',
-          padding: '1vh' 
-        }
-      }>
-        <Toolbar>
-        <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontFamily:'Orbitron' }}
-          >
+      <AppBar sx={{ 
+        backgroundColor: 'hsla(210, 14%, 7%, 0.6)',
+        backdropFilter: 'blur(5px)',
+        padding: '1vh',
+        }}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily:'Orbitron' }}>
             HELIOS
           </Typography>
+          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+            <IconButton color="inherit" onClick={handleMenuOpen} edge="start">
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleMenuClose}>Circe</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Ceres</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Crew</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+            </Menu>
+          </Box>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Button color="inherit">Circe</Button>
+            <Button color="inherit">Ceres</Button>
+            <Button color="inherit">Crew</Button>
+            <Button color="inherit">Login</Button>
+          </Box>
         </Toolbar>
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button color="inherit">Circe</Button>
-        </Box>
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button color="inherit">Ceres</Button>
-        </Box>
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button color="inherit">Crew</Button>
-        </Box>
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button color="inherit">Login</Button>
-        </Box>
       </AppBar>
     </div>
   )
