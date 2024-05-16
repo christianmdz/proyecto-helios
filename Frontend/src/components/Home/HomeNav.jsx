@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 
-export default function HomeNav() {
+export default function HomeNav({ scrollToCirce, scrollToCeres, scrollToCrew}) {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -43,9 +43,9 @@ export default function HomeNav() {
             </Menu>
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Button color="inherit">Circe</Button>
-            <Button color="inherit">Ceres</Button>
-            <Button color="inherit">Crew</Button>
+            <Button color="inherit" onClick={scrollToCirce}>Circe</Button>
+            <Button color="inherit" onClick={scrollToCeres}>Ceres</Button>
+            <Button color="inherit" onClick={scrollToCrew}>Crew</Button>
             <Button color="inherit">Login</Button>
           </Box>
         </Toolbar>

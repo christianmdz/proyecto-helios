@@ -5,7 +5,7 @@ import InfoNave from "./InfoNave"
 import InfoMision from "./InfoMision"
 import InfoTripulacion from "./InfoTripulacion"
 
-export default function HomeBody() {
+export default function HomeBody({ circeRef, ceresRef, crewRef }) {
   return (
     <Box sx={{
       backgroundColor: '#0f1214',
@@ -52,9 +52,9 @@ export default function HomeBody() {
           <Typography variant='h1' sx={{ fontFamily: 'Orbitron', color: 'white', textShadow: '0 0 15px rgba(227, 141, 49, 0.7)' }}>El futuro comienza aquí</Typography>
           {/* <Typography variant='h4' sx={{fontFamily: 'Orbitron'}}></Typography> */}
         </Box>
-        <InfoNave />
-        <InfoMision />
-        <InfoTripulacion />
+        <InfoNave circeRef={circeRef}/>
+        <InfoMision ceresRef={ceresRef}/>
+        <InfoTripulacion crewRef={crewRef}/>
       </div>
     </Box>
   )

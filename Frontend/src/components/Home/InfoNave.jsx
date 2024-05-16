@@ -4,7 +4,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import  {getNaves}  from '../../api/nave/nave';
 import NaveTarjeta from "./NaveTarjeta";
 
-export default function InfoNave() {
+export default function InfoNave({ circeRef }) {
 
   const {data} = getNaves();
 
@@ -28,7 +28,7 @@ export default function InfoNave() {
           />
         </Grid>
         <Grid item xs={12} md={6} sx={{display:'flex', flexDirection: 'column',  width: '100%'}}>
-          <Box
+          <Box ref={circeRef}
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -37,7 +37,7 @@ export default function InfoNave() {
               padding: '1rem',
             }}
           >
-            <Typography variant="h2" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}>
+            <Typography ref={circeRef} variant="h2" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}>
               Circe, hogar de pioneros estelares
             </Typography>
             <Typography variant="h4" sx={{color:'white', textAlign:'justify', maxWidth:'85%'}}>

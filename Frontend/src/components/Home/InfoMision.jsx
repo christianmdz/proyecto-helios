@@ -4,7 +4,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import { getMisiones } from '../../api/nave/nave';
 import MisionTarjeta from "./MisionTarjeta";
 
-export default function InfoMision() {
+export default function InfoMision({ ceresRef }) {
 
   const { data } = getMisiones();
 
@@ -12,7 +12,7 @@ export default function InfoMision() {
     <Box sx={{ width: '100%', padding: '2rem 0', padding:'3vw' }}>
       <Grid container spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
         <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-          <Box
+          <Box ref={ceresRef}
             sx={{
               display: 'flex',
               flexDirection: 'column',

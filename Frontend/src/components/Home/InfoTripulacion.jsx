@@ -3,13 +3,13 @@ import { Box, Typography } from "@mui/material"
 import TripulanteTarjeta from './TripulanteTarjeta';
 import { getTripulantes } from '../../api/nave/nave';
 
-const InfoTripulacion = () => {
+const InfoTripulacion = ({ crewRef }) => {
 
   const {data: tripulantes} = getTripulantes();
 
   return (
     <>
-      <Box
+      <Box ref={crewRef}
         sx={{
           display:'flex',
           flexDirection:'column',
