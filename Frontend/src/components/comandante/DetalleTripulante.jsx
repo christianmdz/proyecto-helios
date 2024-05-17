@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function DetalleTripulante({data, onVerProyectos}) {
+export default function DetalleTripulante({data, onVerProyectos, onVerTareas}) {
   return (
     <div className='flex flex-col justify-center bg-blue-700 p-6 shadow-xl m-4 md:max-w-xl  rounded-md' >
-    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+    
       <div className='text-white text-3xl mb-3'>
           <h1 >Tripulante: {data.nombre}</h1>
       </div>
@@ -48,7 +48,7 @@ export default function DetalleTripulante({data, onVerProyectos}) {
       </p>
       </div>
       <button className='m-2 bg-white p-2 rounded-md text-cyan-600 hover:bg-slate-100 hover:text-cyan-800 hover:font-semibold' onClick={onVerProyectos} >Ver Proyectos</button>
-      <button className='m-2 bg-white p-2 rounded-md text-cyan-600 hover:bg-slate-100 hover:text-cyan-800 hover:font-semibold'  >Ver Tareas</button>
+      <button className='m-2 bg-white p-2 rounded-md text-cyan-600 hover:bg-slate-100 hover:text-cyan-800 hover:font-semibold' onClick={onVerTareas}  >Ver Tareas</button>
   </div>
   )
 }

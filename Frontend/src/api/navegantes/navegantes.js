@@ -46,3 +46,24 @@ export function projectInCrew(id) {
   }, [id]);
   return { data };
 }
+
+export function taskInCrew(id) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch(`${BaseUrl.navegante}/tareas-de-tripulante/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((navegantes) => setData(navegantes))
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setData(null); // Set data to null or handle error as needed
+      });
+  }, [id]);
+  return { data };
+}

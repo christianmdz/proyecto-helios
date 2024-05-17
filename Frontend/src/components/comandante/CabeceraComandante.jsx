@@ -21,11 +21,10 @@ export default function CabeceraComandante() {
               
             </div>
             <div className='space-x-8 ml-8 hidden md:flex'>
-              <Link className='px-3 py-2 hover:text-slate-300' to="">Home</Link>
+              <Link className='px-3 py-2 text-white hover:text-slate-300 transition-colors' to="">Home</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="proyectosComandante">Proyectos</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tareasComandante">Tareas</Link>
               <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="tripulantesComandante">Tripulantes</Link>
-              <Link className='text-white px-3 py-2 hover:text-slate-300 transition-colors ' to="informacion">Información</Link>
             </div>
             <div className='flex'>
               <button onClick={logout}>
@@ -43,7 +42,6 @@ export default function CabeceraComandante() {
           <Link to="/proyectos" className='text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md transition-colors'>Proyectos</Link>
           <Link to="/tareas" className='text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md transition-colors'>Tareas</Link>
           <Link to="/tripulantes" className='text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md transition-colors'>Tripulantes</Link>
-          <Link to="/informacion" className='text-white hover:bg-white hover:text-blue-500 block px-3 py-2 rounded-md transition-colors'>Información</Link>
         </div>
     </div>
     <Outlet />

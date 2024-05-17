@@ -15,7 +15,7 @@ export default function TripulantesEnProyectoTarjeta({tripulanteProyecto, projec
   return (
     <div className='flex flex-col justify-center bg-blue-700 p-6 shadow-xl m-4 md:max-w-xl  rounded-md' >
       <div className='text-white text-3xl mb-3'>
-          <h1 >Protestato: {tripulanteProyecto.nombre} </h1>
+          <h1 >Nombre: {tripulanteProyecto.nombre} </h1>
       </div>
       <div className='flex flex-col  md:flex-row'>
       <p className="text-white font-bold  mr-2">Apellido: </p>
