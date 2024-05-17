@@ -36,10 +36,10 @@ export default function HomeNav({ scrollToCirce, scrollToCeres, scrollToCrew}) {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Circe</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Ceres</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Crew</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+              <MenuItem onClick={scrollToCirce}>Circe</MenuItem>
+              <MenuItem onClick={scrollToCeres}>Ceres</MenuItem>
+              <MenuItem onClick={scrollToCrew}>Crew</MenuItem>
+              <MenuItem onClick={handleMenuClose} component={Link} to="/login">Login</MenuItem>
             </Menu>
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

@@ -87,7 +87,7 @@ export default function LoginForm() {
             },
           }}
           >
-          Sign In
+          Launch
         </Button>
       </Box>
     </form>
