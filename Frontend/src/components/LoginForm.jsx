@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { Box } from '@mui/material';
 import TextField from "@mui/material/TextField";
 import {login} from '../api/auth/auth';
+import '../styles/login.css'
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -25,39 +27,69 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '2vh'
+        }}
+      >
+        <Grid
+          container spacing={3}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <Grid item xs={12}>
+            <TextField
+            className='custom-text-field'
+              variant="outlined"
+              required
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className='custom-text-field'
+              variant="outlined"
+              required
+              id="password"
+              label="Password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Grid>
-      </Grid>
-      {error && <p>{error}</p>}
-      <Button type="submit" fullWidth variant="contained" color="primary">
-        Sign In
-      </Button>
+        {error && <p>{error}</p>}
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            backgroundColor: 'indigo',
+            color: 'white',
+            transition: 'background-color 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'darkviolet',
+              boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
+            },
+          }}
+          >
+          Sign In
+        </Button>
+      </Box>
     </form>
   );
 }

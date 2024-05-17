@@ -4,3 +4,8 @@
     font-family: 'Dune';
     src: url('/fonts/Dune_Rise.ttf') format('truetype');
 }
+
+body {
+    background-color: #0f1214;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.7) 70%, rgba(0, 59, 117, 0.3) 100%);
+}

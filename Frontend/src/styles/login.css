@@ -1,0 +1,30 @@
+/* logForm.css */
+.custom-text-field .MuiOutlinedInput-root {
+    color: white; /* Color del texto */
+    & fieldset {
+        border-color: rgb(143, 143, 143); /* Color de la línea cuando no está enfocado */
+    }
+    &:hover fieldset {
+        border-color: white; /* Color de la línea al pasar el ratón */
+    }
+    &.Mui-focused fieldset {
+        border-color: #50a4c2; /* Color de la línea cuando está enfocado */
+    }
+}
+
+.custom-text-field .MuiOutlinedInput-root .MuiOutlinedInput-input {
+  color: white; /* Cambiar el color del texto */
+}
+
+.custom-text-field .MuiInputLabel-root {
+  color: white; /* Cambiar el color del label */
+}
+
+.custom-text-field .MuiInputLabel-root.Mui-focused {
+  color: white; /* Cambiar el color del label cuando está enfocado */
+}
+
+.custom-text-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input {
+  caret-color: white; /* Cambiar el color del cursor */
+}
+  
