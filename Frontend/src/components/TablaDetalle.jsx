@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import '../styles/comandante.css'
 
 const formatearRol = (rol) => {
   const rolSinRole = rol.substring(5).toLowerCase();
@@ -20,23 +21,31 @@ const formatearRol = (rol) => {
 function Row(props) {
   const { tripulante } = props;
   const [open, setOpen] = React.useState(false);
-  console.log(tripulante.nombre)
 
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell className='tablaDetalle-style'>
           <IconButton
             aria-label="expand row"
             size="small"
             onClick={() => setOpen(!open)}
+            sx={{
+              backgroundColor: 'transparent',
+              color: 'white', // Establecer el color del icono en blanco
+              transition: 'background-color 0.3s ease',
+              '&:hover': {
+                // backgroundColor: 'white',
+                boxShadow: '0px 1px 3px white',
+              },
+            }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell align='right'>{tripulante.nombre}</TableCell>
-        <TableCell align='right'>{formatearRol(tripulante.rol)}</TableCell>
-        <TableCell align='right'>{tripulante.campo}</TableCell>
+        <TableCell className='tablaDetalle-style' align='right'>{tripulante.nombre}</TableCell>
+        <TableCell className='tablaDetalle-style' align='right'>{formatearRol(tripulante.rol)}</TableCell>
+        <TableCell className='tablaDetalle-style' align='right'>{tripulante.campo}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0, minWidth:'35vw' }} colSpan={6}>
@@ -44,19 +53,19 @@ function Row(props) {
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                  <TableRow>
-                    <TableCell align='right'>Apellido</TableCell>
-                    <TableCell align='right'>Username</TableCell>
-                    <TableCell align='right'>Email</TableCell>
-                    <TableCell align='right'>Nave</TableCell>
+                  <TableRow className='tablaDetalle-style'>
+                    <TableCell className='tablaDetalle-style' align='right'>Apellido</TableCell>
+                    <TableCell className='tablaDetalle-style' align='right'>Username</TableCell>
+                    <TableCell className='tablaDetalle-style' align='right'>Email</TableCell>
+                    <TableCell className='tablaDetalle-style' align='right'>Nave</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                 <TableRow>
-                  <TableCell align='right'>{tripulante.apellido}</TableCell>
-                  <TableCell align='right'>{tripulante.username}</TableCell>
-                  <TableCell align='right'>{tripulante.email}</TableCell>
-                  <TableCell align='right'>{tripulante.nave}</TableCell>
+                  <TableCell className='tablaDetalle-style' align='right'>{tripulante.apellido}</TableCell>
+                  <TableCell className='tablaDetalle-style' align='right'>{tripulante.username}</TableCell>
+                  <TableCell className='tablaDetalle-style' align='right'>{tripulante.email}</TableCell>
+                  <TableCell className='tablaDetalle-style' align='right'>{tripulante.nave}</TableCell>
                 </TableRow>
                 </TableBody>
               </Table>
@@ -70,16 +79,15 @@ function Row(props) {
 
 export default function CollapsibleTable(props) {
   const { tripulacion } = props
-  console.log("TablaDetalle, collapsibletable" + tripulacion)
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
+    <TableContainer component={Paper} sx={{ maxWidth: '800px', margin: 'auto', backgroundColor: '#fff0' }}>
+      <Table aria-label="collapsible table" sx={{ backgroundColor: '#fff0'}}>
+        <TableHead sx={{backgroundImage: 'linear-gradient(to bottom, rgba(0, 59, 117, 0.6), transparent)'}}>
           <TableRow>
-            <TableCell />
-            <TableCell align='right'>Nombre</TableCell>
-            <TableCell align="right">Rango</TableCell>
-            <TableCell align="right">Campo</TableCell>
+            <TableCell className='tablaDetalle-style'/>
+            <TableCell className='tablaDetalle-style' align='right'>Nombre</TableCell>
+            <TableCell className='tablaDetalle-style' align="right">Rango</TableCell>
+            <TableCell className='tablaDetalle-style' align="right">Campo</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -4,6 +4,8 @@ import axios from 'axios';
 import { BaseUrl } from "../config/index"
 import Button from '@mui/material/Button';
 import CollapsibleTable from '../components/TablaDetalle';
+import { Typography } from '@mui/material';
+import '../styles/comandante.css'
 
 
 export default function Comandante() {
@@ -24,7 +26,6 @@ export default function Comandante() {
         },
       });
       setTripulacion(response.data);
-      console.log(tripulacion)
     } catch (error) {
       console.error('Error al obtener información de la tripulación:', error);
     }
@@ -32,7 +33,7 @@ export default function Comandante() {
 
   return (
     <div>
-      <h2>Bienvenido Comandante</h2>
+      <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}> Bienvenido Comandante</Typography>
       <Button onClick={informacionTripulacion}>Tripulación</Button>
       <Button onClick={handleLogout}>Cerrar sesión</Button>
       {tripulacion && <CollapsibleTable tripulacion={tripulacion} />}
