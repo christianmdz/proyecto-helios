@@ -3,6 +3,7 @@ import modulo from '../../assets/modulo_descenso.jpg'
 import { Box, Grid, Typography } from "@mui/material"
 import { getMisiones } from '../../api/nave/nave';
 import MisionTarjeta from "./MisionTarjeta";
+import Button from "@mui/material/Button";
 
 export default function InfoMision({ ceresRef }) {
 
@@ -42,6 +43,21 @@ export default function InfoMision({ ceresRef }) {
           <Box>
             {data && <MisionTarjeta key={data.id} data={data}/>}
           </Box>
+          <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            backgroundColor: '#50a4c2',
+            color: 'white',
+            transition: 'background-color 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'darkviolet',
+              boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
+            },
+          }}
+          >
+          ¡Participa en la misión!
+        </Button>
         </Grid>
         <Grid item xs={12} md={6}>
           <Box

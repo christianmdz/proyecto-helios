@@ -4,8 +4,14 @@ import circe from '../../assets/circe_test.jpeg'
 import InfoNave from "./InfoNave"
 import InfoMision from "./InfoMision"
 import InfoTripulacion from "./InfoTripulacion"
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 export default function HomeBody({ circeRef, ceresRef, crewRef }) {
+
+
+
+
   return (
     <Box sx={{
       backgroundColor: '#0f1214',
@@ -46,12 +52,30 @@ export default function HomeBody({ circeRef, ceresRef, crewRef }) {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '5vh',
-            margin:'15vh'
+            margin:'15vh',
+            gap: '4vh'
           }
         }>
           <Typography variant='h1' sx={{ fontFamily: 'Orbitron', color: 'white', textShadow: '0 0 15px rgba(227, 141, 49, 0.7)' }}>El futuro comienza aquí</Typography>
           {/* <Typography variant='h4' sx={{fontFamily: 'Orbitron'}}></Typography> */}
+          <Button
+          component={Link} to="/registro"
+          type="button"
+          variant="contained"
+          sx={{
+            backgroundColor: '#DBA44E',
+            color: 'white',
+            transition: 'background-color 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'darkviolet',
+              boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
+            },
+          }}
+          >
+          ¡Únete ahora!
+        </Button>
         </Box>
+        
         <InfoNave circeRef={circeRef}/>
         <InfoMision ceresRef={ceresRef}/>
         <InfoTripulacion crewRef={crewRef}/>

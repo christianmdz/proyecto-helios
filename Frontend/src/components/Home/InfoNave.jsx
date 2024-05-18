@@ -3,6 +3,7 @@ import circeSala from '../../assets/circe_sala.jpg'
 import { Box, Grid, Typography } from "@mui/material"
 import  {getNaves}  from '../../api/nave/nave';
 import NaveTarjeta from "./NaveTarjeta";
+import Button from "@mui/material/Button";
 
 export default function InfoNave({ circeRef }) {
 
@@ -55,6 +56,21 @@ export default function InfoNave({ circeRef }) {
             }}
           >
             {data && <NaveTarjeta key={data.id} data={data}/>}
+            <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            backgroundColor: '#DBA44E',
+            color: 'white',
+            transition: 'background-color 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'darkviolet',
+              boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
+            },
+          }}
+          >
+          ¡Únete ahora!
+        </Button>
           </Box>
           <Box>
           </Box>

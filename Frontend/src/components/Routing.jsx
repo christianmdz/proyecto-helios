@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Comandante from '../pages/Comandante';
+import RegistroForm from './RegistroForm';
 
 export default function Routing() {
   return (
@@ -10,6 +11,7 @@ export default function Routing() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path='/comandante' element={<Comandante />} />
+      <Route path='/registro' element={<RegistroForm />} />
     </Routes>
   );
 }
