@@ -63,6 +63,8 @@ export default function TripulanteTarjetaComandante({tripulante}) {
   
             }}
             >
+            
+            </Grid>
             <Button
           type="button"
           variant="contained"
@@ -78,7 +80,6 @@ export default function TripulanteTarjetaComandante({tripulante}) {
           >
           Ver Tripulante
         </Button>  
-            </Grid>
         </Box>
       </Box>
     )
