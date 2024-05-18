@@ -56,8 +56,8 @@ export default function InfoNave({ circeRef }) {
             }}
           >
             {data && <NaveTarjeta key={data.id} data={data}/>}
-            <Button
-          type="submit"
+          <Button
+          type="button"
           variant="contained"
           sx={{
             backgroundColor: '#DBA44E',

@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import CollapsibleTable from '../components/TablaDetalle';
 import { Typography } from '@mui/material';
 import '../styles/comandante.css'
+import { Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 
 export default function Comandante() {
@@ -17,26 +19,16 @@ export default function Comandante() {
     navigate('/');
   };
 
-  const informacionTripulacion = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`${BaseUrl.navegante}/info-tripulacion`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setTripulacion(response.data);
-    } catch (error) {
-      console.error('Error al obtener información de la tripulación:', error);
-    }
-  };
+  
 
   return (
     <div>
       <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}> Bienvenido Comandante</Typography>
-      <Button onClick={informacionTripulacion}>Tripulación</Button>
+      <Link to="tripulacion">
+        <Button>Tripulación</Button>
+      </Link>
       <Button onClick={handleLogout}>Cerrar sesión</Button>
-      {tripulacion && <CollapsibleTable tripulacion={tripulacion} />}
+      <Outlet/>
     </div>
   );
 }
