@@ -8,7 +8,6 @@ import {registerUser} from '../api/auth/auth';
 import { useForm } from 'react-hook-form';
 import '../styles/login.css'
 import { Typography } from '@mui/material';
-import { red } from '@mui/material/colors';
 
 
 export default function RegistroForm() {
@@ -128,7 +127,6 @@ export default function RegistroForm() {
               {errors.nombre.message}
             </Typography>}
           </Grid>
-          </Grid>
           <Grid item xs={12}>
             <TextField
             className='custom-text-field'
@@ -157,6 +155,7 @@ export default function RegistroForm() {
               {errors.apellido.message}
             </Typography>}
           </Grid>
+        </Grid>
         <Button
           type="submit"
           variant="contained"

@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Box } from '@mui/material';
 import TextField from "@mui/material/TextField";
-import {login} from '../api/auth/auth';
+import {login, getAuthorizedPath} from '../api/auth/auth';
 import '../styles/login.css'
 
 export default function LoginForm() {
@@ -18,8 +18,9 @@ export default function LoginForm() {
     try {
       const token = await login({ username, password });
       localStorage.setItem("token", token);
-      // Redirigir a la página principal después del inicio de sesión
-      navigate("/comandante"); // Redirige al usuario a la página principal ("/")
+      const path = getAuthorizedPath()
+      // Redirigir a la página correspondiente
+      navigate(path); // Redirige al usuario a la página principal ("/")
     } catch (error) {
       setError("Authentication failed");
     }

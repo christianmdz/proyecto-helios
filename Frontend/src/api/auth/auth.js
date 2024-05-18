@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BaseUrl } from "../../config/index";
+import { jwtDecode } from "jwt-decode";
 
 export const login = async (data) => {
   try {
@@ -22,4 +23,12 @@ export function registerUser(data) {
   } catch (error) {
     throw new Error("Error al registrar usuario");
   }
+}
+
+export function getAuthorizedPath() {
+  const token = localStorage.getItem('token')
+  const decoded = jwtDecode(token)
+  if(decoded.rol === 'ROLE_COMANDANTE') {return '/comandante'}
+  else {return '/'}
+
 }
