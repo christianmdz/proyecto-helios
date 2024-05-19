@@ -5,6 +5,9 @@ import Login from '../pages/Login';
 import Comandante from '../pages/Comandante';
 import RegistroForm from './RegistroForm';
 import InfoTripulacionComandante from './Comandante/InfoTripulacionComandante';
+import TripulanteDetalle from './Comandante/TripulanteDetalle';
+import InfoTareasComandante from './Comandante/InfoTareasComandante';
+import InfoTareaDetalle from './Comandante/InfoTareaDetalle';
 
 export default function Routing() {
   return (
@@ -13,6 +16,10 @@ export default function Routing() {
       <Route path="login" element={<Login />} />
       <Route path='comandante' element={<Comandante />}>
         <Route path='tripulacion' element={<InfoTripulacionComandante />} />
+        <Route path='tripulacion/:id' element={<TripulanteDetalle />} />
+        <Route path='tareas/' element={<InfoTareasComandante />} />
+        <Route path='tareas/:id' element={<InfoTareaDetalle />} />
+
       </Route>
       <Route path='registro' element={<RegistroForm />} />
     </Routes>

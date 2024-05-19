@@ -24,9 +24,9 @@ export default function Comandante() {
   return (
     <div>
       <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}> Bienvenido Comandante</Typography>
-      <Link to="tripulacion">
-        <Button>Tripulación</Button>
-      </Link>
+    
+      <Button component={Link} to="tripulacion" >Tripulación</Button>
+      <Button component={Link} to="tareas" >Tareas</Button>
       <Button onClick={handleLogout}>Cerrar sesión</Button>
       <Outlet/>
     </div>
