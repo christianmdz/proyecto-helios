@@ -3,13 +3,15 @@ import { Box, Typography } from "@mui/material"
 import { getAllTasks } from '../../api/tareas/tareas';
 import TareaTarjetaComandante from './TareaTarjetaComandante';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function InfoTareasComandante() {
 
     const {data} = getAllTasks();
+    const navigate = useNavigate();
 
     const viewCreate = () => {
-        window.location.href = `/comandante/crearTareaComandante`;   
+          navigate('crear-tarea');
     }
 
   return (

@@ -8,6 +8,7 @@ import InfoTripulacionComandante from './Comandante/InfoTripulacionComandante';
 import TripulanteDetalle from './Comandante/TripulanteDetalle';
 import InfoTareasComandante from './Comandante/InfoTareasComandante';
 import InfoTareaDetalle from './Comandante/InfoTareaDetalle';
+import CrearTarea from './Comandante/CrearTarea';
 
 export default function Routing() {
   return (
@@ -19,7 +20,7 @@ export default function Routing() {
         <Route path='tripulacion/:id' element={<TripulanteDetalle />} />
         <Route path='tareas/' element={<InfoTareasComandante />} />
         <Route path='tareas/:id' element={<InfoTareaDetalle />} />
-
+        <Route path='crear-tarea' element={<CrearTarea />} />
       </Route>
       <Route path='registro' element={<RegistroForm />} />
     </Routes>

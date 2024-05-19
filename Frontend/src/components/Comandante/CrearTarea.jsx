@@ -2,24 +2,34 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { Box } from '@mui/material';
+import { Box,Select } from '@mui/material';
 import TextField from "@mui/material/TextField";
 import { useForm } from 'react-hook-form';
-import '../styles/login.css'
 import { Typography } from '@mui/material';
-import { create } from '@mui/material/styles/createTransitions';
-import { createTask } from 'api/tareas/tareas';
+import MenuItem from '@mui/material/MenuItem';
+import { createTask } from '../../api/tareas/tareas';
+import '../../styles/login.css'
 
 export default function CrearTarea() {
 
     const navigate = useNavigate();
     
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: {errors} } = useForm({
+      defaultValues: {
+        responsable: 0
+      }
+    });
 
     const onSubmit = handleSubmit( (data) => {
         createTask(data);
         navigate('/comandante/tareas');
-    }); 
+    });
+    
+    const opcionesResponsable = [
+      {value: 2, label: "Benito"},
+      {value: 3, label: "Tania"},
+      {value: 4, label: "Tino"}
+  ];
 
 
     return (
@@ -66,10 +76,44 @@ export default function CrearTarea() {
                     }
                     })}
                 />
-                {errors.username && <Typography sx={{color:'red', fontSize:'0.7rem'}}>
-                  {errors.username.message}
+                {errors.nombre && <Typography sx={{color:'red', fontSize:'0.7rem'}}>
+                  {errors.nombre.message}
                 </Typography>}
               </Grid>
+              <Grid item xs={12}>
+            <Select
+              className='custom-text-field'
+              variant="outlined"
+              required            
+              id="responsable"
+              name="responsable"
+              defaultValue={0}
+              {...register("responsable", {
+                required: {
+                  value: true,
+                  message: "Debes seleccionar un responsable"
+                }
+              })}
+            >
+              <MenuItem 
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'white', // Color de la línea en estado normal
+                  }}}}
+              value={0}>Selecciona un responsable</MenuItem>
+              {opcionesResponsable.map((opcion) => (
+                <MenuItem key={opcion.value} value={opcion.value}>
+                  {opcion.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {errors.responsable && (
+              <Typography sx={{ color: 'red', fontSize: '0.7rem' }}>
+                {errors.responsable.message}
+              </Typography>
+            )}
+          </Grid>
               <Grid item xs={12}>
                 <TextField
                 className='custom-text-field'
