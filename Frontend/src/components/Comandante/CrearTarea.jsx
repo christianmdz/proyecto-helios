@@ -84,6 +84,11 @@ export default function CrearTarea() {
             <Select
               className='custom-text-field'
               variant="outlined"
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'white', // Color de la línea en estado normal
+                  }}}}
               required            
               id="responsable"
               name="responsable"
@@ -103,7 +108,11 @@ export default function CrearTarea() {
                   }}}}
               value={0}>Selecciona un responsable</MenuItem>
               {opcionesResponsable.map((opcion) => (
-                <MenuItem key={opcion.value} value={opcion.value}>
+                <MenuItem sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: 'white', // Color de la línea en estado normal
+                    }}}} key={opcion.value} value={opcion.value}>
                   {opcion.label}
                 </MenuItem>
               ))}

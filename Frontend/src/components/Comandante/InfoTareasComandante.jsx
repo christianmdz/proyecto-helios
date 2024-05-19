@@ -3,16 +3,11 @@ import { Box, Typography } from "@mui/material"
 import { getAllTasks } from '../../api/tareas/tareas';
 import TareaTarjetaComandante from './TareaTarjetaComandante';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function InfoTareasComandante() {
 
     const {data} = getAllTasks();
-    const navigate = useNavigate();
-
-    const viewCreate = () => {
-          navigate('crear-tarea');
-    }
 
   return (
     <>
@@ -25,7 +20,8 @@ export default function InfoTareasComandante() {
         Mantener la nave a punto, es el éxito de la misión
       </Typography>
       <Button
-          onClick={viewCreate}
+          component={Link}
+          to="/comandante/crear-tarea"
           type="button"
           variant="contained"
           sx={{
@@ -39,7 +35,7 @@ export default function InfoTareasComandante() {
           }}
           >
           Crear Tarea
-        </Button>
+      </Button>
     </Box>
     {data?.map((task) => (
       <TareaTarjetaComandante key={task.id} task={task} />
