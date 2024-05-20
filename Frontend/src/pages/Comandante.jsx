@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from "../config/index"
 import Button from '@mui/material/Button';
-import CollapsibleTable from '../components/TablaDetalle';
+
 import { Typography } from '@mui/material';
 import '../styles/comandante.css'
 import { Link } from 'react-router-dom';
@@ -27,6 +27,7 @@ export default function Comandante() {
     
       <Button component={Link} to="tripulacion" >Tripulación</Button>
       <Button component={Link} to="tareas" >Tareas</Button>
+      <Button component={Link} to="proyectos" >Proyectos</Button>
       <Button onClick={handleLogout}>Cerrar sesión</Button>
       <Outlet/>
     </div>

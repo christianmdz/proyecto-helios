@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box, Grid, Typography } from "@mui/material"
 import Button from '@mui/material/Button';
-import { deleteCrewInTask } from '../../api/naventarea/naventarea'
+import { deleteCrewInTask } from '../../api/naventarea/naventarea';
 
 export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
 
     const handleEliminarTripulante = () => {
-        deleteCrewInTask(tripulanteTarea.id, taskId);
+        deleteCrewInTask(taskId, tripulanteTarea.id);
     }
     const path = "/src/assets/"
 

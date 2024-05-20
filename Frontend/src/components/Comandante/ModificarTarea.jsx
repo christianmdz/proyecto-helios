@@ -1,52 +1,59 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Box,Select } from '@mui/material';
 import TextField from "@mui/material/TextField";
-import { Typography } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
-import { createTask } from '../../api/tareas/tareas';
+import { updateTask } from '../../api/tareas/tareas';
+import { useParams } from 'react-router-dom';
 import '../../styles/login.css'
 
-export default function CrearTarea() {
+
+
+export default function ModificarTarea({data}) {
 
     const navigate = useNavigate();
-    
     const { register, handleSubmit, formState: {errors} } = useForm({
-      defaultValues: {
-        idResponsable: 0
-      }
+        defaultValues: {
+            responsable: data.responsable
+        }
     });
+
+    const {id} = useParams();
 
     const onSubmit = handleSubmit( (data) => {
-        console.log(data);
-        createTask(data);
+        const dataUpdate = {...data, id: id};
+        console.log(dataUpdate);
+        updateTask(dataUpdate);
         navigate('/comandante/tareas');
     });
-    
+
+
     const opcionesResponsable = [
-      {value: 2, label: "Benito"},
-      {value: 3, label: "Tania"},
-      {value: 4, label: "Tino"}
+        {value: "blopera", label: "Benito"},
+        {value: "tbieszka", label: "Tania"},
+        {value: "tormaechea", label: "Tino"}
     ];
 
-    const opcionesCampo = [
-      {value: "INGENIERIA", label: "INGENIERIA"},
-      {value: "CIENCIA", label: "CIENCIA"},
-      {value: "NAVEGACION", label: "NAVEGACION"}
+    const opcionesCampo = [ 
+        {value: "INGENIERIA", label: "INGENIERIA"},
+        {value: "CIENCIA", label: "CIENCIA"},
+        {value: "NAVEGACION", label: "NAVEGACION"}
     ];
 
     const opcionesFrecuencia = [
-      {value: "diaria", label: "DIARIA"},
-      {value: "semanal", label: "SEMANAL"},
-      {value: "mensual", label: "MENSUAL"},
-      {value: "trimestral", label: "TRIMESTRAL"}
-  ];
+        {value: "diaria", label: "DIARIA"},
+        {value: "semanal", label: "SEMANAL"},
+        {value: "mensual", label: "MENSUAL"},
+        {value: "trimestral", label: "TRIMESTRAL"}
+    ];
+    
 
-    return (
-        <form onSubmit={onSubmit}>
+  return (
+    <form onSubmit={onSubmit}>
           <Box
             sx={{
               display: 'flex',
@@ -73,6 +80,7 @@ export default function CrearTarea() {
                   id="nombre"
                   label="Nombre de la tarea"
                   name="nombre"
+                  defaultValue={data.nombre}
                   autoComplete="nombre"
                   {...register("nombre",{
                     required:{
@@ -97,10 +105,10 @@ export default function CrearTarea() {
                 <Select
                   className='custom-text-field'
                   variant="outlined"
-                  required            
+                  required
+                  defaultValue={data.campo}            
                   id="campo"
                   name="campo"
-                  defaultValue={0}
                   {...register("campo", {
                     required: {
                       value: true,
@@ -127,10 +135,10 @@ export default function CrearTarea() {
                   className='custom-text-field'
                   variant="outlined"
                   required            
-                  id="idResponsable"
-                  name="idResponsable"
+                  id="responsable"
+                  name="responsable"
                   defaultValue={0}
-                  {...register("idResponsable", {
+                  {...register("responsable", {
                     required: {
                       value: true,
                       message: "Debes seleccionar un responsable"
@@ -145,9 +153,9 @@ export default function CrearTarea() {
                     </MenuItem>
                   ))}
                 </Select>
-                {errors.idResponsable && (
+                {errors.responsable && (
                   <Typography sx={{ color: 'red', fontSize: '0.7rem' }}>
-                    {errors.idResponsable.message}
+                    {errors.responsable.message}
                   </Typography>
                 )}
               </Grid>
@@ -159,6 +167,7 @@ export default function CrearTarea() {
                   id="descripcion"
                   label="Descripción de la tarea"
                   name="descripcion"
+                  defaultValue={data.descripcion}
                   autoComplete="descripcion"
                   {...register("descripcion",{
                     required:{
@@ -186,7 +195,7 @@ export default function CrearTarea() {
                   required            
                   id="frecuencia"
                   name="frecuencia"
-                  defaultValue={0}
+                  defaultValue={data.frecuencia}
                   {...register("frecuencia", {
                     required: {
                       value: true,
@@ -226,6 +235,5 @@ export default function CrearTarea() {
             </Button>
           </Box>
         </form>
-      );
-    }
-    
+  )
+}

@@ -1,27 +1,27 @@
 import React from 'react';
 import { Box, Typography } from "@mui/material"
-import { getAllTasks } from '../../api/tareas/tareas';
 import TareaTarjetaComandante from './TareaTarjetaComandante';
 import Button from '@mui/material/Button';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAllProjects } from '../../api/proyectos/proyectos';
+import ProyectoTarjetaComandante from './ProyectoTarjetaComandante';
 
-export default function InfoTareasComandante() {
+export default function InfoProyectosComandante() {
 
-  const {data} = getAllTasks();
-
+    const {data} = getAllProjects();
   return (
     <>
     <Box 
     >
       <Typography variant="h2" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}>
-        Información de las tareas
+        Información de los proyectos
       </Typography>
       <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}>
-        Mantener la nave a punto, es el éxito de la misión
+        La investigación es la clave para el éxito de la misión
       </Typography>
       <Button
           component={Link}
-          to="/comandante/crear-tarea"
+          to="/comandante/crear-proyecto"
           type="button"
           variant="contained"
           sx={{
@@ -34,11 +34,11 @@ export default function InfoTareasComandante() {
             },
           }}
           >
-          Crear Tarea
+          Crear Proyecto
       </Button>
     </Box>
-    {data?.map((task) => (
-      <TareaTarjetaComandante key={task.id} task={task} />
+    {data?.map((project) => (
+      <ProyectoTarjetaComandante key={project.id} project={project} />
     ))}
   </>
   )

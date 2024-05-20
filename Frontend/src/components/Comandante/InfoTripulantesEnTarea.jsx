@@ -1,7 +1,8 @@
-import { getCrewInTask } from '../../api/naventarea/naventarea'
+
 import React from 'react'
 import TarjetaTripulantesEnTarea from './TarjetaTripulantesEnTarea';
 import { Box, Typography } from "@mui/material"
+import { getCrewInTask } from '../../api/naventarea/naventarea';
 
 export default function InfoTripulantesEnTarea({id}) {
 

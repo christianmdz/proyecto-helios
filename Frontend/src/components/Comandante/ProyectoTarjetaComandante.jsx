@@ -2,24 +2,19 @@ import React from 'react'
 import { Box, Grid, Typography } from "@mui/material"
 import Button from '@mui/material/Button';
 
-export default function TareaTarjetaComandante({task}) {
+export default function ProyectoTarjetaComandante({project}) {
+
     const path = "/src/assets/"
 
-
     const viewDetail = () => {
-      window.location.href = `/comandante/tareas/${task.id}`;
-    }
-
+        window.location.href = `/comandante/proyectos/${project.id}`;
+        }
     const viewModify = () => {
-        window.location.href = `modificar-tarea/${task.id}`;   
-    }
+        window.location.href = `modificar-proyecto/${project.id}`;
+        }
 
-    const formatoRol = (rol) => {
-      return rol.substring(5)
-    }
-  
-    return (
-      <Box sx={{ display: 'flex',paddingLeft:'20vw', paddingBottom:'3vh'}}>
+  return (
+    <Box sx={{ display: 'flex',paddingLeft:'20vw', paddingBottom:'3vh'}}>
         <Box 
           sx={{
               display:'flex',
@@ -28,17 +23,17 @@ export default function TareaTarjetaComandante({task}) {
               alignItems:'center',
               gap:'6vw',
               backgroundImage: `linear-gradient(to right,
-                ${task.campo === 'LIDER' ? '#DBA44E'
-                : task.campo === 'CIENCIA' ? '#74A44E'
-                : task.campo === 'INGENIERIA' ? '#50a4c2'
-                : task.campo === 'NAVEGACION' ? '#A83739' : '#50a4c2'},
+                ${project.campo === 'LIDER' ? '#DBA44E'
+                : project.campo === 'CIENCIA' ? '#74A44E'
+                : project.campo === 'INGENIERIA' ? '#50a4c2'
+                : project.campo === 'NAVEGACION' ? '#A83739' : '#50a4c2'},
                 transparent)`,
             }}
         >
           <Grid>
             <Box
               component={"img"}
-              src={path+task.id+".jpg"}
+              src={path+project.id+".jpg"}
               alt="tripulante"
               sx={{
                 objectFit: 'cover',
@@ -58,9 +53,9 @@ export default function TareaTarjetaComandante({task}) {
   
             }}
           >
-            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Nombre: {task.nombre}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Responsable: {task.responsable}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Campo: {task.campo}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Nombre: {project.nombre}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Director: {project.director}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Campo: {project.campo}</Typography>
           </Grid>
           <Grid
             sx={{
@@ -88,7 +83,7 @@ export default function TareaTarjetaComandante({task}) {
             },
           }}
           >
-          Ver Tarea
+          Ver Proyecto
         </Button>
         <Button
           onClick={viewModify}
@@ -104,7 +99,7 @@ export default function TareaTarjetaComandante({task}) {
             },
           }}
           >
-          Modificar Tarea
+          Modificar Proyecto
         </Button>     
       </Box>
     )
