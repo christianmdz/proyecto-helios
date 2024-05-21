@@ -4,6 +4,8 @@ import { Box, Typography } from "@mui/material"
 import Button from '@mui/material/Button';
 import { getOneProject } from '../../api/proyectos/proyectos';
 import ProyectoDetalleTarjetaComandante from './ProyectoDetalleTarjetaComandante';
+import InfoTripulantesEnProyecto from './InfoTripulantesEnProyecto';
+import AsignarTripulanteEnProyecto from './AsignarTripulanteEnProyecto';
 
 export default function InfoProyectoDetalle() {
 

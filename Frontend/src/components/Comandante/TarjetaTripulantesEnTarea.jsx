@@ -2,11 +2,15 @@ import React from 'react'
 import { Box, Grid, Typography } from "@mui/material"
 import Button from '@mui/material/Button';
 import { deleteCrewInTask } from '../../api/naventarea/naventarea';
+import { useNavigate } from 'react-router-dom';
 
 export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
 
+    const navigate = useNavigate();
     const handleEliminarTripulante = () => {
         deleteCrewInTask(taskId, tripulanteTarea.id);
+        navigate('/comandante/tareas');
+
     }
     const path = "/src/assets/"
 
