@@ -44,6 +44,7 @@ export default function ModificarProyecto({data}) {
         navigate('/comandante/proyectos');
     });
     
+    // TODO: revisar opcion por defecto director, comprobar id en data input
 
   return (
     <form onSubmit={onSubmit}>

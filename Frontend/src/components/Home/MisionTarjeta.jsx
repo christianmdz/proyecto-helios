@@ -1,7 +1,11 @@
 import React from 'react';
 import { Card, Typography } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 const MisionTarjeta = ({ data }) => {
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Card
@@ -10,7 +14,7 @@ const MisionTarjeta = ({ data }) => {
         flexDirection: 'column',
         justifyContent: 'center',
         backgroundColor: 'transparent',
-        // backgroundImage: 'linear-gradient(to bottom, #eec484, transparent)',
+        maxWidth: {xs:'95vw'}
       }}
     >
       <Typography
@@ -26,10 +30,10 @@ const MisionTarjeta = ({ data }) => {
         }}>
           Nos dirigimos a
       </Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Nombre: {data.nombre}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Destino: {data.destino}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Descripción: {data.descripcion}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Estimado: {data.duracion} días</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Nombre: {data.nombre}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Destino: {data.destino}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Descripción: {data.descripcion}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Estimado: {data.duracion} días</Typography>
     </Card>
   );
 };

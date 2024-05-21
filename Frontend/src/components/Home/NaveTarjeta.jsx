@@ -26,11 +26,11 @@ const NaveTarjeta = ({ data }) => {
         }}>
           Circe en cifras
       </Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Comandante: {data.comandante}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Afiliación: {data.afiliacion}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Motor: {data.motor}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Tripulación: {data.tripulacion}</Typography>
-      <Typography variant="subtitle1" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white' }}> Carga: {data.carga} Toneladas Métricas</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Comandante: {data.comandante}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Afiliación: {data.afiliacion}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Motor: {data.motor}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Tripulación: {data.tripulacion}</Typography>
+      <Typography variant="subtitle1" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white' }}> Carga: {data.carga} Toneladas Métricas</Typography>
     </Card>
   );
 };

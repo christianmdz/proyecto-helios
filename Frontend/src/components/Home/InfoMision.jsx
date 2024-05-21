@@ -54,6 +54,7 @@ export default function InfoMision({ ceresRef }) {
               backgroundColor: 'darkviolet',
               boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
             },
+            maxWidth: {xs:'95vw'}
           }}
           >
           ¡Participa en la misión!
