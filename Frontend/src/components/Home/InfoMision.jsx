@@ -1,5 +1,5 @@
 import React from "react"
-import modulo from '../../assets/modulo_descenso.jpg'
+import eridanus from '../../assets/eridanus.jpg'
 import { Box, Grid, Typography } from "@mui/material"
 import { getMisiones } from '../../api/nave/nave';
 import MisionTarjeta from "./MisionTarjeta";
@@ -63,8 +63,8 @@ export default function InfoMision({ ceresRef }) {
         <Grid item xs={12} md={6}>
           <Box
             component="img"
-            src={modulo}
-            alt={"Modulo Sonda"}
+            src={eridanus}
+            alt={"Eridanus IV"}
             sx={{
               width: '85%',
               height: '85%',

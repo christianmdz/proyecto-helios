@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useMediaQuery, useTheme } from '@mui/material';
 
 const TripulanteTarjeta = ({ data }) => {
@@ -11,7 +11,7 @@ const TripulanteTarjeta = ({ data }) => {
   const gradientColor = data.campo === 'LIDER' ? '#DBA44E'
     : data.campo === 'CIENCIA' ? '#74A44E'
     : data.campo === 'INGENIERIA' ? '#50a4c2'
-    : data.campo === 'NAVEGACION' ? '#A83739' : '#50a4c2';
+    : data.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
 
   const path = "/src/assets/"
 
@@ -33,7 +33,7 @@ const TripulanteTarjeta = ({ data }) => {
         minWidth: { xs: '95vw', md: 'auto' }, // minWidth para pantallas pequeñas
         maxWidth: {xs: '95vw'}
       }}
-    >
+      >
       <Box
         component="img"
         src={path + data.id + ".jpg"}
