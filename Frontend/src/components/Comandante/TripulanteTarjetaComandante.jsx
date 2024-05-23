@@ -79,7 +79,6 @@ export default function TripulanteTarjetaComandante({tripulante}) {
               <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white', fontSize: { xs: '1.2rem', md: '1.4rem', lg:'2rem' }, minWidth: {md:'29vw'} }}> Campo: {tripulante.campo}</Typography>
             </Grid>
             <Grid
-              xs={4}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
