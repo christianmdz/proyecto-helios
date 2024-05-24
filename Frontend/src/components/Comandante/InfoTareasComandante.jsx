@@ -37,9 +37,19 @@ export default function InfoTareasComandante() {
           Crear Tarea
       </Button>
     </Box>
+    <Box
+      sx={{
+        display:'flex',
+        flexDirection: 'column',
+        justifyContent:'center',
+        alignItems:'flex-start',
+        paddingLeft: {lg:'15vw'}
+      }}
+    >
     {data?.map((task) => (
       <TareaTarjetaComandante key={task.id} task={task} />
     ))}
+    </Box>
   </>
   )
 }

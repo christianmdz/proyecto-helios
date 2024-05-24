@@ -25,21 +25,26 @@ export default function TripulanteTarjetaComandante({tripulante}) {
     }
   
     return (
-      <Box sx={{ display: 'flex', paddingLeft: { xs: '2vw', sm: '12vw', md: '4vw', lg:'3vw', xl:'15vw' }, paddingBottom: {xs:'3vh', md:'3vh'} }}>
+      <Box sx={{ display: 'flex', paddingLeft: { xs: '2vw', sm: '12vw', md: '4vw', lg:'15vw', xl:'15vw' }, paddingBottom: {xs:'3vh', md:'3vh'} }}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' }, // Cambia la dirección del flex en pantallas pequeñas
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             alignItems: 'center',
-            gap: { xs: '2vh', md: '6vw' },
+            gap: { xs: '2vh', md: '6vw', lg:'auto' },
             backgroundImage: `linear-gradient(${gradientDirection}, ${gradientColor}, transparent)`,
             padding: { xs: '1vh', md: '0' }, // Padding para pantallas pequeñas
-            minWidth: { xs: '90vw', sm:'65vw', md: 'auto' }, // minWidth para pantallas pequeñas
-            maxWidth: {xs: '95vw'}
+            minWidth: { xs: '90vw', sm:'65vw', md: '60vw', }, // minWidth para pantallas pequeñas
+            maxWidth: {xs: '95vw', lg:'60vw'},
           }}
         >
-          <Grid>
+          <Grid
+            sx={{
+              maxWidth:{xs:'auto',lg:'17vw'},
+              maxheight:{xs:'auto',lg:'15vw'}
+            }}
+          >
             <Box
               component={"img"}
               src={tripulante.campo != 'NO_ASIGNADO' ? path+tripulante.id+".jpg" : path+"default_crew_avatar.jpg"}
@@ -57,7 +62,7 @@ export default function TripulanteTarjetaComandante({tripulante}) {
           </Grid>
           <Box
             sx={{
-              padding: '5vh',
+              paddingLeft: '5vh',
               display: 'flex',
               flexDirection: 'column', // Cambia la dirección en pantallas más grandes si es necesario
               gap: '2vh',
@@ -73,17 +78,18 @@ export default function TripulanteTarjetaComandante({tripulante}) {
                 minWidth: {md: '20vw'},
               }}
             >
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white', fontSize: { xs: '1.2rem', md: '1.4rem', lg:'2rem' }, minWidth: {md:'29vw'} }}> Nombre: {tripulante.nombre}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white', fontSize: { xs: '1.2rem', md: '1.4rem', lg:'2rem' }, minWidth: {md:'29vw'} }}> Apellido: {tripulante.apellido}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white', fontSize: { xs: '1.2rem', md: '1.4rem', lg:'2rem' }, minWidth: {md:'29vw'} }}> Rol: {formatoRol(tripulante.rol)}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color:'white', fontSize: { xs: '1.2rem', md: '1.4rem', lg:'2rem' }, minWidth: {md:'29vw'} }}> Campo: {tripulante.campo}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Nombre: {tripulante.nombre}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Apellido: {tripulante.apellido}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Rol: {formatoRol(tripulante.rol)}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Campo: {tripulante.campo}</Typography>
             </Grid>
             <Grid
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'between',
+                flexDirection: 'row',
+                justifyContent: {xs:'center', lg:'flex-start', xl:'flex-start'},
                 backgroundColor: 'transparent',
+                gap: '2vw'
               }}
             >
               <Button
@@ -101,7 +107,7 @@ export default function TripulanteTarjetaComandante({tripulante}) {
                   maxWidth: {lg:'15vw', xl:'10vw'}
                 }}
               >
-                Ver Tripulante
+                Ver tripulante
               </Button>  
             </Grid>
           </Box>
