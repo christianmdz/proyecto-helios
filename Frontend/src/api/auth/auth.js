@@ -32,3 +32,7 @@ export function getAuthorizedPath() {
   else {return '/'}
 
 }
+
+export function isAuthenticated() {
+  return (localStorage.getItem('token') !== null && localStorage.getItem('token') !== undefined) ? true : false;
+}
