@@ -39,8 +39,16 @@ export default function TripulanteDetalle() {
               Forjando el destino de la humanidad
         </Typography>
       </Box>
-      {data && <TripulanteDetalleTarjetaComandante key={data.id} data={data} onVerProyectos={handleVerProyectos} onVerTareas={handleVerTareas} />
-      }
+      <Box
+        sx={{
+
+          display:'flex',
+          flexDirection: 'column',
+          paddingLeft: {xs:'0', md:'15vw'}
+        }}
+      >
+        {data && <TripulanteDetalleTarjetaComandante key={data.id} data={data} onVerProyectos={handleVerProyectos} onVerTareas={handleVerTareas} />}
+      </Box>
       {showProjects && <InfoProyectosDeTripulante id={id} />}
       {showTasks && <InfoTareasDeTripulante id={id} />}
      <Button

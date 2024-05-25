@@ -43,7 +43,7 @@ export default function InfoTareasComandante() {
         flexDirection: 'column',
         justifyContent:'center',
         alignItems:'flex-start',
-        paddingLeft: {lg:'15vw'}
+        paddingLeft: {lg:'5vw'}
       }}
     >
     {data?.map((task) => (

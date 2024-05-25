@@ -1,70 +1,86 @@
 import React from 'react'
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography, Card, CardActionArea } from "@mui/material"
 import Button from '@mui/material/Button';
 import { useMediaQuery, useTheme } from '@mui/material';
 
-export default function TripulanteTarjetaComandante({tripulante}) {
-    const path = "/src/assets/"
+export default function TripulanteTarjetaComandante({ tripulante }) {
+  const path = "/src/assets/"
 
 
-    const viewDetail = () => {
-      window.location.href = `/comandante/tripulacion/${tripulante.id}`;
-    }
+  const viewDetail = () => {
+    window.location.href = `/comandante/tripulacion/${tripulante.id}`;
+  }
 
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const gradientDirection = isSmallScreen ? 'to bottom' : 'to right';
-    const gradientColor = tripulante.campo === 'LIDER' ? '#DBA44E'
-      : tripulante.campo === 'CIENCIA' ? '#74A44E'
+  const gradientDirection = isSmallScreen ? 'to bottom' : 'to right';
+  const gradientColor = tripulante.campo === 'LIDER' ? '#DBA44E'
+    : tripulante.campo === 'CIENCIA' ? '#74A44E'
       : tripulante.campo === 'INGENIERIA' ? '#50a4c2'
-      : tripulante.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
+        : tripulante.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
 
-    const formatoRol = (rol) => {
-      return rol.substring(5)
-    }
-  
-    return (
-      <Box sx={{ display: 'flex', paddingLeft: { xs: '2vw', sm: '12vw', md: '4vw', lg:'15vw', xl:'15vw' }, paddingBottom: {xs:'3vh', md:'3vh'} }}>
+  const formatoRol = (rol) => {
+    return rol.substring(5)
+  }
+
+  return (
+    <Card
+      sx={{
+        display: 'flex',
+        paddingLeft: { xs: '2vw', sm: '2vw', md: '4vw', lg: '15vw', xl: '15vw' },
+        paddingBottom: { xs: '5vh', md: '3vh' },
+        backgroundColor: 'transparent',
+      }}
+    >
+      <CardActionArea
+        onClick={viewDetail}
+        sx={{
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Transición para el hover
+          '&:hover': {
+            transform: 'scale(0.98)', // Reducción del tamaño en hover
+            boxShadow: `0 0 10px 2px ${gradientColor}`, // Sombra blanca en hover
+          }
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' }, // Cambia la dirección del flex en pantallas pequeñas
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'flex-start',
             alignItems: 'center',
-            gap: { xs: '2vh', md: '6vw', lg:'auto' },
+            gap: { xs: '2vh', md: '6vw', lg: 'auto' },
             backgroundImage: `linear-gradient(${gradientDirection}, ${gradientColor}, transparent)`,
-            padding: { xs: '1vh', md: '0' }, // Padding para pantallas pequeñas
-            minWidth: { xs: '90vw', sm:'65vw', md: '60vw', }, // minWidth para pantallas pequeñas
-            maxWidth: {xs: '95vw', lg:'60vw'},
+            minWidth: { xs: '90vw', sm: '65vw', md: '50vw' },
+            maxWidth: { xs: '95vw', lg: '60vw' },
           }}
         >
           <Grid
+            item
             sx={{
-              maxWidth:{xs:'auto',lg:'17vw'},
-              maxheight:{xs:'auto',lg:'15vw'}
+              width: { xs: '100%', md: 'auto' },
+              maxWidth: { xs: '100%', md: '17vw' },
+              height: { xs: 'auto', md: '100%' },
+              padding:{xs:'2vw', md:'0'}
             }}
           >
             <Box
-              component={"img"}
-              src={tripulante.campo != 'NO_ASIGNADO' ? path+tripulante.id+".jpg" : path+"default_crew_avatar.jpg"}
+              component="img"
+              src={tripulante.campo !== 'NO_ASIGNADO' ? path + tripulante.id + ".jpg" : path + "default_crew_avatar.jpg"}
               alt="tripulante"
               sx={{
+                width: '100%',
+                height: '100%',
                 objectFit: 'cover',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto',
-                width: '100%', // Ajusta el tamaño de la imagen
-                maxWidth: { xs: '95vw', md: 'auto' } // maxWidth para pantallas pequeñas
+                display: 'block',
               }}
             />
           </Grid>
           <Box
             sx={{
-              paddingLeft: '5vh',
+              paddingLeft: { xs: 0, md: '5vh' },
               display: 'flex',
-              flexDirection: 'column', // Cambia la dirección en pantallas más grandes si es necesario
+              flexDirection: 'column',
               gap: '2vh',
             }}
           >
@@ -74,44 +90,18 @@ export default function TripulanteTarjetaComandante({tripulante}) {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 backgroundColor: 'transparent',
-                textAlign: { xs: 'center', md: 'left', lg:'left' }, // Centra el texto en pantallas pequeñas
-                minWidth: {md: '20vw'},
+                textAlign: { xs: 'center', md: 'left', lg: 'left' },
+                minWidth: { md: '20vw' },
               }}
             >
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Nombre: {tripulante.nombre}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Apellido: {tripulante.apellido}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Rol: {formatoRol(tripulante.rol)}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color:'white', fontSize: { xs: '1.2rem' } }}> Campo: {tripulante.campo}</Typography>
-            </Grid>
-            <Grid
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: {xs:'center', lg:'flex-start', xl:'flex-start'},
-                backgroundColor: 'transparent',
-                gap: '2vw'
-              }}
-            >
-              <Button
-                onClick={viewDetail}
-                type="button"
-                variant="contained"
-                sx={{
-                  backgroundColor: '#DBA44E',
-                  color: 'white',
-                  transition: 'background-color 0.3s ease',
-                  '&:hover': {
-                    backgroundColor: 'darkviolet',
-                    boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
-                  },
-                  maxWidth: {lg:'15vw', xl:'10vw'}
-                }}
-              >
-                Ver tripulante
-              </Button>  
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Nombre: {tripulante.nombre}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Apellido: {tripulante.apellido}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Rol: {formatoRol(tripulante.rol)}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Campo: {tripulante.campo}</Typography>
             </Grid>
           </Box>
         </Box>
-      </Box>
-    )
-  };
+      </CardActionArea>
+    </Card>
+  )
+};
