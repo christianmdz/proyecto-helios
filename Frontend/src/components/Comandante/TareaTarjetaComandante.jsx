@@ -48,7 +48,7 @@ export default function TareaTarjetaComandante({task}) {
           >
             <Box
               component={"img"}
-              src={path+task.id+".jpg"}
+              src={path+ "tarea_"+task.campo+".jpg"}
               alt="tripulante"
               sx={{
                 objectFit: 'cover',

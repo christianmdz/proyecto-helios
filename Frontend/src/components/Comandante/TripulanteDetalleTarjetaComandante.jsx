@@ -2,19 +2,12 @@ import React from 'react'
 import { Box, Grid, Typography } from "@mui/material"
 import Button from '@mui/material/Button';
 import { useMediaQuery, useTheme } from '@mui/material';
+import '../../main.css'
 
 
 export default function TripulanteDetalleTarjetaComandante({ data, onVerProyectos, onVerTareas }) {
 
   const path = "/src/assets/"
-
-  const viewDetail = () => {
-    window.location.href = `/comandante/tareas/${data.id}`;
-  }
-
-  const viewModify = () => {
-    window.location.href = `modificar-tarea/${data.id}`;
-  }
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -101,7 +94,7 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
             }}
           >
             <Button
-              onClick={viewDetail}
+              onClick={onVerTareas}
               type="button"
               variant="contained"
               sx={{
@@ -118,7 +111,7 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
               Tareas
             </Button>
             <Button
-              onClick={viewModify}
+              onClick={onVerProyectos}
               type="button"
               variant="contained"
               sx={{

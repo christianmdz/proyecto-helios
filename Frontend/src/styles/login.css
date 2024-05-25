@@ -28,20 +28,20 @@
   caret-color: white; /* Cambiar el color del cursor */
 }
 
-/* .custom-text-field .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline .MuiSelect-outlined .MuiInputBase-input .MuiOutlinedInput-input {
-  border-color: white;
+.custom-text-field .MuiSelect-select {
+  color: white;
+}
+
+.custom-text-field .MuiOutlinedInput-notchedOutline {
+  border-color: rgb(143, 143, 143);
+}
+
+.custom-text-field:hover .MuiOutlinedInput-notchedOutline{
+  border-color: white !important;
 }
 
 .custom-text-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #50a4c2; 
-} */
-
-.custom-text-field .MuiSelect-nativeInput{
-  border-color: white;
-}
-
-.custom-text-field .MuiSelect-select {
-  color: white; /* Cambiar el color del texto del select */
+  border-color: #50a4c2;
 }
 
 .error-message {
