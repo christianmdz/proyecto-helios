@@ -1,61 +1,70 @@
 import React from 'react'
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography, Card } from "@mui/material"
 import Button from '@mui/material/Button';
 import { useMediaQuery, useTheme } from '@mui/material';
+import '../../main.css'
 
-export default function TareaDetalleTarjetaComandante({data, onVerTripulantes, onAsignarTripulantes}) {
-    const path = "/src/assets/"
+export default function TareaDetalleTarjetaComandante({ data, onVerTripulantes, onAsignarTripulantes }) {
+  const path = "/src/assets/"
 
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-    
-    const gradientDirection = isSmallScreen ? 'to bottom' : 'to right';
-    const gradientColor = data.campo === 'LIDER' ? '#DBA44E'
-        : data.campo === 'CIENCIA' ? '#74A44E'
-        : data.campo === 'INGENIERIA' ? '#50a4c2'
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const gradientDirection = isSmallScreen ? 'to bottom' : 'to right';
+  const gradientColor = data.campo === 'LIDER' ? '#DBA44E'
+    : data.campo === 'CIENCIA' ? '#74A44E'
+      : data.campo === 'INGENIERIA' ? '#50a4c2'
         : data.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
-  
-    return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: '2vw', sm: '0', md: '0', lg: '3vw', xl: '15vw' }, alignItems: 'center', paddingBottom: { xs: '3vh', md: '3vh' } }}>
+
+  return (
+    <Card
+      sx={{
+        display: 'flex',
+        paddingLeft: { xs: '2vw', sm: '2vw', md: '4vw', lg: '15vw', xl: '15vw' },
+        paddingBottom: { xs: '5vh', md: '3vh' },
+        backgroundColor: 'transparent',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'column', lg: 'row' }, // Dirección de columna para todos los dispositivos
-          justifyContent: 'center',
-          gap: { xs: '2vh', md: '6vw' },
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          // gap: { xs: '2vh', md: '6vw', lg: 'auto' },
           backgroundImage: `linear-gradient(${gradientDirection}, ${gradientColor}, transparent)`,
-          padding: { xs: '1vh', md: '0', lg: '0' }, // Padding uniforme para todos los dispositivos
-          width: '100%', // Ancho máximo para todas las pantallas
-          maxWidth: '100vw',
+          minWidth: { xs: '90vw', sm: '65vw', md: '50vw' },
+          maxWidth: { xs: '95vw', lg: '60vw' },
         }}
       >
-        <Grid>
+        <Grid
+          item
+          sx={{
+            width: { xs: '100%', md: 'auto' },
+            maxWidth: { xs: '100%', md: '17vw' },
+            height: { xs: 'auto', md: '100%' },
+            padding: { xs: '2vw', md: '0' }
+          }}
+        >
           <Box
-            component={"img"}
+            component="img"
             src={path + "tarea_" + data.campo + ".jpg"}
-            alt="proyecto"
+            alt="tripulante"
             sx={{
-
+              width: '100%',
+              height: '100%',
               objectFit: 'cover',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto',
-              width: { xs: '100%', md: '100%', lg: '100%' }, // Ancho fijo para escritorio y tablet
-              height: { xs: 'auto', md: 'auto', lg: '100%' }, // Ajusta la altura de la imagen para que ocupe toda la altura del contenedor
-              maxWidth: { xs: '95vw', md: '100%', lg: '100%' } // maxWidth para pantallas pequeñas
+              display: 'block',
             }}
           />
         </Grid>
         <Box
           sx={{
-            padding: '5vh',
+            paddingLeft: { xs: 0, md: '5vh' },
             display: 'flex',
             flexDirection: 'column',
             gap: '2vh',
-            textAlign: 'center', // Alinear el texto al centro en todos los dispositivos
-            minWidth: '20vw',
-            maxWidth: '95vw',
+            padding: {md: '2vh 0 2vh 2vw'}
           }}
         >
           <Grid
@@ -64,23 +73,25 @@ export default function TareaDetalleTarjetaComandante({data, onVerTripulantes, o
               flexDirection: 'column',
               justifyContent: 'center',
               backgroundColor: 'transparent',
-              textAlign: { xs: 'center', md: 'center', lg: 'left' }, // Centra el texto en pantallas pequeñas
+              textAlign: { xs: 'center', md: 'left', lg: 'left' },
               minWidth: { md: '20vw' },
             }}
           >
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Nombre: {data.nombre}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Responsable: {data.responsable}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' }, }}> Descripción: {data.descripcion}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Campo: {data.campo}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Email Responsable: {data.reponsableEmail}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Frecuencia: {data.frecuencia}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Nombre: {data.nombre}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Responsable: {data.responsable}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Descripción: {data.descripcion}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Campo: {data.campo}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Email Responsable: {data.emailResponsable}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Frecuencia: {data.frecuencia}</Typography>
           </Grid>
           <Grid
             sx={{
               display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'between',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
               backgroundColor: 'transparent',
+              gap:'2vw',
             }}
           >
             <Button
@@ -97,6 +108,7 @@ export default function TareaDetalleTarjetaComandante({data, onVerTripulantes, o
                 },
                 width: { xs: '95%', md: '95%', lg: 'auto' }, // Ancho completo en móvil, tamaño automático en tablet y escritorio
                 maxWidth: { lg: '15vw', xl: '15vw' }, // Máximo ancho para asegurar que no se desborde en pantallas pequeñas
+                marginTop: { xs: '2vh' }, // Margen superior solo en móvil
               }}
             >
               Ver Tripulantes
@@ -123,6 +135,6 @@ export default function TareaDetalleTarjetaComandante({data, onVerTripulantes, o
           </Grid>
         </Box>
       </Box>
-    </Box>
-    )
-  };
+    </Card>
+  )
+};
