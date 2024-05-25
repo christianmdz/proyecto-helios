@@ -302,7 +302,7 @@ export default function ModificarProyecto({data}) {
     type="button"
     variant="contained"
     sx={{
-      backgroundColor: '#50a4c2',
+      backgroundColor: '#DBA44E',
       color: 'white',
       transition: 'background-color 0.3s ease',
       '&:hover': {

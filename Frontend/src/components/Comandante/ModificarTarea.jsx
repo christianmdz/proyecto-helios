@@ -21,6 +21,9 @@ export default function ModificarTarea({data}) {
             responsable: data.responsable
         }
     });
+    const handleBack = () => {
+      window.location.href = '/comandante/tareas';
+    }
 
     const {id} = useParams();
 
@@ -244,6 +247,31 @@ export default function ModificarTarea({data}) {
               </Box>
           </form>
         </Box>
+        <Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'center', // Centra horizontalmente
+    marginTop: '3vh', // Margen superior de 3vh
+  }}
+>
+  <Button
+    onClick={handleBack}
+    type="button"
+    variant="contained"
+    sx={{
+      backgroundColor: '#DBA44E',
+      color: 'white',
+      transition: 'background-color 0.3s ease',
+      '&:hover': {
+        backgroundColor: 'darkviolet',
+        boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
+      },
+      marginBottom: '3vh'
+    }}
+  >
+    Volver a tareas
+  </Button>
+</Box>
     </>    
   )
 }

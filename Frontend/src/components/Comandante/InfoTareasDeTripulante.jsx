@@ -2,15 +2,26 @@ import { taskInCrew } from '../../api/navegantes/navegantes'
 import React from 'react'
 import { Box, Typography } from "@mui/material"
 import TarjetaTareasDeTripulante from './TarjetaTareasDeTripulante';
+import SinTareas from './SinTareas';
 
-export default function InfoTareasDeTripulante({id}) {
+export default function InfoTareasDeTripulante({ id }) {
+  const { data, isLoading, error } = taskInCrew(id);
 
-    const {data} = taskInCrew(id);
+  if (isLoading) {
+    return <p>Cargando...</p>; // Puedes personalizar este mensaje
+  }
 
+  if (error) {
+    return <SinTareas />; // Puedes personalizar este mensaje
+  }
+
+  if (!data || data.length === 0) {
+    return <SinTareas />; // Renderiza el componente SinTareas si no hay datos
+  }
 
   return (
     <>
-    <Box
+      <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -46,7 +57,9 @@ export default function InfoTareasDeTripulante({id}) {
           El éxito de la misión depende de todos nosotros
         </Typography>
       </Box>
-        {data?.map((task)=> (<TarjetaTareasDeTripulante key={task.id} task={task} />))}
+      {data.map((task) => (
+        <TarjetaTareasDeTripulante key={task.id} task={task} />
+      ))}
     </>
-  )
+  );
 }
