@@ -22,10 +22,11 @@ export default function AsignarTripulanteEnProyecto({id}) {
   return (
     <>
         <Box>
-            <Typography variant="h3" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}>
-            Asigna un Tripulante a este proyecto
+            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2.5rem' } }}>
+                Asigna un Tripulante a este proyecto
             </Typography>   
         </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop:'3vh' }}>
         <form onSubmit={onSubmit}>
         <Box
         sx={{
@@ -33,8 +34,13 @@ export default function AsignarTripulanteEnProyecto({id}) {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '2vh'
-        }}
+            gap: '2vh',
+            border: '2px solid white', // Borde blanco
+            borderRadius: '8px', // Esquinas redondeadas
+            padding: '3vh', // Espacio interior
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+            
+          }}
         >
         <Grid
             container spacing={3}
@@ -96,7 +102,7 @@ export default function AsignarTripulanteEnProyecto({id}) {
                 id="diasAsignados"
                 label="Días Asignados"
                 name="diasAsignados"
-                autoComplete="diasAsignados"
+                
                 {...register("diasAsignados",{
                 required:{
                 value:true,
@@ -130,6 +136,7 @@ export default function AsignarTripulanteEnProyecto({id}) {
         </Button>
         </Box>
     </form>
+    </Box>
   </>
     )
 }

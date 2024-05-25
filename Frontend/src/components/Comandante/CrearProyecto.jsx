@@ -13,6 +13,9 @@ import '../../styles/login.css'
 export default function CrearProyecto() {
 
     const navigate = useNavigate();
+    const handleBack = () => {
+      window.location.href = '/comandante/proyectos';
+    }
     
     const { register, handleSubmit, formState: {errors} } = useForm({
       defaultValues: {
@@ -48,14 +51,43 @@ export default function CrearProyecto() {
 
 
   return (
+    <>
+    <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center', 
+          textAlign: 'center',
+          marginTop: '14vh', 
+        }}
+      >
+      <Typography
+        variant="h2"
+        sx={{
+          fontFamily: 'Orbitron',
+          marginBottom: '1rem',
+          color: 'white',
+          textShadow: '0 0 15px rgba(255,255,255,0.7)',
+          maxWidth: '85vw', 
+          fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3rem' },
+        }}
+      >
+        Crea un nuevo proyecto
+      </Typography>
+    </Box>
+    <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop:'3vh' }}>
     <form onSubmit={onSubmit}>
     <Box
-      sx={{
+       sx={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '2vh'
+        gap: '2vh',
+        border: '2px solid white', // Borde blanco
+        borderRadius: '8px', // Esquinas redondeadas
+        padding: '3vh', // Espacio interior
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
       }}
     >
       <Grid
@@ -261,7 +293,7 @@ export default function CrearProyecto() {
         type="submit"
         variant="contained"
         sx={{
-          backgroundColor: '#DBA44E',
+          backgroundColor: '#50a4c2',
           color: 'white',
           transition: 'background-color 0.3s ease',
           '&:hover': {
@@ -274,6 +306,34 @@ export default function CrearProyecto() {
       </Button>
     </Box>
   </form>
+ 
+  </Box>
+  <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center', // Centra horizontalmente
+          marginTop: '3vh', // Margen superior de 3vh
+        }}
+      >
+        <Button
+          onClick={handleBack}
+          type="button"
+          variant="contained"
+          sx={{
+            backgroundColor: '#DBA44E',
+            color: 'white',
+            transition: 'background-color 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'darkviolet',
+              boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
+            },
+            marginBottom: '3vh'
+          }}
+        >
+          Volver a proyectos
+        </Button>
+      </Box>
+  </>
 );
 }
 
