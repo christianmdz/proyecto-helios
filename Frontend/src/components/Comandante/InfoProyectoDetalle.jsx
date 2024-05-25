@@ -38,7 +38,7 @@ export default function InfoProyectoDetalle() {
         flexDirection: 'column',
         alignItems: 'center', 
         textAlign: 'center',
-        marginTop: '14vh',  
+        marginTop: '14vh', 
       }} 
       >
         <Typography variant="h2" sx={{

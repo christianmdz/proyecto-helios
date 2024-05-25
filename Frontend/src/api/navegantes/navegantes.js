@@ -49,6 +49,9 @@ export function getOneCrew(id) {
 
 export function projectInCrew(id) {
   const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     fetch(`${BaseUrl.navegante}/proyectos-de-tripulante/${id}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -59,17 +62,25 @@ export function projectInCrew(id) {
         }
         return response.json();
       })
-      .then((navegantes) => setData(navegantes))
+      .then((navegantes) => {
+        setData(navegantes);
+        setIsLoading(false);
+      })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setData(null); // Set data to null or handle error as needed
+        setError(error);
+        setIsLoading(false);
       });
   }, [id]);
-  return { data };
+
+  return { data, isLoading, error };
 }
 
 export function taskInCrew(id) {
   const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     fetch(`${BaseUrl.navegante}/tareas-de-tripulante/${id}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -80,11 +91,16 @@ export function taskInCrew(id) {
         }
         return response.json();
       })
-      .then((navegantes) => setData(navegantes))
+      .then((navegantes) => {
+        setData(navegantes);
+        setIsLoading(false);
+      })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setData(null); // Set data to null or handle error as needed
+        setError(error);
+        setIsLoading(false);
       });
   }, [id]);
-  return { data };
+
+  return { data, isLoading, error };
 }

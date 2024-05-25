@@ -2,10 +2,23 @@ import React from 'react'
 import { Box, Typography } from "@mui/material"
 import { projectInCrew } from '../../api/navegantes/navegantes'
 import TarjetaProyectosDeTripulante from './TarjetaProyectosDeTripulante';
+import SinProyectos from './SinProyectos';
 
 export default function InfoProyectosDeTripulante({id}) {
 
-    const {data} = projectInCrew(id);
+  const { data, isLoading, error } = projectInCrew(id);
+
+  if (isLoading) {
+    return <p>Cargando...</p>; // Puedes personalizar este mensaje
+  }
+
+  if (error) {
+    return <SinProyectos />; // Puedes personalizar este mensaje
+  }
+
+  if (!data || data.length === 0) {
+    return <SinProyectos />; // Renderiza el componente SinProyectos si no hay datos
+  }
 
 
   return (

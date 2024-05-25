@@ -49,7 +49,7 @@ export default function TareaDetalleTarjetaComandante({ data, onVerTripulantes, 
           <Box
             component="img"
             src={path + "tarea_" + data.campo + ".jpg"}
-            alt="tripulante"
+            alt="tarea"
             sx={{
               width: '100%',
               height: '100%',
@@ -75,14 +75,15 @@ export default function TareaDetalleTarjetaComandante({ data, onVerTripulantes, 
               backgroundColor: 'transparent',
               textAlign: { xs: 'center', md: 'left', lg: 'left' },
               minWidth: { md: '20vw' },
+              gap: '1vh'
             }}
           >
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Nombre: {data.nombre}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Responsable: {data.responsable}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Descripción: {data.descripcion}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Campo: {data.campo}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Email Responsable: {data.emailResponsable}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.4rem' } }}>Frecuencia: {data.frecuencia}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Nombre: {data.nombre}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Responsable: {data.responsable}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Descripción: {data.descripcion}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Campo: {data.campo}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Email Responsable: {data.emailResponsable}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Frecuencia: {data.frecuencia}</Typography>
           </Grid>
           <Grid
             sx={{

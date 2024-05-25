@@ -283,7 +283,7 @@ export default function CrearTarea() {
             marginBottom: '3vh'
           }}
         >
-          Volver a proyectos
+          Volver a tareas
         </Button>
       </Box>
     </>

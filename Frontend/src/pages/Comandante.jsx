@@ -26,7 +26,7 @@ export default function Comandante() {
     <div >
       <Box
         sx={{
-          backgroundColor: '#0f1214',
+          backgroundColor: 'transparent',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
