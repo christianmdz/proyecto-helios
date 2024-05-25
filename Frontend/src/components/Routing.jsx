@@ -14,6 +14,7 @@ import InfoProyectosComandante from './Comandante/InfoProyectosComandante';
 import InfoProyectoDetalle from './Comandante/InfoProyectoDetalle';
 import CrearProyecto from './Comandante/CrearProyecto';
 import InfoModificarProyecto from './Comandante/InfoModificarProyecto';
+import ComandanteHome from './Comandante/ComandanteHome';
 
 export default function Routing() {
   return (
@@ -21,6 +22,7 @@ export default function Routing() {
       <Route path="/" element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path='comandante' element={<Comandante />}>
+        <Route index element= {<ComandanteHome/>} />
         <Route path='tripulacion' element={<InfoTripulacionComandante />} />
         <Route path='tripulacion/:id' element={<TripulanteDetalle />} />
         <Route path='tareas/' element={<InfoTareasComandante />} />

@@ -22,7 +22,7 @@ export default function LoginForm() {
       // Redirigir a la página correspondiente
       navigate(path); // Redirige al usuario a la página principal ("/")
     } catch (error) {
-      setError("Authentication failed");
+      setError("Usuario o contraseña incorrectos");
     }
   };
 
@@ -74,7 +74,7 @@ export default function LoginForm() {
             />
           </Grid>
         </Grid>
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
         <Button
           type="submit"
           variant="contained"

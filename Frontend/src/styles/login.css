@@ -43,4 +43,8 @@
 .custom-text-field .MuiSelect-select {
   color: white; /* Cambiar el color del texto del select */
 }
-  
+
+.error-message {
+  color: red;
+  font-family: 'JetBrains Mono';
+}
