@@ -123,7 +123,7 @@ export default function AsignarTripulanteEnProyecto({id}) {
             type="submit"
             variant="contained"
             sx={{
-            backgroundColor: '#DBA44E',
+            backgroundColor: '#50a4c2',
             color: 'white',
             transition: 'background-color 0.3s ease',
             '&:hover': {

@@ -32,14 +32,26 @@ export default function AsignarTripulanteEnTarea({id}) {
     
 
   return (
-    <form onSubmit={onSubmit}>
+    <>
+      <Box>
+            <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2.5rem' } }}>
+                Asigna un Tripulante a este proyecto
+            </Typography>   
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop:'3vh' }}>
+        <form onSubmit={onSubmit}>
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: '2vh'
+              gap: '2vh',
+              border: '2px solid white', // Borde blanco
+              borderRadius: '8px', // Esquinas redondeadas
+              padding: '3vh', // Espacio interior
+              backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+              
             }}
           >
             <Grid
@@ -157,7 +169,7 @@ export default function AsignarTripulanteEnTarea({id}) {
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: '#DBA44E',
+                backgroundColor: '#50a4c2',
                 color: 'white',
                 transition: 'background-color 0.3s ease',
                 '&:hover': {
@@ -166,9 +178,11 @@ export default function AsignarTripulanteEnTarea({id}) {
                 },
               }}
               >
-              Launch
+              Asignar
             </Button>
           </Box>
         </form>
+      </Box>
+    </>
   )
 }

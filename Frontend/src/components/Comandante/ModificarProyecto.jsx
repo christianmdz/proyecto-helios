@@ -51,7 +51,7 @@ export default function ModificarProyecto({data}) {
 
   return (
     <>
-    <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop:'3vh' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop:'3vh', paddingBottom:'3vh' }}>
       <form onSubmit={onSubmit}>
       <Box
         sx={{
@@ -166,6 +166,8 @@ export default function ModificarProyecto({data}) {
             <TextField
               className='custom-text-field'
               variant="outlined"
+              multiline
+              maxRows={4}
               required
               id="descripcion"
               label="Descripción del proyecto"
@@ -300,7 +302,7 @@ export default function ModificarProyecto({data}) {
     type="button"
     variant="contained"
     sx={{
-      backgroundColor: '#DBA44E',
+      backgroundColor: '#50a4c2',
       color: 'white',
       transition: 'background-color 0.3s ease',
       '&:hover': {
