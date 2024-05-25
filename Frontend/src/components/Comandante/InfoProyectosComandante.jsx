@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Typography } from "@mui/material"
-import TareaTarjetaComandante from './TareaTarjetaComandante';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllProjects } from '../../api/proyectos/proyectos';
@@ -73,9 +72,19 @@ export default function InfoProyectosComandante() {
       </Button>
     </Box>
   </Box>
+  <Box
+      sx={{
+        display:'flex',
+        flexDirection: 'column',
+        justifyContent:'center',
+        alignItems:'flex-start',
+        paddingLeft: {lg:'5vw'}
+      }}
+    >
     {data?.map((project) => (
       <ProyectoTarjetaComandante key={project.id} project={project} />
     ))}
+    </Box>
   </>
   )
 }
