@@ -9,15 +9,15 @@ export default function InfoProyectosDeTripulante({id}) {
   const { data, isLoading, error } = projectInCrew(id);
 
   if (isLoading) {
-    return <p>Cargando...</p>; // Puedes personalizar este mensaje
+    return <p>Cargando...</p>;
   }
 
   if (error) {
-    return <SinProyectos />; // Puedes personalizar este mensaje
+    return <SinProyectos />;
   }
 
   if (!data || data.length === 0) {
-    return <SinProyectos />; // Renderiza el componente SinProyectos si no hay datos
+    return <SinProyectos />;
   }
 
 

@@ -22,7 +22,7 @@ export default function HomeBody({ circeRef, ceresRef, crewRef }) {
       overflow: 'hidden',
       width: '100vw',
       height: '100vh',
-      position: 'relative', // Establecer posicionamiento relativo para el contenedor
+      position: 'relative',
     }}>
       <div style={{ width: '100%', maxHeight: 'calc(100% - 4rem)', overflowY: 'auto', position: 'relative' }}>
         <Box

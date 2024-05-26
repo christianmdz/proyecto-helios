@@ -8,15 +8,15 @@ export default function InfoTareasDeTripulante({ id }) {
   const { data, isLoading, error } = taskInCrew(id);
 
   if (isLoading) {
-    return <p>Cargando...</p>; // Puedes personalizar este mensaje
+    return <p>Cargando...</p>;
   }
 
   if (error) {
-    return <SinTareas />; // Puedes personalizar este mensaje
+    return <SinTareas />;
   }
 
   if (!data || data.length === 0) {
-    return <SinTareas />; // Renderiza el componente SinTareas si no hay datos
+    return <SinTareas />;
   }
 
   return (

@@ -27,13 +27,13 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' }, // Cambia la dirección del flex en pantallas pequeñas
+          flexDirection: { xs: 'column', md: 'row' }, 
           justifyContent: 'flex-start',
           alignItems: 'center',
           gap: { xs: '2vh', md: '6vw', lg: 'auto' },
           backgroundImage: `linear-gradient(${gradientDirection}, ${gradientColor}, transparent)`,
-          padding: { xs: '1vh', md: '0' }, // Padding para pantallas pequeñas
-          minWidth: { xs: '90vw', sm: '65vw', md: '60vw', }, // minWidth para pantallas pequeñas
+          padding: { xs: '1vh', md: '0' },
+          minWidth: { xs: '90vw', sm: '65vw', md: '60vw', }, 
           maxWidth: { xs: '95vw', lg: '60vw' }
         }}
       >
@@ -53,8 +53,8 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto',
-              width: '100%', // Ajusta el tamaño de la imagen
-              maxWidth: { xs: '95vw', md: 'auto' } // maxWidth para pantallas pequeñas
+              width: '100%',
+              maxWidth: { xs: '95vw', md: 'auto' } 
             }}
           />
         </Grid>
@@ -62,7 +62,7 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
           sx={{
             padding: '5vh',
             display: 'flex',
-            flexDirection: 'column', // Cambia la dirección en pantallas más grandes si es necesario
+            flexDirection: 'column', 
             gap: '2vh',
           }}
         >
@@ -72,7 +72,7 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
               flexDirection: 'column',
               justifyContent: 'center',
               backgroundColor: 'transparent',
-              textAlign: { xs: 'center', md: 'left', lg: 'left' }, // Centra el texto en pantallas pequeñas
+              textAlign: { xs: 'center', md: 'left', lg: 'left' },
               minWidth: { md: '20vw' },
             }}
           >

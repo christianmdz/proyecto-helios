@@ -7,14 +7,12 @@ export default function NotFound() {
   const navigate = useNavigate()
 
   const returnHome = () => {
-    // window.location.href = `/comandante/tripulacion/${tripulante.id}`;
     navigate("/")
   }
 
   return (
     <Grid
       sx={{
-        // backgroundColor: 'red',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

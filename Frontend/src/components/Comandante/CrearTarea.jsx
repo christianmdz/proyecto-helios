@@ -140,7 +140,6 @@ export default function CrearTarea() {
                       message: "Debes seleccionar un campo"
                     }
                   })}
-                  // sx={{:'white'}}
                 >
                   <MenuItem
                     value={0}>Selecciona un campo</MenuItem>
@@ -189,6 +188,8 @@ export default function CrearTarea() {
                 <TextField
                   className='custom-text-field'
                   variant="outlined"
+                  multiline
+                  maxRows={4}
                   required
                   id="descripcion"
                   label="Descripción de la tarea"

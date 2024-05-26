@@ -73,8 +73,8 @@ export default function InfoTareaDetalle() {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center', // Centra horizontalmente
-          marginTop: '3vh', // Margen superior de 3vh
+          justifyContent: 'center', 
+          marginTop: '3vh',
         }}
       >
         <Button

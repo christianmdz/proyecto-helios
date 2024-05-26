@@ -1,4 +1,3 @@
-import axios from "axios";
 import { BaseUrl } from "../../config/index";
 import { useEffect, useState } from "react";
 
