@@ -1,11 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import { getAllProjects } from "../../api/proyectos/proyectos";
-import ProyectoTarjetaComandante from "./ProyectoTarjetaComandante";
+import TarjetaProyectoColono from "./TarjetaProyectoColono";
 
-export default function InfoProyectosComandante() {
+export default function InfoProyectosColono() {
   const { data } = getAllProjects();
   return (
     <>
@@ -42,32 +40,6 @@ export default function InfoProyectosComandante() {
         >
           La investigación es la clave para el éxito de la misión
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "3vh",
-          }}
-        >
-          <Button
-            component={Link}
-            to="/comandante/crear-proyecto"
-            type="button"
-            variant="contained"
-            sx={{
-              backgroundColor: "#74A44E",
-              color: "white",
-              transition: "background-color 0.3s ease",
-              "&:hover": {
-                backgroundColor: "darkviolet",
-                boxShadow: "0px 4px 8px rgba(138, 43, 226, 0.5)",
-              },
-              marginBottom: "3vh",
-            }}
-          >
-            Crear Proyecto
-          </Button>
-        </Box>
       </Box>
       <Box
         sx={{
@@ -79,7 +51,7 @@ export default function InfoProyectosComandante() {
         }}
       >
         {data?.map((project) => (
-          <ProyectoTarjetaComandante key={project.id} project={project} />
+          <TarjetaProyectoColono key={project.id} project={project} />
         ))}
       </Box>
     </>

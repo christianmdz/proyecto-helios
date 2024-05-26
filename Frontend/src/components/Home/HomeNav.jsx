@@ -1,13 +1,26 @@
-import { AppBar, CssBaseline, Toolbar, Typography, Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
-import React, {useState} from "react";
+import {
+  AppBar,
+  CssBaseline,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
-import { isAuthenticated } from "../../api/auth/auth";
+import MenuIcon from "@mui/icons-material/Menu";
+import { giveMeRol, isAuthenticated } from "../../api/auth/auth";
 
-export default function HomeNav({ scrollToCirce, scrollToCeres, scrollToCrew}) {
-
+export default function HomeNav({
+  scrollToCirce,
+  scrollToCeres,
+  scrollToCrew,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isAuth, setIsAuth] = useState(isAuthenticated())
+  const [isAuth, setIsAuth] = useState(isAuthenticated());
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,19 +30,32 @@ export default function HomeNav({ scrollToCirce, scrollToCeres, scrollToCrew}) {
     setAnchorEl(null);
   };
 
+  const formatoRol = (rol) => {
+    return rol.substring(5);
+  };
+
   return (
     <div>
       <CssBaseline />
-      <AppBar sx={{ 
-        backgroundColor: 'hsla(210, 14%, 7%, 0.6)',
-        backdropFilter: 'blur(5px)',
-        padding: '1vh',
-        }}>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography component="div" sx={{ flexGrow: 1}}>
-            <Button color="inherit" component={Link} to={"/"} sx={{fontFamily:'Orbitron', fontSize:'1.2rem'}}>HELIOS</Button>
+      <AppBar
+        sx={{
+          backgroundColor: "hsla(210, 14%, 7%, 0.6)",
+          backdropFilter: "blur(5px)",
+          padding: "1vh",
+        }}
+      >
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography component="div" sx={{ flexGrow: 1 }}>
+            <Button
+              color="inherit"
+              component={Link}
+              to={"/"}
+              sx={{ fontFamily: "Orbitron", fontSize: "1.2rem" }}
+            >
+              HELIOS
+            </Button>
           </Typography>
-          <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+          <Box sx={{ display: { xs: "block", sm: "none" } }}>
             <IconButton color="inherit" onClick={handleMenuOpen} edge="start">
               <MenuIcon />
             </IconButton>
@@ -41,19 +67,37 @@ export default function HomeNav({ scrollToCirce, scrollToCeres, scrollToCrew}) {
               <MenuItem onClick={scrollToCirce}>Circe</MenuItem>
               <MenuItem onClick={scrollToCeres}>Ceres</MenuItem>
               <MenuItem onClick={scrollToCrew}>Crew</MenuItem>
-              <MenuItem onClick={handleMenuClose} component={Link} to="/login">Login</MenuItem>
+              <MenuItem onClick={handleMenuClose} component={Link} to="/login">
+                Login
+              </MenuItem>
             </Menu>
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Button color="inherit" onClick={scrollToCirce}>Circe</Button>
-            <Button color="inherit" onClick={scrollToCeres}>Ceres</Button>
-            <Button color="inherit" onClick={scrollToCrew}>Crew</Button>
-            {!isAuth
-              ? <Button color="inherit" component={Link} to={"/login"}>Login</Button>
-              : <Button color="inherit" component={Link} to={"/comandante"}>Comandante</Button>}
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button color="inherit" onClick={scrollToCirce}>
+              Circe
+            </Button>
+            <Button color="inherit" onClick={scrollToCeres}>
+              Ceres
+            </Button>
+            <Button color="inherit" onClick={scrollToCrew}>
+              Crew
+            </Button>
+            {!isAuth ? (
+              <Button color="inherit" component={Link} to={"/login"}>
+                Login
+              </Button>
+            ) : (
+              <Button
+                color="inherit"
+                component={Link}
+                to={"/" + formatoRol(giveMeRol())}
+              >
+                {formatoRol(giveMeRol())}
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
     </div>
-  )
+  );
 }

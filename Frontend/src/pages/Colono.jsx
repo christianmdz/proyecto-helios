@@ -1,10 +1,10 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import ComandanteNav from "../components/Comandante/ComandanteNav";
+import NavColono from "../components/Colono/NavColono";
 import "../styles/comandante.css";
 
-export default function Comandante() {
+export default function Colono() {
   return (
     <div>
       <Box
@@ -15,7 +15,7 @@ export default function Comandante() {
           justifyContent: "center",
         }}
       >
-        <ComandanteNav />
+        <NavColono />
         <Outlet />
       </Box>
     </div>

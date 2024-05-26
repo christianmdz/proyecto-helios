@@ -43,11 +43,13 @@ export default function ComandanteNav() {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
+                MenuListProps={{ sx: { backgroundColor: '#0000008f', backdropFilter: 'blur(5px)', color: 'white', fontFamily: 'Orbitron' } }}
+                PaperProps={{ sx: { backgroundColor: '#0000008f', backdropFilter: 'blur(5px)' } }}
               >
-                <MenuItem component={Link} to="tripulacion">Tripulación</MenuItem>
-                <MenuItem component={Link} to="tareas">Tareas</MenuItem>
-                <MenuItem component={Link} to="proyectos">Proyectos</MenuItem>
-                <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>
+                 <MenuItem component={Link} to="tripulacion" sx={{ fontFamily: 'Orbitron' }}>Tripulación</MenuItem>
+                  <MenuItem component={Link} to="tareas" sx={{ fontFamily: 'Orbitron' }}>Tareas</MenuItem>
+                  <MenuItem component={Link} to="proyectos" sx={{ fontFamily: 'Orbitron' }}>Proyectos</MenuItem>
+                  <MenuItem onClick={handleLogout} sx={{ fontFamily: 'Orbitron' }}>Cerrar Sesión</MenuItem>
               </Menu>
             </Box>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

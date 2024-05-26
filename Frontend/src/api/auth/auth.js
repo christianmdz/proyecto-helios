@@ -30,6 +30,8 @@ export function getAuthorizedPath() {
   const decoded = jwtDecode(token);
   if (decoded.rol === "ROLE_COMANDANTE") {
     return "/comandante";
+  } else if (decoded.rol === "ROLE_COLONO") {
+    return "/colono";
   } else {
     return "/";
   }

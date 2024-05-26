@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import circe from '../../assets/circe_test.jpeg';
+import comandante from '../../assets/fondo_comandante.jpg';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { giveMeRol } from "../../api/auth/auth";
 
@@ -26,12 +26,12 @@ export default function ComandanteHome() {
         }}>
             <Box
                 component="img"
-                src={circe}
+                src={comandante}
                 alt="Circe Spaceship"
                 sx={{
                     width: '100%',
-                    height: '100%', // Ocupa el 100% de la altura
-                    objectFit: 'cover', // Asegura que la imagen cubra el contenedor sin distorsionarse
+                    height: '100%',
+                    objectFit: 'cover',
                 }}
             />
             <Box
