@@ -107,9 +107,9 @@ export default function TareaDetalleTarjetaComandante({ data, onVerTripulantes, 
                   backgroundColor: 'darkviolet',
                   boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
                 },
-                width: { xs: '95%', md: '95%', lg: 'auto' }, // Ancho completo en móvil, tamaño automático en tablet y escritorio
-                maxWidth: { lg: '15vw', xl: '15vw' }, // Máximo ancho para asegurar que no se desborde en pantallas pequeñas
-                marginTop: { xs: '2vh' }, // Margen superior solo en móvil
+                width: { xs: '95%', md: '95%', lg: 'auto' },
+                maxWidth: { lg: '15vw', xl: '15vw' }, 
+                marginTop: { xs: '2vh' },
               }}
             >
               Ver Tripulantes
@@ -126,9 +126,9 @@ export default function TareaDetalleTarjetaComandante({ data, onVerTripulantes, 
                   backgroundColor: 'darkviolet',
                   boxShadow: '0px 4px 8px rgba(138, 43, 226, 0.5)',
                 },
-                width: { xs: '95%', md: '95%', lg: 'auto' }, // Ancho completo en móvil, tamaño automático en tablet y escritorio
-                maxWidth: { lg: '15vw', xl: '15vw' }, // Máximo ancho para asegurar que no se desborde en pantallas pequeñas
-                marginTop: { xs: '2vh' }, // Margen superior solo en móvil
+                width: { xs: '95%', md: '95%', lg: 'auto' },
+                maxWidth: { lg: '15vw', xl: '15vw' }, 
+                marginTop: { xs: '2vh' },
               }}
             >
               Asignar

@@ -10,7 +10,6 @@ const NaveTarjeta = ({ data }) => {
         flexDirection: 'column',
         justifyContent: 'center',
         backgroundColor: 'transparent',
-        // backgroundImage: 'linear-gradient(to bottom, #eec484, transparent)',
       }}
     >
       <Typography

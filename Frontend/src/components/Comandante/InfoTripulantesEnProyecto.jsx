@@ -20,9 +20,9 @@ export default function InfoTripulantesEnProyecto({id}) {
         marginBottom: '1rem',
         color: 'white',
         textShadow: '0 0 15px rgba(255,255,255,0.7)',
-        textAlign: 'center', // Centra el texto horizontalmente
-        maxWidth: '85vw', // Tamaño máximo del texto
-        fontSize: { xs: '3rem', md: '4rem', lg: '3rem' } // Tamaño de la tipografía según la pantalla
+        textAlign: 'center',
+        maxWidth: '85vw', 
+        fontSize: { xs: '3rem', md: '4rem', lg: '3rem' }
         }}
         >
         Tripulantes que participan en el proyecto

@@ -11,7 +11,7 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Obtiene la función de navegación
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,8 +19,7 @@ export default function LoginForm() {
       const token = await login({ username, password });
       localStorage.setItem("token", token);
       const path = getAuthorizedPath()
-      // Redirigir a la página correspondiente
-      navigate(path); // Redirige al usuario a la página principal ("/")
+      navigate(path); 
     } catch (error) {
       setError("Usuario o contraseña incorrectos");
     }

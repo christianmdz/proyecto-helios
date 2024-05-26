@@ -35,10 +35,10 @@ export default function AsignarTripulanteEnProyecto({id}) {
             justifyContent: 'center',
             alignItems: 'center',
             gap: '2vh',
-            border: '2px solid white', // Borde blanco
-            borderRadius: '8px', // Esquinas redondeadas
-            padding: '3vh', // Espacio interior
-            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+            border: '2px solid white', 
+            borderRadius: '8px', 
+            padding: '3vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
             
           }}
         >

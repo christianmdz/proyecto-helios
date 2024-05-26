@@ -31,10 +31,10 @@ export default function TarjetaProyectosDeTripulante({ project }) {
       <CardActionArea
         onClick={viewDetail}
         sx={{
-          transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Transición para el hover
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           '&:hover': {
-            transform: 'scale(0.98)', // Reducción del tamaño en hover
-            boxShadow: `0 0 10px 2px ${gradientColor}`, // Sombra blanca en hover
+            transform: 'scale(0.98)', 
+            boxShadow: `0 0 10px 2px ${gradientColor}`, 
           }
         }}
       >

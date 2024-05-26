@@ -189,6 +189,8 @@ export default function CrearProyecto() {
                 <TextField
                   className='custom-text-field'
                   variant="outlined"
+                  multiline
+                  maxRows={4}
                   required
                   id="descripcion"
                   label="Descripción del proyecto"

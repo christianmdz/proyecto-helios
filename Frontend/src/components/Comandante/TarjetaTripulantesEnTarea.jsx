@@ -33,12 +33,12 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'column', lg: 'row' }, // Dirección de columna para todos los dispositivos
+          flexDirection: { xs: 'column', md: 'column', lg: 'row' },
           justifyContent: 'center',
           gap: { xs: '2vh', md: '6vw' },
           backgroundImage: `linear-gradient(${gradientDirection}, ${gradientColor}, transparent)`,
-          padding: { xs: '1vh', md: '0', lg: '0' }, // Padding uniforme para todos los dispositivos
-          width: '100%', // Ancho máximo para todas las pantallas
+          padding: { xs: '1vh', md: '0', lg: '0' },
+          width: '100%', 
           maxWidth: '100vw',
         }}
       >
@@ -56,9 +56,9 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
             sx={{
 
               objectFit: 'cover',
-              width: { xs: '100%', md: '100%', lg: 'auto' }, // Ancho fijo para escritorio y tablet
-              height: { xs: 'auto', md: 'auto', lg: '100%' }, // Ajusta la altura de la imagen para que ocupe toda la altura del contenedor
-              maxWidth: { xs: '95vw', md: '100%', lg: '100%' } // maxWidth para pantallas pequeñas
+              width: { xs: '100%', md: '100%', lg: 'auto' }, 
+              height: { xs: 'auto', md: 'auto', lg: '100%' }, 
+              maxWidth: { xs: '95vw', md: '100%', lg: '100%' } 
             }}
           />
         </Grid>
@@ -68,7 +68,7 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
             display: 'flex',
             flexDirection: 'column',
             gap: '2vh',
-            textAlign: 'center', // Alinear el texto al centro en todos los dispositivos
+            textAlign: 'center',
             minWidth: '20vw',
             maxWidth: '95vw',
           }}
@@ -79,7 +79,7 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
               flexDirection: 'column',
               justifyContent: 'center',
               backgroundColor: 'transparent',
-              textAlign: { xs: 'center', md: 'center', lg: 'left' }, // Centra el texto en pantallas pequeñas
+              textAlign: { xs: 'center', md: 'center', lg: 'left' },
               minWidth: { md: '20vw' },
             }}
           >
