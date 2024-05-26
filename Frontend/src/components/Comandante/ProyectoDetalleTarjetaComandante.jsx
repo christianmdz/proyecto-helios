@@ -87,7 +87,6 @@ export default function ProyectoDetalleTarjetaComandante({ data, onVerTripulante
           >
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Nombre: {data.nombre}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Director: {data.director}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Director: {data.director}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Descripción: {data.descripcion}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Campo: {data.campo}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Email-Director: {data.directorEmail}</Typography>

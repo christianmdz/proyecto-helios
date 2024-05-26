@@ -26,6 +26,11 @@ export default function ModificarProyecto({data}) {
         {value: 4, label: "Tino"}
     ];
 
+    const getDirectorValue = (director) => {
+      const directorObj = opcionesDirector.find(opcion => opcion.label === director);
+      return directorObj ? directorObj.value : 0;
+  };
+
     const opcionesCampo = [
         {value: "INGENIERIA", label: "INGENIERIA"},
         {value: "CIENCIA", label: "CIENCIA"},
@@ -44,7 +49,7 @@ export default function ModificarProyecto({data}) {
         const dataUpdate = {...data, id: id};
         console.log(dataUpdate);
         updateProject(dataUpdate);
-        navigate('/comandante/proyectos');
+        navigate('/comandante/proyectos', {replace:true});
     });
     
     // TODO: revisar opcion por defecto director, comprobar id en data input
@@ -111,7 +116,7 @@ export default function ModificarProyecto({data}) {
               required            
               id="idDirector"
               name="idDirector"
-              defaultValue={0}
+              defaultValue={getDirectorValue(data.director)}
               {...register("idDirector", {
                 required: {
                   value: true,
@@ -119,8 +124,6 @@ export default function ModificarProyecto({data}) {
                 }
               })}
             >
-              <MenuItem 
-              value={0}>Selecciona un director</MenuItem>
               {opcionesDirector.map((opcion) => (
                 <MenuItem key={opcion.value} value={opcion.value}>
                   {opcion.label}
