@@ -33,7 +33,7 @@ export function getAuthorizedPath() {
   } else if (decoded.rol === "ROLE_COLONO") {
     return "/colono";
   } else {
-    return "/";
+    return "/trabajando";
   }
 }
 

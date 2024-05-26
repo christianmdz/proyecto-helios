@@ -24,15 +24,16 @@ export default function NotFound() {
       }}
     >
       <Box>
-        <Typography variant="h4" sx={{ fontFamily: 'Orbitron', color: 'white' }}>Opsss, te has pasado la salida</Typography>
+        <Typography variant="h4" sx={{ fontFamily: 'Orbitron', color: 'white', textShadow: '0 0 15px rgba(255,255,255,0.7)' }}>Opsss, te has pasado la salida</Typography>
       </Box>
       <Box
         component="img"
         src={path + "not_found.jpg"}
         alt="404 Not Found"
         sx={{
-          width: '65vw',
-          height: '65vh',
+          width: {xs:'100%',md:"60%", lg:"75%", xl:"75%"},
+          height: {xs:'100%',md:"60%", lg:"75%", xl:"75%"},
+          objectFit: "cover",
         }}
       />
       <Button

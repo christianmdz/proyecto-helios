@@ -21,6 +21,7 @@ import HomeColono from "./Colono/HomeColono";
 import InfoTripulacionColono from "./Colono/InfoTripulacionColono";
 import InfoTareasColono from "./Colono/InfoTareasColono";
 import InfoProyectosColono from "./Colono/InfoProyectosColono";
+import Trabajando from "../pages/Trabajando";
 
 export default function Routing() {
   return (
@@ -28,6 +29,7 @@ export default function Routing() {
       <Route path="/" element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="registro" element={<Registro />} />
+      <Route path="trabajando" element={<Trabajando />} />
       <Route path="colono" element={<Colono />}>
         <Route index element={<HomeColono />} />
         <Route path="tripulacionColono" element={<InfoTripulacionColono />} />

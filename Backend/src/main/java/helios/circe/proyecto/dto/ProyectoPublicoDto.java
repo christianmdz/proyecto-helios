@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 public class ProyectoPublicoDto extends ProyectoBaseDto{
     
     String descripcion;
-
+    String campo;
 }

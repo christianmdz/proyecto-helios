@@ -32,7 +32,7 @@ export default function HomeBody({ circeRef, ceresRef, crewRef }) {
         sx={{
           objectFit: 'cover',
           width: '100%',
-          height: 'auto', // Para mantener la proporción de la imagen
+          height: 'auto',
           maxWidth: '100%',
         }}
         />

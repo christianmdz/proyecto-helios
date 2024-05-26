@@ -63,6 +63,7 @@ public class DtoMapper {
         if (proyectoDto instanceof ProyectoPublicoDto) {
             ProyectoPublicoDto publicoDto = (ProyectoPublicoDto) proyectoDto;
             publicoDto.setDescripcion(proyecto.getDescripcion());
+            publicoDto.setCampo(proyecto.getCampo().name());
         }
 
         return proyectoDto;
@@ -168,6 +169,7 @@ public class DtoMapper {
         if (tareaDto instanceof TareaPublicoDto) {
             TareaPublicoDto tareaPublicoDto = (TareaPublicoDto) tareaDto;
             tareaPublicoDto.setDescripcion(tarea.getDescripcion());
+            tareaPublicoDto.setCampo(tarea.getCampo().name());
         }
 
         return tareaDto;

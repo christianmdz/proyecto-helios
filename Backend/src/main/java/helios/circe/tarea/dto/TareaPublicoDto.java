@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 public class TareaPublicoDto extends TareaBaseDto{
 
     String descripcion;
-
+    String campo;
 }

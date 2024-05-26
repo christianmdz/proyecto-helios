@@ -61,6 +61,7 @@ public class NaveganteServImpl implements NaveganteService {
             case "COLONO":
                 navegantes = naveganteRepository.findAll();
                 mapearListaNavegantesADto(navegantes, listaNavegantes, NavegantePublicoDto.class);
+                break;
             default:
                 throw new SecurityException();
         }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { getAllCrew } from "../../api/navegantes/navegantes";
+import TarjetaTripulanteColono from "./TarjetaTripulanteColono";
 
 export default function InfoTripulacionColono() {
   const { data } = getAllCrew();
