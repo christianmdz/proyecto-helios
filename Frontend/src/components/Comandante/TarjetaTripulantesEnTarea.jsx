@@ -10,7 +10,7 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
   const navigate = useNavigate();
   const handleEliminarTripulante = () => {
     deleteCrewInTask(taskId, tripulanteTarea.id);
-    navigate('/comandante/proyectos');
+    navigate('/comandante/tareas');
   }
 
   const path = "/src/assets/"

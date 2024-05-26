@@ -12,6 +12,24 @@ import { createCrewInTask } from '../../api/naventarea/naventarea';
 export default function AsignarTripulanteEnTarea({id}) {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: {errors} } = useForm();
+
+    const tripulantes = [
+      { value: 2, label: "Benito" },
+      { value: 3, label: "Tania" },
+      { value: 4, label: "Tino" },
+      { value: 5, label: "Protestato" },
+      { value: 6, label: "Juan" },
+      { value: 7, label: "María" },
+      { value: 8, label: "Ana" },
+      { value: 9, label: "José" },
+      { value: 10, label: "Laura" },
+      { value: 11, label: "Javier" },
+      { value: 12, label: "Manuel" },
+      { value: 13, label: "Ana" },
+      { value: 14, label: "Juan" },
+      { value: 15, label: "María" },
+      { value: 16, label: "Kiko" }
+    ]
     
     const opcionesJornada = [
         {value: "parcial" , label: "Parcial"},
@@ -27,7 +45,7 @@ export default function AsignarTripulanteEnTarea({id}) {
         const dataAsignar = {...data, idTarea: id};
         console.log(dataAsignar);
         createCrewInTask(dataAsignar);
-        navigate('/comandante/tareas');
+        navigate(0, {replace:true});
     });
     
 
@@ -35,7 +53,7 @@ export default function AsignarTripulanteEnTarea({id}) {
     <>
       <Box>
             <Typography variant="h4" sx={{ fontFamily: 'Orbitron', marginBottom: '1rem', color:'white', textShadow: '0 0 15px rgba(255,255,255,0.7)', textAlign: 'center', fontSize: { xs: '1.5rem', md: '2.5rem' } }}>
-                Asigna un Tripulante a este proyecto
+                Asigna un Tripulante a esta Tarea
             </Typography>   
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop:'3vh' }}>
@@ -64,24 +82,33 @@ export default function AsignarTripulanteEnTarea({id}) {
               }}
             >
               <Grid item xs={12} >
-                <TextField
+              <Select
                   className='custom-text-field'
                   variant="outlined"
                   required
                   id="idNavegante"
-                  label="Id del Navegante"
                   name="idNavegante"
-                  autoComplete="idNavegante"
-                  {...register("idNavegante",{
-                    required:{
-                    value:true,
-                    message:"Debes introducir un id para el navegante"
+                  defaultValue={2}
+                  {...register("idNavegante", {
+                    required: {
+                      value: true,
+                      message: "Selecciona un tripulante"
                     }
-                    })}
-                />
-                {errors.idNavegante && <Typography sx={{color:'red', fontSize:'0.7rem'}}>
-                  {errors.idNavegante.message}
-                </Typography>}
+                  })}
+                  MenuProps={{ PaperProps: { style: { maxHeight: '20vh' } } }}
+                  sx={{ overflowY: 'auto' }}
+                >
+                  {tripulantes.map((tripulante) => (
+                    <MenuItem key={tripulante.value} value={tripulante.value}>
+                      {tripulante.label + " - ID: " + tripulante.value}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {errors.idNavegante && (
+                  <Typography sx={{ color: 'red', fontSize: '0.7rem' }}>
+                    {errors.idNavegante.message}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                     <TextField
