@@ -28,6 +28,11 @@ export default function TarjetaTripulantesEnProyecto({ tripulanteProyecto, proje
     return rol.substring(5)
   }
 
+  const fechaIncorporacion = new Date(tripulanteProyecto.fechaIncorporacion);
+
+  const opcionesFormatoFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+  const fechaIncorporacionFormateada = fechaIncorporacion.toLocaleDateString('es-ES', opcionesFormatoFecha);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: '0', sm: '0', md: '0', lg: '21vw', xl: '21vw' }, marginRight: { lg: '15vw', xl: '15vw' }, alignItems: 'center', paddingBottom: { xs: '3vh', md: '3vh' } }}>
       <Box
@@ -89,7 +94,7 @@ export default function TarjetaTripulantesEnProyecto({ tripulanteProyecto, proje
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Campo: {tripulanteProyecto.campo}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Email: {tripulanteProyecto.email}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Mando: {formatoRol(tripulanteProyecto.rol)}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Fecha de Incorporación: {tripulanteProyecto.fechaIncorporacion}</Typography>
+            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Fecha de Incorporación: {fechaIncorporacionFormateada}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Días asignados: {tripulanteProyecto.diasAsignados}</Typography>
           </Grid>
           <Grid

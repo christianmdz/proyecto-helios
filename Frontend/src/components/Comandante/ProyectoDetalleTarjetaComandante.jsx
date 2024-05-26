@@ -13,8 +13,16 @@ export default function ProyectoDetalleTarjetaComandante({ data, onVerTripulante
   const gradientDirection = isSmallScreen ? 'to bottom' : 'to right';
   const gradientColor = data.campo === 'LIDER' ? '#DBA44E'
     : data.campo === 'CIENCIA' ? '#74A44E'
-      : data.campo === 'INGENIERIA' ? '#50a4c2'
-        : data.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
+    : data.campo === 'INGENIERIA' ? '#50a4c2'
+    : data.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
+
+    const fechaInicio = new Date(data.fechaInicio);
+    const fechaFin = new Date(data.fechaFin);
+  
+    
+    const opcionesFormatoFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+    const fechaInicioFormateada = fechaInicio.toLocaleDateString('es-ES', opcionesFormatoFecha);
+    const fechaFinFormateada = fechaFin.toLocaleDateString('es-ES', opcionesFormatoFecha);
 
   return (
     <Card
@@ -82,8 +90,8 @@ export default function ProyectoDetalleTarjetaComandante({ data, onVerTripulante
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Descripción: {data.descripcion}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Campo: {data.campo}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Email-Director: {data.directorEmail}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Fecha de Inicio: {data.fechaInicio}</Typography>
-            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Fecha de Fin: {data.fechaFin}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Fecha de Inicio: {fechaInicioFormateada}</Typography>
+            <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Fecha de Fin: {fechaFinFormateada}</Typography>
             <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.2rem', lg:'1.2rem' } }}>Etapa: {data.etapa}</Typography>
           </Grid>
           <Grid
