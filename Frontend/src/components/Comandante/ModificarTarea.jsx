@@ -31,7 +31,7 @@ export default function ModificarTarea({data}) {
         const dataUpdate = {...data, id: id};
         console.log(dataUpdate);
         updateTask(dataUpdate);
-        navigate('/comandante/tareas');
+        navigate('/comandante/tareas', {replace:true});
     });
 
 
@@ -40,6 +40,11 @@ export default function ModificarTarea({data}) {
         {value: "tbieszka", label: "Tania"},
         {value: "tormaechea", label: "Tino"}
     ];
+
+    const getManagerValue = (manager) => {
+      const managerObj = opcionesResponsable.find(opcion => opcion.label === manager)
+      return managerObj ? managerObj.value : 0;
+    }
 
     const opcionesCampo = [ 
         {value: "INGENIERIA", label: "INGENIERIA"},
@@ -146,7 +151,7 @@ export default function ModificarTarea({data}) {
                       required            
                       id="responsable"
                       name="responsable"
-                      defaultValue={0}
+                      defaultValue={getManagerValue(data.responsable)}
                       {...register("responsable", {
                         required: {
                           value: true,
@@ -154,8 +159,6 @@ export default function ModificarTarea({data}) {
                         }
                       })}
                     >
-                      <MenuItem 
-                      value={0}>Selecciona un responsable</MenuItem>
                       {opcionesResponsable.map((opcion) => (
                         <MenuItem key={opcion.value} value={opcion.value}>
                           {opcion.label}
