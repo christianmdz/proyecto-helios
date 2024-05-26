@@ -15,12 +15,14 @@ import InfoProyectoDetalle from './Comandante/InfoProyectoDetalle';
 import CrearProyecto from './Comandante/CrearProyecto';
 import InfoModificarProyecto from './Comandante/InfoModificarProyecto';
 import ComandanteHome from './Comandante/ComandanteHome';
+import NotFound from './NotFound';
 
 export default function Routing() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="login" element={<Login />} />
+      <Route path='registro' element={<RegistroForm />} />
       <Route path='comandante' element={<Comandante />}>
         <Route index element= {<ComandanteHome/>} />
         <Route path='tripulacion' element={<InfoTripulacionComandante />} />
@@ -34,31 +36,7 @@ export default function Routing() {
         <Route path='crear-proyecto' element={<CrearProyecto />} />
         <Route path='modificar-proyecto/:id' element={<InfoModificarProyecto />} />
       </Route>
-      <Route path='registro' element={<RegistroForm />} />
+      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }
-
-
-
-
-//   export default function Routing (){
-//    return (
-//        <Routes>
-//            <Route Path /login element={<Login>} />
-//            <Route
-//                element={
-//                    <ProtectedRoute>
-//                        <MainPage>
-//                }
-//    )        >
-//                Route index element=Home
-//                Route path element
-//                Route path element
-//                Route path element
-//                Route path element
-//                Route path element
-//                Route path element
-//             <Route/>
-//             <Route path * element not found
-//   }

@@ -33,10 +33,10 @@ export default function TarjetaTareasDeTripulante({ task }) {
       <CardActionArea
         onClick={viewDetail}
         sx={{
-          transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Transición para el hover
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           '&:hover': {
-            transform: 'scale(0.98)', // Reducción del tamaño en hover
-            boxShadow: `0 0 10px 2px ${gradientColor}`, // Sombra blanca en hover
+            transform: 'scale(0.98)',
+            boxShadow: `0 0 10px 2px ${gradientColor}`,
           }
         }}
       >
@@ -91,12 +91,12 @@ export default function TarjetaTareasDeTripulante({ task }) {
                 minWidth: { md: '20vw' },
               }}
             >
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Nombre: {task.nombre}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Responsable: {task.apellido}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Descripcion: {task.rol}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Campo: {task.campo}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Frecuencia: {task.campo}</Typography>
-              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.6rem' } }}>Email Responsable: {task.campo}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.1rem' } }}>Nombre: {task.nombre}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.1rem' } }}>Responsable: {task.responsable}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.1rem' } }}>Descripcion: {task.descripcion}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.1rem' } }}>Campo: {task.campo}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.1rem' } }}>Frecuencia: {task.frecuencia}</Typography>
+              <Typography variant="h4" sx={{ fontFamily: 'JetBrains Mono', color: 'white', fontSize: { xs: '1.2rem', md: '1.1rem' } }}>Email Responsable: {task.responsableEmail}</Typography>
             </Grid>
           </Box>
         </Box>
