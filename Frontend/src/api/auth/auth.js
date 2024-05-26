@@ -26,13 +26,24 @@ export function registerUser(data) {
 }
 
 export function getAuthorizedPath() {
-  const token = localStorage.getItem('token')
-  const decoded = jwtDecode(token)
-  if(decoded.rol === 'ROLE_COMANDANTE') {return '/comandante'}
-  else {return '/'}
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  if (decoded.rol === "ROLE_COMANDANTE") {
+    return "/comandante";
+  } else {
+    return "/";
+  }
+}
 
+export function giveMeRol() {
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  return decoded.rol;
 }
 
 export function isAuthenticated() {
-  return (localStorage.getItem('token') !== null && localStorage.getItem('token') !== undefined) ? true : false;
+  return localStorage.getItem("token") !== null &&
+    localStorage.getItem("token") !== undefined
+    ? true
+    : false;
 }
