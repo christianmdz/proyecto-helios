@@ -18,6 +18,10 @@ export default function ComandanteNav() {
         localStorage.removeItem('token');
         navigate('/');
       };
+    
+    const handleHelios = () => {
+        navigate('/comandante');
+    }
   
     return (
       <div>
@@ -28,7 +32,7 @@ export default function ComandanteNav() {
           padding: '1vh',
           }}>
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily:'Orbitron' }} >
+            <Typography variant="h6" onClick={handleHelios} component="div"  sx={{ flexGrow: 1, fontFamily:'Orbitron', cursor:'pointer' }} >
               HELIOS
             </Typography>
             <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
