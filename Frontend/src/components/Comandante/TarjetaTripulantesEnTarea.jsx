@@ -24,6 +24,11 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
       : tripulanteTarea.campo === 'INGENIERIA' ? '#50a4c2'
         : tripulanteTarea.campo === 'NAVEGACION' ? '#A83739' : '#c25095';
 
+  const fechaIncorporacion = new Date(tripulanteTarea.fechaIncorporacion);
+
+  const opcionesFormatoFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+  const fechaIncorporacionFormateada = fechaIncorporacion.toLocaleDateString('es-ES', opcionesFormatoFecha);
+
   const formatoRol = (rol) => {
     return rol.substring(5)
   }
@@ -89,7 +94,7 @@ export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Campo: {tripulanteTarea.campo}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Email: {tripulanteTarea.email}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Mando: {formatoRol(tripulanteTarea.rol)}</Typography>
-            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Fecha de Incorporación: {tripulanteTarea.fechaIncorporacion}</Typography>
+            <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Fecha de Incorporación: {fechaIncorporacionFormateada}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Jornada: {tripulanteTarea.jornada}</Typography>
             <Typography variant="p" sx={{ fontFamily: 'JetBrains Mono', marginBottom: '1rem', color: 'white', fontSize: { md: '2.3rem', lg: '1rem' } }}> Asignación: {tripulanteTarea.asignacion}</Typography>
           </Grid>

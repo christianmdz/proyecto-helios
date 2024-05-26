@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { updateProject } from '../../api/proyectos/proyectos';
 import '../../styles/login.css'
+import { formatDate } from '../../hooks/formatDate';
 
 export default function ModificarProyecto({data}) {
 
@@ -52,7 +53,7 @@ export default function ModificarProyecto({data}) {
         navigate('/comandante/proyectos', {replace:true});
     });
     
-    // TODO: revisar opcion por defecto director, comprobar id en data input
+   
 
   return (
     <>
@@ -65,10 +66,10 @@ export default function ModificarProyecto({data}) {
           justifyContent: 'center',
           alignItems: 'center',
           gap: '2vh',
-          border: '2px solid white', // Borde blanco
-          borderRadius: '8px', // Esquinas redondeadas
-          padding: '3vh', // Espacio interior
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+          border: '2px solid white', 
+          borderRadius: '8px', 
+          padding: '3vh', 
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', 
         }}
       >
         <Grid
@@ -205,7 +206,7 @@ export default function ModificarProyecto({data}) {
               label="Fecha de Inicio"
               name="fechaInicio"
               type="date"
-              defaultValue={data.fechaInicio}
+              defaultValue={formatDate(data.fechaInicio)}
               InputLabelProps={{
                   shrink: true,
               }}
@@ -229,7 +230,7 @@ export default function ModificarProyecto({data}) {
               label="Fecha de Fin"
               name="fechaFin"
               type="date"
-              defaultValue={data.fechaFin}
+              defaultValue={formatDate(data.fechaFin)}
               InputLabelProps={{
                   shrink: true,
               }}
