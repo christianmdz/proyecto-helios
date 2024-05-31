@@ -26,8 +26,8 @@ export function getOneProject(id) {
   return { data };
 }
 
-export function updateProject(data) {
-  fetch(`${BaseUrl.proyecto}/modificar-proyecto`, {
+export async function updateProject(data) {
+  const response = await fetch(`${BaseUrl.proyecto}/modificar-proyecto`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -35,6 +35,9 @@ export function updateProject(data) {
     },
     body: JSON.stringify(data),
   });
+  if (!response.ok) {
+    throw new Error("Error al modificar proyecto");
+  }
 }
 
 export function createProject(data) {
@@ -45,7 +48,8 @@ export function createProject(data) {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(data),
-  });
+  })
+  ;
 }
 
 export function deleteProject(id) {

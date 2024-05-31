@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Grid, Typography } from "@mui/material"
 import Button from '@mui/material/Button';
 import { deleteCrewInTask } from '../../api/naventarea/naventarea';
@@ -8,9 +8,9 @@ import { useMediaQuery, useTheme } from '@mui/material';
 export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
 
   const navigate = useNavigate();
-  const handleEliminarTripulante = () => {
-    deleteCrewInTask(taskId, tripulanteTarea.id);
-    navigate('/comandante/tareas');
+  const handleEliminarTripulante = async () => {
+    await deleteCrewInTask(taskId, tripulanteTarea.id);
+    navigate(0)
   }
 
   const path = "/src/assets/"

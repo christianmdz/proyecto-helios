@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom';
 export default function TarjetaTripulantesEnProyecto({ tripulanteProyecto, projectId }) {
 
   const navigate = useNavigate();
-  const handleEliminarTripulante = () => {
-    deleteCrewInProject(projectId, tripulanteProyecto.id);
-    navigate('/comandante/proyectos');
+  const handleEliminarTripulante = async () => {
+    await deleteCrewInProject(projectId, tripulanteProyecto.id);
+    navigate(0);
   }
 
   const path = "/src/assets/"

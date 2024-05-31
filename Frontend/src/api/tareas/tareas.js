@@ -26,8 +26,8 @@ export function getOneTask(id) {
   return { data };
 }
 
-export function updateTask(data) {
-  fetch(`${BaseUrl.tarea}/modificar-tarea`, {
+export async function updateTask(data) {
+  const response = await fetch(`${BaseUrl.tarea}/modificar-tarea`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -35,6 +35,9 @@ export function updateTask(data) {
     },
     body: JSON.stringify(data),
   });
+  if (!response.ok) {
+    throw new Error("Error al modificar tarea");
+  }
 }
 
 export function createTask(data) {

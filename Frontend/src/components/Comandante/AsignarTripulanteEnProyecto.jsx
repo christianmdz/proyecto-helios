@@ -32,8 +32,7 @@ export default function AsignarTripulanteEnProyecto({ id }) {
     { value: 12, label: "Manuel" },
     { value: 13, label: "Ana" },
     { value: 14, label: "Juan" },
-    { value: 15, label: "María" },
-    { value: 16, label: "Kiko" }
+    { value: 15, label: "María" }
   ]
 
   return (

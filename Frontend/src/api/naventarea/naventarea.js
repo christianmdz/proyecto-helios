@@ -24,8 +24,8 @@ export function createCrewInTask(data) {
   });
 }
 
-export function deleteCrewInTask(idTarea, idNavegante) {
-  fetch(
+export async function deleteCrewInTask(idTarea, idNavegante) {
+  const response = await fetch(
     `${BaseUrl.comandante}/baja-navegante-tarea/${idTarea}/${idNavegante}`,
     {
       method: "DELETE",
@@ -35,4 +35,7 @@ export function deleteCrewInTask(idTarea, idNavegante) {
       },
     }
   );
+  if (!response.ok) {
+    throw new Error("Error al eliminar tripulante");
+  }
 }
