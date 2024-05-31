@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import  {getNaves}  from '../../api/nave/nave';
 import NaveTarjeta from "./NaveTarjeta";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 export default function InfoNave({ circeRef }) {
 
@@ -57,6 +58,7 @@ export default function InfoNave({ circeRef }) {
           >
             {data && <NaveTarjeta key={data.id} data={data}/>}
           <Button
+          component={Link} to="/registro"
           type="button"
           variant="contained"
           sx={{

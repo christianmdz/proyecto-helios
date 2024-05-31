@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import { getMisiones } from '../../api/nave/nave';
 import MisionTarjeta from "./MisionTarjeta";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 export default function InfoMision({ ceresRef }) {
 
@@ -44,6 +45,7 @@ export default function InfoMision({ ceresRef }) {
             {data && <MisionTarjeta key={data.id} data={data}/>}
           </Box>
           <Button
+          component={Link} to="/registro"
           type="submit"
           variant="contained"
           sx={{
