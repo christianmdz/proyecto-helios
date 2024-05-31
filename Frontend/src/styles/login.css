@@ -1,0 +1,52 @@
+.custom-text-field .MuiOutlinedInput-root {
+  color: white;
+
+  & fieldset {
+    border-color: rgb(143, 143, 143);
+  }
+
+  &:hover fieldset {
+    border-color: white;
+  }
+
+  &.Mui-focused fieldset {
+    border-color: #50a4c2;
+  }
+}
+
+.custom-text-field .MuiOutlinedInput-root .MuiOutlinedInput-input {
+  color: white;
+}
+
+.custom-text-field .MuiInputLabel-root {
+  color: white;
+}
+
+.custom-text-field .MuiInputLabel-root.Mui-focused {
+  color: white;
+}
+
+.custom-text-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input {
+  caret-color: white;
+}
+
+.custom-text-field .MuiSelect-select {
+  color: white;
+}
+
+.custom-text-field .MuiOutlinedInput-notchedOutline {
+  border-color: rgb(143, 143, 143);
+}
+
+.custom-text-field:hover .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.custom-text-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #50a4c2;
+}
+
+.error-message {
+  color: red;
+  font-family: 'JetBrains Mono';
+}

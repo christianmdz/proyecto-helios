@@ -35,7 +35,11 @@ public class SecurityConfig {
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/nave/**").permitAll()
                     .requestMatchers("/comandante/**").hasRole("COMANDANTE")
-                    .requestMatchers("mando/**").hasAnyRole("COMANDANTE", "MANDO")
+                    .requestMatchers("/mando/**").hasAnyRole("COMANDANTE", "MANDO")
+                    .requestMatchers("/tripulante/**").hasAnyRole("COMANDANTE", "TRIPULANTE")
+                    .requestMatchers("/colono/**").hasAnyRole("COMANDANTE", "COLONO")
+                    .requestMatchers("/proyectos/**").hasAnyRole("COMANDANTE", "MANDO", "TRIPULANTE", "COLONO")
+                    .requestMatchers("/tareas/**").hasAnyRole("COMANDANTE", "MANDO", "TRIPULANTE", "COLONO")
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->
@@ -44,6 +48,6 @@ public class SecurityConfig {
             .authenticationProvider(authProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
-    }       
+    }      
 
 }

@@ -2,15 +2,21 @@ package helios.circe.navegante;
 
 import java.util.List;
 
+import helios.circe.navegante.dto.NaveganteBaseDto;
+import helios.circe.proyecto.dto.ProyectoBaseDto;
+import helios.circe.tarea.dto.TareaBaseDto;
+
 public interface NaveganteService {
     
+    NaveganteBaseDto detalleNavegante(String campo, int idNavegante);
     Navegante buscarPorId(int idNavegante);
     Navegante buscarPorUsername(String username);
-
-    List<Navegante> buscarPorRol(String rol);
-    List<Navegante> buscarPorCampo(String campo);
+    boolean existeNavegante(int idNavegante);
     
-    List<NaveganteInfoPublicaDto> infoPublicaTripulacion();
-    List<Navegante> buscarTodos();
+    List<NaveganteBaseDto> infoPublicaTripulacion();
+    List<NaveganteBaseDto> buscarTodos(String token);
+
+    List<ProyectoBaseDto> proyectosPorNavegante(int idNavegante);
+    List<TareaBaseDto> tareasPorNavegante(int idNavegante);
 
 }

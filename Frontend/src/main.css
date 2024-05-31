@@ -1,14 +1,12 @@
-body{
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+@font-face {
+    font-family: 'Dune';
+    src: url('/fonts/Dune_Rise.ttf') format('truetype');
 }
 
-:root {
-    max-width: 1340px;
+body {
+    background-color: #0f1214 !important;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.7) 70%, rgba(0, 59, 117, 0.3) 100%);
 }
