@@ -88,7 +88,7 @@ create table navegante_en_tarea
 );
 
 
-#create user imperio identified by 'trantor';
+create user imperio identified by 'trantor';
 grant all PRIVILEGES on circe.* to imperio;
 
 set foreign_key_checks = 0;
