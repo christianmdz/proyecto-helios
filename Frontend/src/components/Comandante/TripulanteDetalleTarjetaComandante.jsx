@@ -45,7 +45,11 @@ export default function TripulanteDetalleTarjetaComandante({ data, onVerProyecto
         >
           <Box
             component={"img"}
-            src={path + data.id + ".jpg"}
+            src={
+              data.campo !== "NO_ASIGNADO"
+                ? path + data.id + ".jpg"
+                : path + "default_crew_avatar.jpg"
+            }
             alt="tripulante"
             sx={{
               objectFit: 'cover',
