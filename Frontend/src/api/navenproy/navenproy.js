@@ -24,8 +24,8 @@ export function createCrewInProject(data) {
   });
 }
 
-export function deleteCrewInProject(idProyecto, idNavegante) {
-  fetch(
+export async function deleteCrewInProject(idProyecto, idNavegante) {
+  const response = await fetch(
     `${BaseUrl.comandante}/baja-navegante-proyecto/${idProyecto}/${idNavegante}`,
     {
       method: "DELETE",
@@ -35,4 +35,7 @@ export function deleteCrewInProject(idProyecto, idNavegante) {
       },
     }
   );
+  if (!response.ok) {
+    throw new Error("Error al eliminar tripulante");
+  }
 }
