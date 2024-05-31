@@ -6,9 +6,10 @@ import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { registerUser } from "../api/auth/auth";
 import { useForm } from "react-hook-form";
-import "../styles/login.css";
 import { Typography } from "@mui/material";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { getAuthorizedPath } from "../api/auth/auth";
+import "../styles/login.css";
 
 export default function RegistroForm() {
   const navigate = useNavigate();
@@ -19,10 +20,12 @@ export default function RegistroForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     const dataRegistro = { ...data, email: data.username + "@helios.xr" };
-    registerUser(dataRegistro);
-    navigate("/");
+    const token = await registerUser(dataRegistro);
+    localStorage.setItem("token", token);
+    const path = getAuthorizedPath()
+    navigate(path);
   });
 
   const theme = useTheme();
@@ -106,6 +109,7 @@ export default function RegistroForm() {
                 className="custom-text-field"
                 variant="outlined"
                 required
+                type="password"
                 id="password"
                 label="Contraseña"
                 name="password"

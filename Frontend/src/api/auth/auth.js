@@ -11,19 +11,27 @@ export const login = async (data) => {
   }
 };
 
-export function registerUser(data) {
+export async function registerUser(data) {
   try {
-    fetch(`${BaseUrl.auth}/register`, {
+    const response = await fetch(`${BaseUrl.auth}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
+
+    if (!response.ok) {
+      throw new Error("Error al registrar usuario");
+    }
+
+    const result = await response.json();
+    return result.token; // Asegúrate de que la respuesta JSON contenga el token
   } catch (error) {
     throw new Error("Error al registrar usuario");
   }
 }
+
 
 export function getAuthorizedPath() {
   const token = localStorage.getItem("token");
