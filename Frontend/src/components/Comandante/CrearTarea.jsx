@@ -27,7 +27,7 @@ export default function CrearTarea() {
   const onSubmit = handleSubmit((data) => {
     console.log(data);
     createTask(data);
-    navigate('/comandante/tareas');
+    navigate('/comandante/tareas', { replace: true });
   });
 
   const opcionesResponsable = [

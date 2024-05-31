@@ -46,10 +46,9 @@ export default function ModificarProyecto({data}) {
         {value: "terminado", label: "TERMINADO"}
     ];
 
-    const onSubmit = handleSubmit( (data) => {
+    const onSubmit = handleSubmit(async (data) => {
         const dataUpdate = {...data, id: id};
-        console.log(dataUpdate);
-        updateProject(dataUpdate);
+        await updateProject(dataUpdate);
         navigate('/comandante/proyectos', {replace:true});
     });
     

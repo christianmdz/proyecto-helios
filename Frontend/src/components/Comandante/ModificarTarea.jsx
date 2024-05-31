@@ -16,49 +16,51 @@ import '../../styles/login.css'
 export default function ModificarTarea({data}) {
 
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: {errors} } = useForm({
-        defaultValues: {
-            responsable: data.responsable
-        }
-    });
-    const handleBack = () => {
-      window.location.href = '/comandante/tareas';
-    }
+    
+    
 
     const {id} = useParams();
 
-    const onSubmit = handleSubmit( (data) => {
-        const dataUpdate = {...data, id: id};
-        console.log(dataUpdate);
-        updateTask(dataUpdate);
-        navigate('/comandante/tareas', {replace:true});
-    });
-
-
+    
+    
     const opcionesResponsable = [
-        {value: "blopera", label: "Benito"},
-        {value: "tbieszka", label: "Tania"},
-        {value: "tormaechea", label: "Tino"}
-    ];
-
-    const getManagerValue = (manager) => {
-      const managerObj = opcionesResponsable.find(opcion => opcion.label === manager)
-      return managerObj ? managerObj.value : 0;
-    }
-
-    const opcionesCampo = [ 
-        {value: "INGENIERIA", label: "INGENIERIA"},
-        {value: "CIENCIA", label: "CIENCIA"},
-        {value: "NAVEGACION", label: "NAVEGACION"}
-    ];
-
-    const opcionesFrecuencia = [
-        {value: "diaria", label: "DIARIA"},
-        {value: "semanal", label: "SEMANAL"},
-        {value: "mensual", label: "MENSUAL"},
-        {value: "trimestral", label: "TRIMESTRAL"}
+      {value: "blopera", label: "Benito"},
+      {value: "tbieszka", label: "Tania"},
+      {value: "tormaechea", label: "Tino"}
     ];
     
+    
+    const getManagerValue = (manager) => {
+      const managerObj = opcionesResponsable.find(opcion => opcion.label === manager);
+      return managerObj ? managerObj.value : '';
+  }
+    
+    const opcionesCampo = [ 
+      {value: "INGENIERIA", label: "INGENIERIA"},
+      {value: "CIENCIA", label: "CIENCIA"},
+      {value: "NAVEGACION", label: "NAVEGACION"}
+    ];
+    
+    const opcionesFrecuencia = [
+      {value: "diaria", label: "DIARIA"},
+      {value: "semanal", label: "SEMANAL"},
+      {value: "mensual", label: "MENSUAL"},
+      {value: "trimestral", label: "TRIMESTRAL"}
+    ];
+    const { register, handleSubmit, formState: {errors} } = useForm({
+      defaultValues: {
+        responsable: getManagerValue(data.responsable)
+      }
+    });
+  const handleBack = () => {
+    window.location.href = '/comandante/tareas';
+  }
+    
+    const onSubmit = handleSubmit(async (data) => {
+        const dataUpdate = {...data, id: id};
+        await updateTask(dataUpdate);
+        navigate('/comandante/tareas', {replace:true});
+    });
 
   return (
     <>
@@ -253,8 +255,8 @@ export default function ModificarTarea({data}) {
         <Box
   sx={{
     display: 'flex',
-    justifyContent: 'center', // Centra horizontalmente
-    marginTop: '3vh', // Margen superior de 3vh
+    justifyContent: 'center', 
+    marginTop: '3vh', 
   }}
 >
   <Button
