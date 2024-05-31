@@ -7,11 +7,10 @@ import { useMediaQuery, useTheme } from '@mui/material';
 
 export default function TarjetaTripulantesEnTarea({tripulanteTarea, taskId}) {
 
-  const [idtask , setIdtask] = useState(taskId);
   const navigate = useNavigate();
   const handleEliminarTripulante = async () => {
     await deleteCrewInTask(taskId, tripulanteTarea.id);
-    navigate(`/comandante/tareas/${idtask}`, { replace: true });
+    navigate(0)
   }
 
   const path = "/src/assets/"
